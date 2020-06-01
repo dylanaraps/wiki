@@ -1,4 +1,4 @@
-WIKI SYNTAX
+ABOUT THIS WIKI
 ________________________________________________________________________________
 
 This Wiki is generated from plain .txt files and supports some basic formatting
@@ -8,6 +8,15 @@ generation.
 The custom syntax is designed to be unobtrusive as white-space controls layout.
 Full HTML is also supported in pages though it should only be used if really
 necessary.
+
+
+REPOSITORY LAYOUT
+________________________________________________________________________________
+
+The Wiki lives in a separate repository (kisslinux/wiki). It is then imported
+as a submodule inside of the website's repository (kisslinux/website). This
+keeps things neat and tidy. It also makes contribution easier as it's less
+daunting compared to nesting it inside the website's tree.
 
 
 RELATIVE LINKS
@@ -34,5 +43,5 @@ into a HTML template during the build process. Usage of HTML should be avoided
 as it makes the plain text files themselves less readable.
 
 When writing the greater-than or less-than characters, use the HTML entities in
-place of
+place of the characters themselves to prevent them being interpreted as HTML.
 
