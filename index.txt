@@ -59,7 +59,7 @@
 |                                     |  |                                     |
 | XORG                                |  | WAYLAND                             |
 |                                     |  |                                     |
-| TODO                                |  | TODO                                |
+| TODO                                |  | @/wayaland/install-wayland          |
 | TODO                                |  | TODO                                |
 | TODO                                |  | TODO                                |
 | TODO                                |  |                                     |

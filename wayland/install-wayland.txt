@@ -1,0 +1,72 @@
+NOTE: This article covers only Wayland - the protocol, which is still
+      experimental.
+      Bugs and quirks expected!
+
+
+Preamble
+________________________________________________________________________________
+
+Though KISS does not support Wayland officially it is no problem to make it
+capable through personal or 3rd party repositories [0].
+Some packages pickup Wayland automatically, others need to set the right confi-
+gure flags to enable it.
+Gtk+3 and Qt5 are known to allready offer good Wayland support and most of KISS' 
+browser stack is working well.
+
+
+Packages which need modifications
+________________________________________________________________________________
+
+<gtk+3>   --enable-wayland-backend
+
+<firefox> --enable-default-toolkit=cairo-gtk3-wayland
+
+<mesa>    -Dplatforms=x11,drm,wayland
+
+
+Packages which pickup Wayland automatically at buildtime
+[needs expansion and verification]
+________________________________________________________________________________
+
+<cairo> <intel-vaapi-driver> <libva> <mpv> <pango> <sdl2> <webkit2gtk>
+
+
+Installation
+________________________________________________________________________________
+
+NOTE: From this point it is expected that <wayland> and <wayland-protocols> are
+      installed and you have forked the required packages at the beginning of
+      KISS_PATH.
+
+* Starting of an Xorg installation the procedure in a few words is about
+  installing Wayland and build/rebuild the graphical packages which depend on
+  it in the following order:
+
+NOTE: kiss-revdepends is the tool you need.
+
+  <mesa> <pango> <cairo> <gtk+3> <firefox/webkit2gtk>
+         <qt5-wayland>
+         <mpv>
+         <libva> <intel-vaapi-driver>
+         <sdl2>
+
+* Starting of a fresh base installation there is no manual intervention needed as
+  everything _should_ be autoconfigured.
+
+NOTE: In envoriments without systemd/elogind/consolekit the XDG_RUNTIME_DIR
+      variable must be set manually [1]. Export this in your shellrc.
+
+$ if test -z "${XDG_RUNTIME_DIR}"; then
+$     export XDG_RUNTIME_DIR=/tmp/${UID}-runtime-dir
+$     if ! test -d "${XDG_RUNTIME_DIR}"; then
+$         mkdir "${XDG_RUNTIME_DIR}"
+$         chmod 0700 "${XDG_RUNTIME_DIR}"
+$     fi
+$ fi
+
+
+References
+________________________________________________________________________________
+
+[0] Wayland repsitory $/sdsddsd1/mywayland
+[1] https://wiki.gentoo.org/wiki/Sway#Other
