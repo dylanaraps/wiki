@@ -5,6 +5,42 @@ How does KISS compare to other Linux distributions? A fairly common question by
 those coming across KISS in their travels. To answer this question we must dig a
 little below the surface.
 
+Comparing distributions is tricky. Rather than doing a comparison between each
+popular distribution, this document will instead focus on what makes KISS
+unique.
+
+
+PACKAGE FORMAT
+________________________________________________________________________________
+
+Unlike Alpine (APKBUILD), Arch (PKGBUILD), CRUX (Pkgfile), Gentoo (ebuild),
+Void (template) and many more distributions, KISS' build files work in a
+different way.
+
+Each of the aforementioned formats is a shell script, written in bash or POSIX
+shell. The build tool (abuild, makepkg, etc) then effectively does an 'eval' of
+the file directly into the running instance of the tool.
+
+KISS' build files on the other hand are language agnostic. They can be written
+in any programming language. Instead of evaluating a script, the package manager
+simply does the equivalent of: './script arg arg'.
+
+This disconnect between the package manager and the build tool forces build
+scripts to be generic. There aren't any weird shell functions or utilities to
+learn and each script can be run without the need of the package manager.
+
+Going further, the package format in KISS is split into multiple files which
+are contained in a directory (instead of a single shell script). These
+additional files are easily parseable in any programming language or with basic
+UNIX utilities as they simply contain fields separated by lines and spaces.
+
+See https://k1ss.org/package-system for the format in full.
+
+
+
+PACKAGE MANAGER
+________________________________________________________________________________
+
 
 References
 ________________________________________________________________________________
