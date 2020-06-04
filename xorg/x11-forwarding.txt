@@ -39,7 +39,7 @@ X11-Forwarding, as well as an X server running on the same client. Some
 popular cross-platform options include the following:
 
 * vcxsrv (recommended, server only) [1]
-* MobaXterm (both SSH client and X server, for Windows) [2]
+* MobaXterm (both SSH client and X server, for Windows only) [2]
 * Xming (server only) [3]
 * X410 (server only) [4]
 
