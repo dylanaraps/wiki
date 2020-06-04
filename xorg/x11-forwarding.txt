@@ -1,7 +1,7 @@
 X11-FORWARDING
 ________________________________________________________________________________
 
-X11-Forwarding is an secure shell feature, which allows to forward/tunnel X11 
+X11-Forwarding is an secure shell feature, which allows one to forward/tunnel X11 
 connections through an existing SSH shell session. This is used to run X11 
 programs on a server while the ssh-client displays the graphical window through 
 the user's X11-server. [0]
@@ -23,12 +23,12 @@ ________________________________________________________________________________
 Configuring X11-Forwarding for a remote server is straight foward and, once 
 completed, a viable alternative to most opensource VNC and RDP server options. 
 All that is required are a few modifications to configuration files that exist 
-on your server:
+on your remote X server:
 
 $ echo "XauthLocation /usr/bin/xauth" >> /etc/ssh/sshd_config
 $ echo "X11Fordwarding yes" >> /etc/ssh/sshd_config
 
-At this point you are ready to test your server.  
+At this point you are ready to test your server!
 
 
 Client Settings
