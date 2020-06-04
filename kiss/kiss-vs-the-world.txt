@@ -10,6 +10,13 @@ popular distribution, this document will instead focus on what makes KISS
 unique.
 
 
+SHELL
+________________________________________________________________________________
+
+Ah. The shell.
+
+
+
 PACKAGE FORMAT
 ________________________________________________________________________________
 
@@ -40,6 +47,20 @@ See https://k1ss.org/package-system for the format in full.
 
 PACKAGE MANAGER
 ________________________________________________________________________________
+
+KISS' package manager is written in under 1000 lines of POSIX shell. Nothing
+comes close to this simplicity and this size. The package manager is a single
+self-contained script and no system setup is needed prior to its use.
+
+Dependencies are kept to the absolute minimum and POSIX utilities are used where
+possible. This enables the package manager to run anywhere with a POSIX
+compliant environment and the Curl/Git utilities.
+
+The major difference between KISS' package manager and others is that we don't
+automate anything which is particularly error prone or convoluted. One won't
+find recursive orphan removal alongside package removal (for example).
+
+See https://k1ss.org/package-manager for more information.
 
 
 References
