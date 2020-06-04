@@ -89,6 +89,7 @@ $ ssh -X -C -c aes256-ctr user@localhost
   vcxsrv as your client on a Windows host, then i would recommend checking out 
   the following youtube video:
   
+  Linux and Windows | X11 Forwarding with SSH | VNC Alternative
   https://www.youtube.com/watch?v=UWlsS6Jaibc
 
 
