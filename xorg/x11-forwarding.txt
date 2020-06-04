@@ -34,8 +34,8 @@ At this point you are ready to test your server!
 Client Settings
 ________________________________________________________________________________
 
-In order to connect to your server, you will need an SSH client that supports
-X11-Forwarding, as well as an X server running on the same client. Some
+In order to connect to your remote server, you will need an SSH client that supports
+X11-Forwarding, as well as X server running on the same client. Some
 popular cross-platform options include the following:
 
 * vcxsrv (recommended, server only) [1]
