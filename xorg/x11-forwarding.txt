@@ -42,10 +42,10 @@ popular cross-platform options include the following:
 * Xming [2]
 * X410 [3]
 
-From the client side, connect to the server via SSH through your favorite terminal 
-application while passing the “-X” switch.  Pay attention to any errors that may 
-occur on connection.  More verbose output can be achieved by also be achieved by
-passing the "-v" switch
+From the client side, connect to the server via SSH through your favorite 
+terminal application while passing the “-X” switch.  Pay attention to any errors 
+that may occur on connection.  More verbose output can be achieved by also be 
+achieved by passing the "-v" switch
 
 $ ssh -X -v user@localhost
 
