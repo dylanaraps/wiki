@@ -58,7 +58,8 @@ $ xclock
 This should create a new window with the xclock application on your client side 
 server.
 
-Use an “&” at the end of the command to prevent tying up the terminal in question:
+Use an “&” at the end of the command to prevent tying up the terminal in 
+question:
 
 $ xclock &
 
@@ -72,8 +73,8 @@ ________________________________________________________________________________
 $ ssh -X -C user@localhost
 
 * You can further improve your connection speed by using a cypher to connect to 
-  the remove server.  This can be passed as an argument using the "-c" switch at
-  the initialization of a new SSH connection. [5]
+  the remove server.  This can be passed as an argument using the "-c" switch 
+  at the initialization of a new SSH connection. [5]
 
 $ ssh -X -C -c aes256-ctr user@localhost
 
