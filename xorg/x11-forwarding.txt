@@ -38,7 +38,7 @@ In order to connect to your server, you will need an SSH client that supports
 X11-Forwarding, as well as an X server running on the same client. Some
 popular cross-platform options include the following:
 
-* vcxsrv [1]
+* vcxsrv (recommended) [1]
 * Xming [2]
 * X410 [3]
 
@@ -54,15 +54,15 @@ forwarded to your local session:
 
 $ xclock
 
-Use an & at the end of the command to prevent tying up the terminal in question:
-
-$ xclock &
-
 This should create a new window with the xclock application on your client side 
 server.
 
+Use an “&” at the end of the command to prevent tying up the terminal in question:
 
-Hints and Tips
+$ xclock &
+
+
+Tips and Hints
 ________________________________________________________________________________
 
 * If your connection is slow, try enabling SSH compression by passing the "-C" 
