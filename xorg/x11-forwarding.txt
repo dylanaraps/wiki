@@ -1,8 +1,8 @@
 X11-FORWARDING
 ________________________________________________________________________________
 
-X11-Forwarding is an secure shell feature, which allows one to forward/tunnel X11 
-connections through an existing SSH shell session. This is used to run X11 
+X11-Forwarding is an secure shell feature, which allows one to forward/tunnel
+X11 connections through an existing SSH shell session. This is used to run X11 
 programs on a server while the ssh-client displays the graphical window through 
 the user's X11-server. [0]
 
@@ -10,8 +10,8 @@ the user's X11-server. [0]
 Server Configuration
 ________________________________________________________________________________
 
-In most cases, you will already have the required depencies. At
-minimum, ensure that you have the following installed:
+In most cases, you will already have the required depencies. At minimum, ensure 
+that you have the following installed:
 
 $ kiss b xorg-server && kiss i xorg-server
 $ kiss b xauth && kiss i xauth
@@ -34,8 +34,8 @@ At this point you are ready to test your server!
 Client Settings
 ________________________________________________________________________________
 
-In order to connect to your remote server, you will need an SSH client that supports
-X11-Forwarding, as well as X server running on the same client. Some
+In order to connect to your remote server, you will need an SSH client that 
+supports X11-Forwarding, as well as X server running on the same client. Some
 popular cross-platform options include the following:
 
 * vcxsrv (recommended, server only) [1]
@@ -44,9 +44,9 @@ popular cross-platform options include the following:
 * X410 (server only) [4]
 
 From the client side, connect to the server via SSH through your favorite 
-terminal application while passing the “-X” switch.  Pay attention to any errors 
-that may occur on connection.  More verbose output can be achieved by passing 
-the "-v" switch:
+terminal application while passing the “-X” switch.  Pay attention to any 
+errors that may occur on connection.  More verbose output can be achieved by 
+passing the "-v" switch:
 
 $ ssh -X -v user@localhost
 
@@ -56,7 +56,7 @@ forwarded to your local session:
 $ xclock
 
 This should create a new window with the xclock application on your client side 
-server.
+X server.
 
 Use an “&” at the end of the command to prevent tying up the terminal in 
 question:
@@ -64,32 +64,32 @@ question:
 $ xclock &
 
 
-Tips and Hints
+Tips and Tricks
 ________________________________________________________________________________
 
 * If your connection is slow, try enabling SSH compression by passing the "-C" 
   switch.
 
-$ ssh -X -C user@localhost
+  $ ssh -X -C user@localhost
 
 * You can further improve your connection speed by using a cypher to connect to 
   the remove server.  This can be passed as an argument using the "-c" switch 
   at the initialization of a new SSH connection. [5]
 
-$ ssh -X -C -c aes256-ctr user@localhost
+  $ ssh -X -C -c aes256-ctr user@localhost
 
-* Your remote system most likely has many cypher options already available for you 
-  to choose from (es128-ctr, aes192-ctr, aes256-ctr, arcfour256, arcfour128, 
+* Your remote system most likely has many cypher options already available for 
+  you to choose from (es128-ctr, aes192-ctr, aes256-ctr, arcfour256, arcfour128, 
   aes128-cbc, 3des-cbc, blowfish-cbc, cast128-cbc, aes192-cbc, aes256-cbc, 
   arcfour, etc.) and each will vary on performance and security.  Checkout out 
   websites that benchmark the various security cyphers and choose the one that 
   works best for you! [6]
-  
+
 * Can you forward an entire desktop session?  Why yes, you can! Instructions for 
   doing so vary per client, server configuration, and platform [7].  If you chose 
   vcxsrv as your client on a Windows host, then i would recommend checking out 
   the following youtube video:
-  
+
   "Linux and Windows | X11 Forwarding with SSH | VNC Alternative" by knary
   https://www.youtube.com/watch?v=UWlsS6Jaibc
 
