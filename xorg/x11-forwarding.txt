@@ -4,7 +4,7 @@ ________________________________________________________________________________
 X11-Forwarding is an secure shell feature, which allows to forward/tunnel X11 
 connections through an existing SSH shell session. This is used to run X11 
 programs on a server while the ssh-client displays the graphical window through 
-the user's X11-server.
+the user's X11-server [0].
 
 
 Server Configuration
@@ -17,17 +17,18 @@ $ kiss b xorg-server && kiss i xorg-server
 $ kiss b xauth && kiss i xauth
 
 
-Server Configuration
+Remote Server Configuration
 ________________________________________________________________________________
 
-Configuring X11-Forwarding is straight foward and, once completed, a viable
-alternative to most opensource VNC and RDP server options. All that is required 
-are a few modifications to configuration files that exist on your server:
+Configuring X11-Forwarding for a remote server is straight foward and, once 
+completed, a viable alternative to most opensource VNC and RDP server options. 
+All that is required are a few modifications to configuration files that exist 
+on your server:
 
 $ echo "XauthLocation /usr/bin/xauth" >> /etc/ssh/sshd_config
 $ echo "X11Fordwarding yes" >> /etc/ssh/sshd_config
 
-At this point you are ready to test your server!
+At this point you are ready to test your server.  
 
 
 Client Settings
@@ -37,18 +38,36 @@ In order to connect to your server, you will need an SSH client that supports
 X11-Forwarding, as well as an X server running on the same client. Some
 popular cross-platform options include the following:
 
-* vcxsrv [0]
-* Xming [1]
-* X410 [2]
+* vcxsrv [1]
+* Xming [2]
+* X410 [3]
 
-From the client side, connect to the server via SSH pwhile passing the “-X” switch.  
+From the client side, connect to the server via SSH through your favorite terminal 
+application while passing the “-X” switch.  Pay attention to any errors that may 
+occur on connection.  More verbose output can be achieved by also be achieved by
+passing the "-v" switch
 
+$ ssh -X -v user@localhost
+
+You can now start any X program on the remote server, the output will be forwarded 
+to your local session:
+
+$ xclock
+
+Use an & at the end of the command to prevent tying up the terminal in question:
+
+$ xclock &
+
+This should create a new window with the xclock application on your client side 
+server.
 
 References
 ________________________________________________________________________________
 
-[0] https://sourceforge.net/projects/vcxsrv/
+[0] https://wiki.archlinux.org/index.php/OpenSSH#X11_forwarding
 
-[1] http://www.straightrunning.com/XmingNotes/
+[1] https://sourceforge.net/projects/vcxsrv/
 
-[2] https://x410.dev
+[2] http://www.straightrunning.com/XmingNotes/
+
+[3] https://x410.dev
