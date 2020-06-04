@@ -1,4 +1,4 @@
-X11-FORWARDING [0]
+X11-FORWARDING
 ________________________________________________________________________________
 
 X11-Forwarding is an secure shell feature, which allows to forward/tunnel X11 
@@ -11,7 +11,7 @@ Server Configuration
 ________________________________________________________________________________
 
 In most cases, you will already have the required depencies installed. At
-minimum, nesure that you havethe following packages installed:
+minimum, ensure that you havethe following:
 
 $ kiss b xorg-server && kiss i xorg-server
 $ kiss b xauth && kiss i xauth
@@ -20,7 +20,7 @@ $ kiss b xauth && kiss i xauth
 Server Configuration
 ________________________________________________________________________________
 
-Configuring of X11-Forwarding is straight foward and, once completed, a viable
+Configuring X11-Forwarding is straight foward and, once completed, a viable
 alternative to most opensource VNC and RDP server options. All that is required 
 are a few modifications to configuration files that exist on your server:
 
@@ -34,12 +34,15 @@ Client Settings
 ________________________________________________________________________________
 
 In order to connect to your server, you will need an SSH client that supports
-X11-Forwarding, as well as an X server on running on the same client. Some
-popular options include
+X11-Forwarding, as well as an X server running on the same client. Some
+popular cross-platform options include the following:
 
 * vcxsrv [0]
 * Xming [1]
 * X410 [2]
+
+From the client side, connect to the server via SSH pwhile passing the “-X” switch.  
+
 
 References
 ________________________________________________________________________________
