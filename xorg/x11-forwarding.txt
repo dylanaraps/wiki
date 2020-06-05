@@ -83,7 +83,7 @@ ________________________________________________________________________________
   aes128-cbc, 3des-cbc, blowfish-cbc, cast128-cbc, aes192-cbc, aes256-cbc, 
   arcfour, etc.) and each will vary on performance and security.  Checkout out 
   websites that benchmark the various security cyphers and choose the one that 
-  works best for you! [6]
+  works best for you. [6]
 
 * Can you forward an entire desktop session?  Why yes, you can! Instructions for 
   doing so vary per client, server configuration, and platform [7].  If you chose 
