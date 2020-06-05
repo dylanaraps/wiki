@@ -4,12 +4,13 @@ ________________________________________________________________________________
 Wayland [0] is a display protocol that aims to be a simpler replacement for the
 X Window System. [1] Unlike Xorg, which provides a unified, featureful base for
 the interchangeable window manager, the Wayland protocol as is, defines merely a
-way for the GUI to talk to the underlying graphics interface. This protocol has
-to be implemented in a library [2][3][4] first, which in return provides the
-necessary Wayland extensions to create a compositor [5][6][7] upon. There is no
-unified way on how to implement Wayland, so the feature set between compositors
-may vary, but they typically do the heavy lifting from grabbing input events to
-allocating system resources and arrange all that for the user in a usable GUI.
+way for the GUI to talk to the underlying graphics interface.
+This protocol has to be implemented in a library [2][3][4] first, which in
+return provides the necessary Wayland extensions to create a compositor [5][6]
+[7] upon. There is no unified way on how to implement Wayland, so the feature
+set between compositors may vary, but they typically do the heavy lifting from
+grabbing input events to allocating system resources and arrange all that for
+the user in a usable GUI.
 
 
 Caveats
@@ -26,10 +27,10 @@ satisfied yet.
 NOTE: This list is rather incomplete and might change, but it gives an idea on
       what to expect.
 
-- Limited hardware and driver support. [8] [9]
+- Limited hardware and driver support. [8][9]
 - Fragmentation accross the different Wayland implementations lead to special, 
   non portable software for bar support, screen sharing, screen recording, ...
-  [10] [11] [12]
+  [10][11][12]
 - To extend compatibility it is possible to start applications with XWayland, an
   underlying Xserver, but this brings the advertisement "aiming as a simple re-
   placement for X" ad absurdum. [13]
@@ -94,7 +95,7 @@ NOTE: From this point it is expected that "wayland" and "wayland-protocols" are
 Install Wayland on top Xorg KISS
 ________________________________________________________________________________
 
-Mesa must be rebuilt first, followed by the aforementioned packages [21] [22] in
+Mesa must be rebuilt first, followed by the aforementioned packages [21][22] in
 a dependency given ascending order.
 
 NOTE: kiss-revdepends is the tool you need.
