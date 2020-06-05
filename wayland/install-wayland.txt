@@ -5,6 +5,7 @@ Wayland [0] is a display protocol that aims to be a simpler replacement for the
 X Window System. [1] Unlike Xorg, which provides a unified, featureful base for
 the interchangeable window manager, the Wayland protocol as is, defines merely a
 way for the GUI to talk to the underlying graphics interface.
+
 This protocol has to be implemented in a library [2][3][4] first, which in
 return provides the necessary Wayland extensions to create a compositor [5][6]
 [7] upon. There is no unified way on how to implement Wayland, so the feature
