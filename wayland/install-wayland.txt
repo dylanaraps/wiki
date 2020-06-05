@@ -122,13 +122,12 @@ ________________________________________________________________________________
 * In environments without systemd/elogind/consolekit the XDG_RUNTIME_DIR variable
   must be set manually. [23] Export this in your shellrc.
 
-  $ if test -z "${XDG_RUNTIME_DIR}"; then
-  $     export XDG_RUNTIME_DIR=/tmp/${UID}-runtime-dir
-  $     if ! test -d "${XDG_RUNTIME_DIR}"; then
-  $         mkdir "${XDG_RUNTIME_DIR}"
-  $         chmod 0700 "${XDG_RUNTIME_DIR}"
-  $     fi
-  $ fi
+  $ export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/tmp/$(id -u)-runtime-dir}
+  $ 
+  $ [ -d "$XDG_RUNTIME_DIR" ] || {
+  $     mkdir -p   "$XDG_RUNTIME_DIR"
+  $     chmod 0700 "$XDG_RUNTIME_DIR"
+  $ }
 
 * Install a Compositor of your choosing.
 
@@ -140,13 +139,13 @@ ________________________________________________________________________________
 [1]  https://wayland.freedesktop.org/faq.html#heading_toc_j_4
 [2]  $/swaywm/wlroots#wlroots
 [3]  $/freedesktop/wayland-weston#libweston
-[4]  $//michaelforney/swc#swc
+[4]  $/michaelforney/swc#swc
 [5]  $/swaywm/sway#sway
 [6]  $/freedesktop/wayland-weston#weston
 [7]  $/michaelforney/velox#velox
 [8]  $/swaywm/sway/wiki#nvidia-users
 [9]  https://wayland.freedesktop.org/building.html #Hardware / Drivers
-[10]  $/Alexays/Waybar
+[10] $/Alexays/Waybar
 [11] $/any1/wayvnc
 [12] $/fzwoch/obs-gnome-screencast
 [14] $/swaywm/sway/wiki/Running-Sway-without-systemd
