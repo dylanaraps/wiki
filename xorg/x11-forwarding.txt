@@ -2,7 +2,7 @@ X11-FORWARDING
 ________________________________________________________________________________
 
 X11-Forwarding is a secure shell feature, which allows one to forward/tunnel
-X11 connections through an existing SSH shell session. This is used to run X11 
+X11 connections through an existing SSH session. This is used to run X11 
 programs on a server while the ssh-client displays the graphical window through 
 the user's X11-server. [0]
 
@@ -10,8 +10,8 @@ the user's X11-server. [0]
 Server Configuration
 ________________________________________________________________________________
 
-In most cases, you will already have the required dependencies. At minimum, ensure 
-that you have the following installed:
+In most cases, you will already have the required dependencies. At minimum, 
+ensure that you have the following installed:
 
 $ kiss b xorg-server && kiss i xorg-server
 $ kiss b xauth && kiss i xauth
@@ -35,7 +35,7 @@ Client Settings
 ________________________________________________________________________________
 
 In order to connect to your remote server, you will need an SSH client that 
-supports X11-Forwarding, as well as X server running on the same client. Some
+supports X11-Forwarding, as well as an X server running on the same client. Some
 popular cross-platform options include the following:
 
 * vcxsrv (recommended, server only) [1]
@@ -81,7 +81,7 @@ ________________________________________________________________________________
 * Your remote system most likely has many cypher options already available for 
   you to choose from (es128-ctr, aes192-ctr, aes256-ctr, arcfour256, arcfour128, 
   aes128-cbc, 3des-cbc, blowfish-cbc, cast128-cbc, aes192-cbc, aes256-cbc, 
-  arcfour, etc.) and each will vary on performance and security. Check out out 
+  arcfour, etc.) and each will vary in performance and security. Check out 
   websites that benchmark the various security cyphers and choose the one that 
   works best for you. [6]
 
