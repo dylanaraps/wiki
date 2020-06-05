@@ -12,7 +12,7 @@ may vary, but they typically do the heavy lifting from grabbing input events to
 allocating system resources and arrange all that for the user in a usable GUI.
 
 
-CAVEATS
+Caveats
 ________________________________________________________________________________
 
 Aside from the fact that Wayland and it's implementations are in an early state
@@ -59,7 +59,7 @@ Xorg.
   caveats.
 
 
-What do I need to install Wayland on KISS?
+Prerequisites
 ________________________________________________________________________________
 
 Though KISS does not support Wayland officially there is no problem in making it
