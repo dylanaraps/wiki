@@ -17,31 +17,26 @@ the user in a usable GUI.
 Caveats
 ________________________________________________________________________________
 
-Aside from the fact that Wayland and its implementations are in an early state
-of evolvement and Xorg still defines the GUI standard regarding stability,
-compatibility and portability, the biggest downside is choice!
-The different Wayland implementations are followed by lock ins towards supported
-hardware, device management and software for certain use cases which might not
-be portable across other implementations. Not all software needs may be
-satisfied yet.
+While the Wayland protocol is more or less done, the growing list of compositors
+are in differing stages of completeness. Xorg is still in wide use and a lot of
+software still requires it.
 
-NOTE: This list is rather incomplete and might change, but it gives an idea on
-      what to expect.
+The major downside to Wayland (compositors) is the reduction in choice. While
+the Wayland protocol does not define what a protocol shall depend on,
+compositors typically lock the user into udev, libinput and systemd/logind.
 
-- Limited hardware and driver support. [8][9]
-- Fragmentation accross the different Wayland implementations lead to special, 
-  non portable software for bar support, screen sharing, screen recording, ...
-  [10][11][12]
-- To extend compatibility it is possible to start applications with XWayland, an
-  underlying Xserver, but this brings the advertisement "aiming as a simple re-
-  placement for X" ad absurdum. [13]
-- Not every graphical application _just works_.
-- SDL has no Wayland backend. SDL 2 games with non free assets tend to not work.
-- One might need to set SUID on the compositor or elogind for user
-  authentication. [14]
-- Depending on the Wayland implementation, there is no free choice in the device
-  manager nor the absence of it at all. [15]
-- ...
+The lack of standardized, desktop-oriented protocols has created a situation
+where software may only work in some compositors and not others. This should
+improve over time as more protocols become standardized.
+
+- Limited hardware and driver support. [8] [9]
+- Non-standard and compositor specific software. [10] [11] [12]
+- No Wayland support in SDL 1.
+- Games with non-free assets tend to not work with SDL2 and Wayland.
+- Starting compositors without logind requires SUID permissions. [14]
+- Locked into using udev. [15]
+
+NOTE: This list of caveats will change over time.
 
 
 Why would I use it then?
