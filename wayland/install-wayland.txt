@@ -16,7 +16,7 @@ the user in a usable GUI.
 Caveats
 ________________________________________________________________________________
 
-Aside from the fact that Wayland and it's implementations are in an early state
+Aside from the fact that Wayland and its implementations are in an early state
 of evolvement and Xorg still defines the GUI standard regarding stability,
 compatibility and portability, the biggest downside is choice!
 The different Wayland implementations are followed by lock ins towards supported
@@ -123,12 +123,12 @@ ________________________________________________________________________________
 * In environments without systemd/elogind/consolekit the XDG_RUNTIME_DIR
   variable must be set manually. [23] Export this in your shellrc.
 
-  $ export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/tmp/$(id -u)-runtime-dir}
-  $ 
-  $ [ -d "$XDG_RUNTIME_DIR" ] || {
-  $     mkdir -p   "$XDG_RUNTIME_DIR"
-  $     chmod 0700 "$XDG_RUNTIME_DIR"
-  $ }
+  export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/tmp/$(id -u)-runtime-dir}
+   
+  [ -d "$XDG_RUNTIME_DIR" ] || {
+       mkdir -p   "$XDG_RUNTIME_DIR"
+       chmod 0700 "$XDG_RUNTIME_DIR"
+   }
 
 * Install a Compositor of your choosing.
 
