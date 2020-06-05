@@ -1,0 +1,159 @@
+Wayland
+________________________________________________________________________________
+
+Wayland [0] is a display protocol that aims to be a simpler replacement for the
+X Window System. [1] Unlike Xorg, which provides a unified, featureful base for
+the interchangeable window manager, the Wayland protocol as is, defines merely a
+way for the GUI to talk to the underlying graphics interface. This protocol has
+to be implemented in a library [2][3][4] first, which in return provides the
+necessary Wayland extensions to create a compositor [5][6][7] upon. There is no
+unified way on how to implement Wayland, so the feature set between compositors
+may vary, but they typically do the heavy lifting from grabbing input events to
+allocating system resources and arrange all that for the user in a usable GUI.
+
+
+CAVEATS
+________________________________________________________________________________
+
+Aside from the fact that Wayland and it's implementations are in an early state
+of evolvement and Xorg still defines the GUI standard regarding stability,
+compatibility and portability, the biggest downside is choice!
+The different Wayland implementations are followed by lock ins towards supported
+hardware, device management and software for certain use cases which might not
+be portable across other implementations. Not all software needs may be
+satisfied yet.
+
+NOTE: This list is rather incomplete and might change, but it gives an idea on
+      what to expect.
+
+- Limited hardware and driver support. [8] [9]
+- Fragmentation accross the different Wayland implementations lead to special, 
+  non portable software for bar support, screen sharing, screen recording, ...
+  [10] [11] [12]
+- To extend compatibility it is possible to start applications with XWayland, an
+  underlying Xserver, but this brings the advertisement "aiming as a simple re-
+  placement for X" ad absurdum. [13]
+- Not every graphical application _just works_.
+- SDL has no Wayland backend. SDL 2 games with non free assets tend to not work.
+- One might need to set SUID on the compositor or elogind for user
+  authentication. [14]
+- Depending on the Wayland implementation, there is no free choice in the device
+  manager nor the absence of it at all. [15]
+- ...
+
+
+Why would I use it then?
+________________________________________________________________________________
+
+That is entirely up to you. Aside from just trying out something new, a Wayland
+based GUI _can_ simplify your system. Screen tearing is not possible by design
+and hardware accelerated rendering may happen in places which are not covered by
+Xorg.
+
+- less moving parts [13], although many graphical programs still heavily rely on
+  Xorg libraries. (Mesa [16], Firefox [17], Qt-WebEngine [18], ...) 
+- No screen tearing.
+- Hardware accelerated video playback in Firefox. (VAAPI)
+- Hardware accelerated rendering in webkit2gtk. (WPEBackend-fdo)
+- If you can delimit your needs and expectations on KISS in the aforementioned 
+  caveats.
+
+
+What do I need to install Wayland on KISS?
+________________________________________________________________________________
+
+Though KISS does not support Wayland officially there is no problem in making it
+capable through personal or 3rd party repositories. [19] The official
+repositories satisfy all dependencies. After &lt;wayland&gt; and &lt;wayland-protocols&gt;
+are installed, some package adjustments are required to make them to known
+citizens of your system.
+
+NOTE: From this point it is expected that &lt;wayland&gt; and &lt;wayland-protocols&gt; 
+      are installed and you have forked the required packages with modified
+      configure flags at the beginning of KISS_PATH. [20] Managing repositories
+
+* Packages which need to be forked [21]:
+     
+      firefox --enable-default-toolkit=cairo-gtk3-wayland
+      gtk+3   --enable-wayland-backend
+      mesa    -Dplatforms=x11,drm,wayland
+
+
+* Packages which pick up Wayland automatically at compile time [22]:
+  [needs expansion and verification]
+
+      cairo 
+      intel-vaapi-driver 
+      libva 
+      mpv 
+      pango 
+      sdl2 
+      webkit2gtk
+
+
+Install Wayland on top Xorg KISS
+________________________________________________________________________________
+
+Mesa must be rebuild first, followed by the aforementioned packages [21] [22] in
+a dependency given ascending order.
+
+NOTE: kiss-revdepends is the tool you need.
+
+mesa, cairo, pango, gtk+3, firefox/webkit2gtk
+      qt5-wayland
+      mpv
+      libva, intel-vaapi-driver
+      sdl2
+  
+$ kiss b mesa && kiss i mesa && kiss b pango && kiss i pango ...
+
+
+Install Wayland on top base KISS
+________________________________________________________________________________
+
+Starting of a fresh base installation there is no manual intervention needed as
+everything _should_ be autoconfigured.
+[needs reproduction]
+
+
+Post installation
+________________________________________________________________________________
+
+* In environments without systemd/elogind/consolekit the XDG_RUNTIME_DIR variable
+  must be set manually. [23] Export this in your shellrc.
+
+  $ if test -z "${XDG_RUNTIME_DIR}"; then
+  $     export XDG_RUNTIME_DIR=/tmp/${UID}-runtime-dir
+  $     if ! test -d "${XDG_RUNTIME_DIR}"; then
+  $         mkdir "${XDG_RUNTIME_DIR}"
+  $         chmod 0700 "${XDG_RUNTIME_DIR}"
+  $     fi
+  $ fi
+
+* Install a Compositor of your choosing.
+
+
+References
+________________________________________________________________________________
+
+[0]  https://wayland.freedesktop.org/
+[1]  https://wayland.freedesktop.org/faq.html#heading_toc_j_4
+[2]  $/swaywm/wlroots#wlroots
+[3]  $/freedesktop/wayland-weston#libweston
+[4]  $//michaelforney/swc#swc
+[5]  $/swaywm/sway#sway
+[6]  $/freedesktop/wayland-weston#weston
+[7]  $/michaelforney/velox#velox
+[8]  $/swaywm/sway/wiki#nvidia-users
+[9]  https://wayland.freedesktop.org/building.html #Hardware / Drivers
+[10]  $/Alexays/Waybar
+[11] $/any1/wayvnc
+[12] $/fzwoch/obs-gnome-screencast
+[14] $/swaywm/sway/wiki/Running-Sway-without-systemd
+[15] $/swaywm/wlroots#building #udev
+[16] $/kisslinux/repo/blob/master/extra/mesa/depends
+[17] $/kisslinux/repo/blob/master/extra/firefox-bin/depends
+[18] $/kisslinux/community/blob/master/community/qt5-webengine/depends
+[19] User Wayland repsitory $/sdsddsd1/mywayland
+[20] @/kiss/managing-repositories
+[23] https://wiki.gentoo.org/wiki/Sway#Other
