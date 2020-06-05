@@ -94,7 +94,7 @@ NOTE: From this point it is expected that &lt;wayland&gt; and &lt;wayland-protoc
 Install Wayland on top Xorg KISS
 ________________________________________________________________________________
 
-Mesa must be rebuild first, followed by the aforementioned packages [21] [22] in
+Mesa must be rebuilt first, followed by the aforementioned packages [21] [22] in
 a dependency given ascending order.
 
 NOTE: kiss-revdepends is the tool you need.
