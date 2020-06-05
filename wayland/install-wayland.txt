@@ -119,8 +119,8 @@ everything _should_ be autoconfigured.
 Post installation
 ________________________________________________________________________________
 
-* In environments without systemd/elogind/consolekit the XDG_RUNTIME_DIR variable
-  must be set manually. [23] Export this in your shellrc.
+* In environments without systemd/elogind/consolekit the XDG_RUNTIME_DIR
+  variable must be set manually. [23] Export this in your shellrc.
 
   $ export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/tmp/$(id -u)-runtime-dir}
   $ 
