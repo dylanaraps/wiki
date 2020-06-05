@@ -111,7 +111,7 @@ $ kiss b mesa && kiss i mesa && kiss b pango && kiss i pango ...
 Install Wayland on top base KISS
 ________________________________________________________________________________
 
-Starting of a fresh base installation there is no manual intervention needed as
+Starting off a fresh base installation there is no manual intervention needed as
 everything _should_ be autoconfigured.
 [needs reproduction]
 
