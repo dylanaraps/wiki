@@ -45,5 +45,3 @@ ________________________________________________________________________________
     https://wiki.archlinux.org/index.php/wpa_supplicant
     
 [1] https://k1ss.org/wiki/init/busybox
-
-[2] 
