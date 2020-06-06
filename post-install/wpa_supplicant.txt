@@ -41,7 +41,7 @@ References
 ________________________________________________________________________________
 
 [0] This page is an extract from the Arch Wiki and is intended to be used as a
-    "quick start" guide.
-    https://wiki.archlinux.org/index.php/wpa_supplicant
+    "quick start" guide. https://wiki.archlinux.org/index.php/wpa_supplicant
     
-[1] https://k1ss.org/wiki/init/busybox
+[1] For more examples on how to use busybox's runsv service.
+    https://k1ss.org/wiki/init/busybox
