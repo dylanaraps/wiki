@@ -31,7 +31,6 @@ wireless network credentials. For additional network requirements, refer to the
 wpa_supplicant Arch Linux Wiki page. [0]
 
 
-
 Troubleshooting
 ________________________________________________________________________________
 
