@@ -1,1 +1,50 @@
+WPA_SUPPLICANT
+________________________________________________________________________________
 
+wpa_supplicant is a cross-platform supplicant with support for WEP, WPA and WPA2
+(IEEE 802.11i). It is suitable for desktops, laptops and embedded systems. It is 
+the IEEE 802.1X/WPA component that is used in the client stations. It implements
+key negotiation with a WPA authenticator and it controls the roaming and IEEE 
+802.11 authentication/association of the wireless driver. [0]
+
+
+Wireless Configuration (managed via RUNSV and DHCPCD)
+________________________________________________________________________________
+
+Assuming that you have reached this page after following the K1SS Installation
+Guide, then have probably already installed dhcpcd amd wpa_supplicant packages.
+All that is left is to create new managed services via busybox's runsv for 
+wpa_supplicant and dhcpcd:  
+
+$ ln -s /usr/share/dhcpcd/hooks/10-wpa_supplicant /usr/lib/dhcpcd/dhcpcd-hooks/
+$ ln -s /etc/sv/dhcpcd/ /var/service
+
+At this point, you will want to create a wpa_supplicant file to store your 
+wireless network information and credientials:
+
+$ mkdir /etc/wpa_supplicant
+$ touch /etc/wpa_supplicant/wpa_supplicant.conf
+
+The following @/wpa_supplicant.conf can be used as a "starter" configuration
+file. Remember to replace the <BSSID> and <PASSWORD> fields with your actual 
+wireless network credentials. For additional network requirements, refer to the 
+wpa_supplicant Arch Linux Wiki page. [0]
+
+
+
+Troubleshooting
+________________________________________________________________________________
+
+(to be continued...)
+
+
+References
+________________________________________________________________________________
+
+[0] This page is an extract from the Arch Wiki and is intended to be used as a
+    "quick start" guide.
+    https://wiki.archlinux.org/index.php/wpa_supplicant
+    
+[1] https://k1ss.org/wiki/init/busybox
+
+[2] 
