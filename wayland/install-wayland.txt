@@ -42,18 +42,17 @@ NOTE: This list of caveats will change over time.
 Why would I use it then?
 ________________________________________________________________________________
 
-That is entirely up to you. Aside from just trying out something new, a Wayland
-based GUI _can_ simplify your system. Screen tearing is not possible by design
-and hardware accelerated rendering may happen in places which are not covered by
-Xorg.
+While a system _can_ be simplified and improved utilization of given hardware
+may result in better overall performance, only you can decide if the undeniable
+bad is already weight out by the following goodies.
 
 - less moving parts [13], although many graphical programs still heavily rely on
-  Xorg libraries. (Mesa [16], Firefox [17], Qt-WebEngine [18], ...) 
-- No screen tearing.
+  Xorg libraries. (Mesa [16], Firefox [17], Qt-WebEngine [18], ...)
+- Screen tearing is not possible by design.
 - Hardware accelerated video playback in Firefox. (VAAPI)
 - Hardware accelerated rendering in webkit2gtk. (WPEBackend-fdo)
-- If you can delimit your needs and expectations on KISS in the aforementioned 
-  caveats.
+
+NOTE: This list of goodies will change over time.
 
 
 Prerequisites
