@@ -7,8 +7,11 @@ the IEEE 802.1X/WPA component that is used in the client stations. It implements
 key negotiation with a WPA authenticator and it controls the roaming and IEEE 
 802.11 authentication/association of the wireless driver. [0]
 
+Wireless Configuration (managed via dhcpcd)
+________________________________________________________________________________
 
-Wireless Configuration (Managed via 'runsv' and 'dhcpcd')
+
+Managed Wireles via dhcpcdjj
 ________________________________________________________________________________
 
 Assuming that you have reached this page after following the KISS Installation
@@ -26,15 +29,28 @@ $ mkdir /etc/wpa_supplicant
 $ touch /etc/wpa_supplicant/wpa_supplicant.conf
 
 The following @/wpa_supplicant.conf can be used as a "starter" configuration
-file. Remember to replace the <BSSID> and <PASSWORD> fields with your actual 
-wireless network credentials. For additional network requirements, refer to the 
-wpa_supplicant Arch Linux Wiki page. [0]
+file. Remember to replace the <BSSID> and <PASSWORD> with your actual wireless
+network credentials. For additional network requirements, refer to the 
+"wpa_supplicant" Arch Linux Wiki page [0].
 
 
-Troubleshooting
+Generating a Passphrase:
 ________________________________________________________________________________
 
-(to be continued...)
+NOTE: This section is not required but HIGHLY recommend since storing your
+      password in plain text is not a good practice. 
+
+To allow for quicker connections to a network whose SSID is already known, we
+can make use of wpa_passphrase, a command line tool which generates the minimal
+configuration needed by wpa_supplicant: 
+
+$ wpa_passphrase <SSID> <PASSWORD>
+
+Replace <SSID> and <PASSWORD> with your actual wireless network credentials. The
+output of this command can then be used to replace the network section of the 
+wpa_supplicant.conf file created in the previous section (just remember to
+delete the line containing your password in clear text).
+
 
 
 References
