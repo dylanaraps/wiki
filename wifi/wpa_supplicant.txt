@@ -21,10 +21,27 @@ wireless network information and credentials:
 $ mkdir -p /etc/wpa_supplicant
 $ touch /etc/wpa_supplicant/wpa_supplicant.conf
 
-The following @/wpa_supplicant.conf can be used as a "starter" configuration
+The following wpa_supplicant.conf can be used as a "starter" configuration
 file. Remember to replace the <BSSID> and <PASSWORD> with your actual wireless
-network credentials. For additional network requirements, refer to the 
-"wpa_supplicant" Arch Linux Wiki page [0].
+network credentials. 
+
++------------------------------------------------------------------------------+
+|                                                                              |
+|   # Allow users in the 'wheel' group to control wpa_supplicant               |
+|   ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=wheel                     |
+|                                                                              |
+|   # Make this file writable for wpa_gui / wpa_cli                            |
+|   update_config=1                                                            |
+|                                                                              |
+|   network={                                                                  |
+|          ssid="<BSSID>"                                                      |
+|          psk="<PASSWORD>"                                                    |
+|   }                                                                          |
+|                                                                              |
++------------------------------------------------------------------------------+
+
+For additional network requirements, refer to the "wpa_supplicant" Arch Linux 
+Wiki page [0].
 
 
 Generating a Passphrase
