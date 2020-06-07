@@ -7,20 +7,12 @@ the IEEE 802.1X/WPA component that is used in the client stations. It implements
 key negotiation with a WPA authenticator and it controls the roaming and IEEE 
 802.11 authentication/association of the wireless driver. [0]
 
-Wireless Configuration (managed via dhcpcd)
+Configuration
 ________________________________________________________________________________
 
+Begin by first verifying that you have wpa_supplicant installed.
 
-Managed Wireles via dhcpcdjj
-________________________________________________________________________________
-
-Assuming that you have reached this page after following the KISS Installation
-Guide, then have probably already installed dhcpcd and wpa_supplicant packages.
-All that is left is to create new managed services via busybox's runsv for 
-wpa_supplicant and dhcpcd:
-
-$ ln -s /usr/share/dhcpcd/hooks/10-wpa_supplicant /usr/lib/dhcpcd/dhcpcd-hooks/
-$ ln -s /etc/sv/dhcpcd/ /var/service
+$ kiss b wpa_supplicant && kiss i wpa_supplicant
 
 At this point, you will want to create a wpa_supplicant file to store your 
 wireless network information and credentials:
@@ -50,6 +42,28 @@ Replace <SSID> and <PASSWORD> with your actual wireless network credentials. The
 output of this command can then be used to replace the network section of the 
 wpa_supplicant.conf file created in the previous section (just remember to
 delete the line containing your password in clear text).
+
+
+Manual Connection
+________________________________________________________________________________
+
+wpa_supplicant can be manually started with the following command:
+
+$ wpa_supplicant -B -i <INTERFACE> -c /etc/wpa_supplicant/wpa_supplicant.conf
+
+Replace <INTERFACE> with your appropriate WLAN interface name, which can be
+obtained by 
+
+
+Managed Wireless Connection via DHCPCD
+________________________________________________________________________________
+
+Assuming that dhcpdc is already install, all that is left is to do is create new
+managed services via busybox's runsv for wpa_supplicant and dhcpcd:
+
+$ ln -s /usr/share/dhcpcd/hooks/10-wpa_supplicant /usr/lib/dhcpcd/dhcpcd-hooks/
+$ ln -s /etc/sv/dhcpcd/ /var/service
+
 
 
 
