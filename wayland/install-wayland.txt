@@ -12,6 +12,11 @@ Wayland puts the Linux kernel and its components (DRI, DRM, etc) in the middle.
 This effectively leaves the Wayland compositor off in the corner as its little
 more than a special application. [3]
 
+Wayland has been in development since September of 2008 [4] and is usable today
+for a large number of use-cases. Some hardware configurations (namely NVIDIA
+GPUs) [5] [6] and a number of features are not currently supported by
+compositors.
+
 
 Caveats
 ________________________________________________________________________________
@@ -28,7 +33,7 @@ The lack of standardized, desktop-oriented protocols has created a situation
 where software may only work in some compositors and not others. This should
 improve over time as more protocols become standardized.
 
-- Limited hardware and driver support. [8] [9]
+- Limited hardware and driver support. [5] [6] [7] [8]
 - Non-standard and compositor specific software. [10] [11] [12]
 - No Wayland support in SDL 1.
 - Games with non-free assets tend to not work with SDL2 and Wayland.
@@ -134,9 +139,12 @@ ________________________________________________________________________________
 [1]  https://wayland.freedesktop.org/faq.html#heading_toc_j_4
 [2]  https://en.wikipedia.org/wiki/Wayland_(display_server_protocol)
 [3]  https://lwn.net/Articles/413335/
+[4]  https://cgit.freedesktop.org/wayland/wayland/commit/?id=97f1ebe8d5c2e166fabf757182c289fed266a45a
+[5]  https://github.com/swaywm/sway/issues/490
+[6]  https://drewdevault.com/2017/10/26/Fuck-you-nvidia.html
+[7]  $/swaywm/sway/wiki#nvidia-users
+[8]  https://wayland.freedesktop.org/building.html (Hardware / Drivers)
 
-[8]  $/swaywm/sway/wiki#nvidia-users
-[9]  https://wayland.freedesktop.org/building.html #Hardware / Drivers
 [10] $/Alexays/Waybar
 [11] $/any1/wayvnc
 [12] $/fzwoch/obs-gnome-screencast
