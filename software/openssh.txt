@@ -68,7 +68,7 @@ Tips and Tricks
 ________________________________________________________________________________
 
 * When connecting to an SSH server, there are three different levels of debug
-  modes that can help with troubleshooting issues.  Use the "-v" switch when
+  modes that can help with troubleshooting issues. Use the "-v" switch when
   connecting to print the debugging messages:
 
   $ ssh USERNAME@SERVER -v
