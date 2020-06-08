@@ -59,7 +59,7 @@ by entering the following command from the previous section:
 $ ssh USERNAME@SERVER 
 
 Once passwordless login has been verified, disable password authentication on
-the remoter server:
+the remote server:
 
 $ echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
 
