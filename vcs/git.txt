@@ -8,7 +8,7 @@ handle everything from small to very large projects with speed and efficiency.
 Commands
 ________________________________________________________________________________
 
-New KISS users may have various levels of exposure to the GIT and other forms of
+New KISS users may have various levels of exposure to git and other forms of
 version control systems. The following is intended to be "quick" reference sheet
 of git commands.
 
