@@ -1,17 +1,21 @@
 Wayland
 ________________________________________________________________________________
 
-Wayland [0] is a display protocol that aims to be a simpler replacement for the
-X Window System. [1] Unlike Xorg, which provides a unified, featureful base for
-the interchangeable window manager, the Wayland protocol as is, defines merely a
-way for the GUI to talk to the underlying graphics interface.
+Wayland [0] is a display protocol that aims to be a simpler and modern
+replacement for the X Window System. [1] The Wayland protocol follows a
+client–server model in which clients are the graphical applications requesting
+the display of pixel buffers on the screen, and the server (compositor) is the
+service provider controlling the display of these buffers. [2]
 
-This protocol has to be implemented in a library [2][3][4] first, which in
-return provides the necessary Wayland extensions to create a compositor [5][6]
-[7] upon. There is no unified way on how to implement Wayland, so the feature
-set between compositors may vary, but they typically do the heavy lifting from
-grabbing input events to allocating system resources and arrange all that for
-the user in a usable GUI.
+Unlike Xorg, which is at the center of the universe (and everyone must talk to),
+Wayland puts the Linux kernel and its components (DRI, DRM, etc) in the middle.
+This effectively leaves the Wayland compositor off in the corner as its little
+more than a special application. [3]
+
+Wayland has been in development since September of 2008 [4] and is usable today
+for a large number of use-cases. Some hardware configurations (namely NVIDIA
+GPUs) [5] [6] and a number of features are not currently supported by
+compositors.
 
 
 Caveats
@@ -29,9 +33,9 @@ The lack of standardized, desktop-oriented protocols has created a situation
 where software may only work in some compositors and not others. This should
 improve over time as more protocols become standardized.
 
-- Limited hardware and driver support. [8] [9]
+- Limited hardware and driver support. [5] [6] [7] [8]
 - Non-standard and compositor specific software. [10] [11] [12]
-- No Wayland support in SDL 1.
+- No Wayland support in SDL 1. [13]
 - Games with non-free assets tend to not work with SDL2 and Wayland.
 - Starting compositors without logind requires SUID permissions. [14]
 - Locked into using udev. [15]
@@ -133,17 +137,18 @@ ________________________________________________________________________________
 
 [0]  https://wayland.freedesktop.org/
 [1]  https://wayland.freedesktop.org/faq.html#heading_toc_j_4
-[2]  $/swaywm/wlroots#wlroots
-[3]  $/freedesktop/wayland-weston#libweston
-[4]  $/michaelforney/swc#swc
-[5]  $/swaywm/sway#sway
-[6]  $/freedesktop/wayland-weston#weston
-[7]  $/michaelforney/velox#velox
-[8]  $/swaywm/sway/wiki#nvidia-users
-[9]  https://wayland.freedesktop.org/building.html #Hardware / Drivers
+[2]  https://en.wikipedia.org/wiki/Wayland_(display_server_protocol)
+[3]  https://lwn.net/Articles/413335/
+[4]  https://cgit.freedesktop.org/wayland/wayland/commit/?id=97f1ebe8d5c2e166fabf757182c289fed266a45a
+[5]  https://github.com/swaywm/sway/issues/490
+[6]  https://drewdevault.com/2017/10/26/Fuck-you-nvidia.html
+[7]  $/swaywm/sway/wiki#nvidia-users
+[8]  https://wayland.freedesktop.org/building.html (Hardware / Drivers)
+
 [10] $/Alexays/Waybar
 [11] $/any1/wayvnc
 [12] $/fzwoch/obs-gnome-screencast
+[13] https://hansdegoede.livejournal.com/22212.html
 [14] $/swaywm/sway/wiki/Running-Sway-without-systemd
 [15] $/swaywm/wlroots#building #udev
 [16] $/kisslinux/repo/blob/master/extra/mesa/depends
