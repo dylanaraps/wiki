@@ -9,8 +9,8 @@ Commands
 ________________________________________________________________________________
 
 New KISS users may have various levels of exposure to git and other forms of
-version control systems. The following is intended to be "quick" reference sheet
-of git commands.
+version control systems. The following is intended to be a"quick" reference 
+sheet of git commands.
 
 +------------------+-----------------------------------------------------------+
 | Action (Basics)  | Command                                                   |
@@ -64,7 +64,7 @@ of git commands.
 Example 1: Staying Up-to-Date [1]
 ________________________________________________________________________________
 
-In a standard setup, you generally have an origin and an upstream remote — the 
+In a standard setup, you generally have an origin and an upstream remote - the 
 latter being the gatekeeper of the project or the source of truth to which you 
 wish to contribute.
 
