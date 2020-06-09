@@ -111,7 +111,7 @@ ________________________________________________________________________________
   +----------------------------------------------------------------------------+
 
   Notice the "/24" suffix, which is an abbreviation for the subnet mask 
-  255.255.255.0.  Also, GATEWAY and DNS_SERVER are the same in this example. 
+  255.255.255.0. Also, GATEWAY and DNS_SERVER are the same in this example. 
 
 
 References
