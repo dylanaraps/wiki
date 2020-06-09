@@ -76,7 +76,7 @@ ________________________________________________________________________________
   $ ssh USERNAME@SERVER -vvv
 
 * If you are looking to forward GUI-based applications through an SSH tunnel,
-  refer to the $/xorg/x11-forwarding article.
+  refer to the @/xorg/x11-forwarding article.
 
 
 References
