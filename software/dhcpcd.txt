@@ -30,7 +30,7 @@ $ ip link set INTERFACE down  # disables the interface
 $ ip link set INTERFACE up    # enables the interface
 
 
-Configuration, Static IP
+Static IP Configuration
 ________________________________________________________________________________
 
 Continuing from the previous section, we can use ip-address to display the 
@@ -71,7 +71,7 @@ Note: Valid characters for hostnames include ASCII letters from A to Z, digits
 Managed via runsv
 ________________________________________________________________________________
 
-Busybox's runsv can be used to create new managed service with the following 
+Busybox's runsv can be used to create a new managed service with the following 
 command:
 
 $ ln -s /etc/sv/dhcpcd/ /var/service
