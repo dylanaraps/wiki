@@ -50,8 +50,8 @@ caveats do not apply to everyone (or every system). Those unaffected or willing
 to live with the caveats will have no problem swapping over.
 
 - Less moving parts [13], although a lot of software still heavily relies on the
-  Xorg libraries (Mesa [16], Firefox [17], qt5-webengine [18], etc).
-- No screen tearing by design [19].
+  Xorg libraries (Mesa [16], Firefox [17], etc).
+- No screen tearing by design [18].
 - Hardware accelerated video playback in Firefox. (VAAPI)
 - Hardware accelerated rendering in webkit2gtk. (WPEBackend-fdo)
 
@@ -62,23 +62,23 @@ Prerequisites
 ________________________________________________________________________________
 
 Though KISS does not support Wayland officially there is no problem in making it
-capable through personal or 3rd party repositories. [20] The official
+capable through personal or 3rd party repositories. [19] The official
 repositories satisfy all dependencies. After "wayland" and "wayland-protocols"
 are installed, some package adjustments are required to make them to known
 citizens of your system.
 
 NOTE: From this point it is expected that "wayland" and "wayland-protocols" are
       installed and you have forked the required packages with modified
-      configure flags at the beginning of KISS_PATH. [21] Managing repositories
+      configure flags at the beginning of KISS_PATH. [20] Managing repositories
 
-* Packages which need to be forked [22]:
+* Packages which need to be forked [21]:
 
       firefox --enable-default-toolkit=cairo-gtk3-wayland
       gtk+3   --enable-wayland-backend
       mesa    -Dplatforms=x11,drm,wayland
 
 
-* Packages which pick up Wayland automatically at compile time [23]:
+* Packages which pick up Wayland automatically at compile time [22]:
   [needs expansion and verification]
 
       cairo
@@ -93,7 +93,7 @@ NOTE: From this point it is expected that "wayland" and "wayland-protocols" are
 Install Wayland on top Xorg KISS
 ________________________________________________________________________________
 
-Mesa must be rebuilt first, followed by the aforementioned packages [22][23] in
+Mesa must be rebuilt first, followed by the aforementioned packages [23] in
 a dependency given ascending order.
 
 NOTE: kiss-revdepends is the tool you need.
@@ -152,8 +152,7 @@ ________________________________________________________________________________
 [15] $/swaywm/wlroots#building #udev
 [16] $/kisslinux/repo/blob/master/extra/mesa/depends
 [17] $/kisslinux/repo/blob/master/extra/firefox-bin/depends
-[18] $/kisslinux/community/blob/master/community/qt5-webengine/depends
-[19] https://people.freedesktop.org/~daniels/lca2013-wayland-x11.pdf
-[20] User Wayland repsitory $/sdsddsd1/mywayland
-[21] @/kiss/managing-repositories
-[24] https://wiki.gentoo.org/wiki/Sway#Other
+[18] https://people.freedesktop.org/~daniels/lca2013-wayland-x11.pdf
+[19] User Wayland repsitory $/sdsddsd1/mywayland
+[20] @/kiss/managing-repositories
+[23] https://wiki.gentoo.org/wiki/Sway#Other
