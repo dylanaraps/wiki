@@ -57,7 +57,7 @@ files. To use this tool, simply pip your password in through standard input:
 
 +------------------------------------------------------------------------------+
 |                                                                              |
-|   $ printf PASSWORD | idw_passphrase BSSID                                   |
+|   $ printf PASSWORD | iwd_passphrase BSSID                                   |
 |                                                                              |
 +------------------------------------------------------------------------------+
 
