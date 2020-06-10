@@ -1,0 +1,108 @@
+EIWD [0]
+________________________________________________________________________________
+
+eiwd is iNet Wireless Daemon (iwd) without dbus. iNet Wireless Daemon aims to 
+replace @/software/wpa_supplicant while providing the following benefits:
+
+* Simplification of network management.
+* Faster network discovery.
+* Fast and reliable roaming.
+* Use less system resources.
+* Use features offered by the linux kernel.
+* Support for enterprise security methods like EAP.
+* Support for kernel asymetric key rings and trusted platform modules (TPM).
+* Support for multiple clients.
+
+
+Basic Configuration
+________________________________________________________________________________
+
+Ensure that you have the following dependencies installed:
+
++------------------------------------------------------------------------------+
+|                                                                              |
+|   $ kiss b eiwd && kiss i eiwd                                               |
+|   $ kiss b openresov && kiss i openresolv                                    |
+|                                                                              |
++------------------------------------------------------------------------------+
+
+Create a new daemon configuration file:
+
++------------------------------------------------------------------------------+
+|                                                                              |
+|   $ touch -p /etc/iwd/main.conf                                              |
+|                                                                              |
++------------------------------------------------------------------------------+
+
+Using a preferred text editor, add the following lines to the main.conf file 
+generated above:
+
++------------------------------------------------------------------------------+
+|                                                                              |
+|   [General]                                                                  |
+|   EnableNetworkConfiguration=true                                            |
+|                                                                              |
+|   [Network]                                                                  |
+|   RoutePriorityOffset=200                                                    |
+|   NameResolvingService=resolvconf                                            |
+|                                                                              |
++------------------------------------------------------------------------------+
+
+
+Adding A Wireless Network
+________________________________________________________________________________
+
+eiwd ships with a iwd_passphrase, which can be used for generating iwd network 
+files. To use this tool, simply pip your password in through standard input:
+
++------------------------------------------------------------------------------+
+|                                                                              |
+|   $ printf PASSWORD | idw_passphrase BSSID                                   |
+|                                                                              |
++------------------------------------------------------------------------------+
+
+Remember to replace BSSID and PASSWORD with your respective network credentials.
+
+Using a preferred text editor, copy the output of the command above to a the 
+following location: /var/lib/iwd/BSSID.psk
+
+
+Managed via runsv
+________________________________________________________________________________
+
+Busybox's runsv can be used to create a new managed service with the following
+command:
+
++------------------------------------------------------------------------------+
+|                                                                              |
+|   $ ln -s /etc/sv/eiwd/ /var/service                                         |
+|                                                                              |
++------------------------------------------------------------------------------+
+
+To start the new managed service, use the following command:
+
++------------------------------------------------------------------------------+
+|                                                                              |
+|   $ sv up eiwd                                                               |
+|                                                                              |
++------------------------------------------------------------------------------+
+
+
+Tips and Tricks
+________________________________________________________________________________
+
+* To prevent iwd from continuous scanning while not connected, add the following
+  to your main.conf file:
+
+  +----------------------------------------------------------------------------+
+  |                                                                            |
+  |   [Scan]                                                                   |
+  |   DisablePeriodicScan=true                                                 |
+  |                                                                            |
+  +----------------------------------------------------------------------------+
+
+References
+________________________________________________________________________________
+
+[0] https://github.com/dylanaraps/eiwd
+[1] https://wiki.gentoo.org/wiki/Iwd
