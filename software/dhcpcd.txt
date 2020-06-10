@@ -43,14 +43,14 @@ Using the output of the previous command, add the following lines to the
 
 +------------------------------------------------------------------------------+
 |                                                                              |
-| interface INTERFACE                                                          |
-| static ip_address=STATIC_IP                                                  |
-| static routers=GATEWAY                                                       |
-| static domain_name_servers=DNS_SERVER                                        |
+|   interface INTERFACE                                                        |
+|   static ip_address=STATIC_IP                                                |
+|   static routers=GATEWAY                                                     |
+|   static domain_name_servers=DNS_SERVER                                      |
 |                                                                              |
 +------------------------------------------------------------------------------+
 
-Remember to replace the INTERFACE, STATIC_IP, GATEWAY, and DNS_SERVER in the
+Remember to replace the INTERFACE, STATIC_IP, GATEWAY and DNS_SERVER in the
 block above with your own parameters. 
 
 
@@ -98,15 +98,15 @@ ________________________________________________________________________________
   
   $ dhcpcd -HD INTERFACE
 
-* If you are not sure what to put in the STATIC_IP, GATEWAY, and DNS_SERVER, you
+* If you are not sure what to put in the STATIC_IP, GATEWAY and DNS_SERVER, you
   can use the following example for reference:
   
   +----------------------------------------------------------------------------+
   |                                                                            |
-  | interface eth0                                                             |
-  | static ip_address=192.168.0.4/24                                           |
-  | static routers=192.168.0.1                                                 |
-  | static domain_name_servers=192.168.0.1                                     |
+  |   interface eth0                                                           |
+  |   static ip_address=192.168.0.4/24                                         |
+  |   static routers=192.168.0.1                                               |
+  |   static domain_name_servers=192.168.0.1                                   |
   |                                                                            |
   +----------------------------------------------------------------------------+
 
@@ -118,7 +118,5 @@ References
 ________________________________________________________________________________
 
 [0] https://github.com/rsmarples/dhcpcd
-
 [1] https://wiki.archlinux.org/index.php/Network_configuration
-
 [2] https://wiki.gentoo.org/wiki/Dhcpcd
