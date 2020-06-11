@@ -22,7 +22,7 @@ Ensure that you have the following dependencies installed:
 +------------------------------------------------------------------------------+
 |                                                                              |
 |   $ kiss b eiwd && kiss i eiwd                                               |
-|   $ kiss b openresov && kiss i openresolv                                    |
+|   $ kiss b openresolv && kiss i openresolv                                   |
 |                                                                              |
 +------------------------------------------------------------------------------+
 
@@ -116,7 +116,7 @@ ________________________________________________________________________________
   
   CONFIG_CRYPTO_USER_API_HASH
   CONFIG_CRYPTO_USER_API_SKCIPHER
-  CONFIG_KEY_DH_OPEPRATIONS
+  CONFIG_KEY_DH_OPERATIONS
   CONFIG_CRYPTO_ECB
   CONFIG_CRYPTO_MD5
   CONFIG_CRYPTO_CBC
