@@ -14,7 +14,7 @@ replace @/software/wpa_supplicant while providing the following benefits:
 * Support for multiple clients.
 
 
-Basic Configuration
+Configuration
 ________________________________________________________________________________
 
 Ensure that you have the following dependencies installed:
@@ -101,8 +101,39 @@ ________________________________________________________________________________
   |                                                                            |
   +----------------------------------------------------------------------------+
 
+* To prevent iwd from to destroying / recreating wireless interfaces at startup,
+  add the following to your main.conf file:
+
+  +----------------------------------------------------------------------------+
+  |                                                                            |
+  |   [General]                                                                |
+  |   UseDefaultInterface=true                                                 |
+  |                                                                            |
+  +----------------------------------------------------------------------------+
+
+* If idw fails to start, check to make that you have the required Kernel 
+  options:
+  
+  CONFIG_CRYPTO_USER_API_HASH
+  CONFIG_CRYPTO_USER_API_SKCIPHER
+  CONFIG_KEY_DH_OPEPRATIONS
+  CONFIG_CRYPTO_ECB
+  CONFIG_CRYPTO_MD5
+  CONFIG_CRYPTO_CBC
+  CONFIG_CRYPTO_SHA256
+  CONFIG_CRYPTO_AES
+  CONFIG_CRYPTO_DES
+  CONFIG_CRYPTO_CMAC
+  CONFIG_CRYPTO_USER_API_HASH
+  CONFIG_CRYPTO_HMAC
+  CONFIG_CRYPTO_SHA512
+  CONFIG_CRYPTO_ARC4
+  CONFIG_CRYPTO_SHA1
+
+
 References
 ________________________________________________________________________________
 
 [0] https://github.com/dylanaraps/eiwd
 [1] https://wiki.gentoo.org/wiki/Iwd
+[2] https://manpages.debian.org/testing/iwd/iwd.config.5.en.html
