@@ -37,35 +37,53 @@ packages should also be installed:
 * xf86-video-vesa
 
 
-Windows Managers
+Window Managers
 ________________________________________________________________________________
 
-Note: Installing a windows manager is entirely optional and based on user 
+Note: Installing a window manager is entirely optional and based on user 
       preference.
 
-A windows manager (WM) is system software that controls the placement and 
+A window manager (WM) is system software that controls the placement and 
 appearance of windows within a windowing system in a graphical user interface. 
 There are many great WM solutions available for KISS, most of which have been 
 contributed by individuals via the Community repository. 
 
 The following is a snapshot of some of the available WMs at this time:
 
-* 2bwm
-* bspwm
-* dwm 
-* sowm
-
++--------------------+---------------------------------------------------------+
+|   Window Manager   |   Description                                           |
++--------------------+---------------------------------------------------------+
+|                    |                                                         |
+|   2bwm             |   A fast floating WM, with the particularity of         |
+|                    |   having 2 borders, written over the XCB library and    |
+|                    |   derived from mcwm written by Michael Cardell. [1]     |
+|                    |                                                         |
+|   bspwm            |   bspwm is a tiling window manager that represents      |
+|                    |   windows as the leaves of a full binary tree. [2]      |
+|                    |                                                         |
+|   dwm              |   dwm is a dynamic window manager for X. It manages     |
+|                    |   windows in tiled, monocle and floating layouts. All   |
+|                    |   of the layouts can be applied dynamically,            |
+|                    |   optimising the environment for the application in     |
+|                    |   use and the task performed. [3]                       |
+|                    |                                                         |
+|   sowm             |   An itsy bitsy floating window manager. [4]            |
+|                    |                                                         |
++--------------------+---------------------------------------------------------+
 
 Remote X Session Management
 ________________________________________________________________________________
 
 What if you need to access your applications remotely?  The solution is to 
-utilize X servers "baked in" X11 forwarding solution.  
-
-For for more information, checkout the @/xorg/x11-forwarding article.  
+utilize X servers "baked in" X11 forwarding solution.  For for more information, 
+checkout the @/xorg/x11-forwarding article.  
 
 
 References
 ________________________________________________________________________________
 
 [0] https://www.x.org/wiki/
+[1] https://github.com/venam/2bwm
+[2] https://github.com/baskerville/bspwm
+[3] https://dwm.suckless.org/
+[4] https://github.com/dylanaraps/sowm
