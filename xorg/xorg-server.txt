@@ -36,6 +36,9 @@ packages should also be installed:
 * xf86-video-nouveau
 * xf86-video-vesa
 
+Note: xf86-video-intel is not needed for Intel GPUs as the generic modesetting 
+      driver built into Xorg works really well.
+
 
 Window Managers
 ________________________________________________________________________________
@@ -75,8 +78,8 @@ Remote X Session Management
 ________________________________________________________________________________
 
 What if you need to access your applications remotely?  The solution is to 
-utilize X servers "baked in" X11 forwarding solution.  For for more information, 
-checkout the @/xorg/x11-forwarding article.  
+utilize X server's "baked in" X11 forwarding solution.  For for more information, 
+check out the @/xorg/x11-forwarding article.  
 
 
 References
