@@ -1,24 +1,24 @@
 VIM [0]
 ________________________________________________________________________________
 
-Vim is an improved version of the good old UNIX editor, vi. Many new features 
-have been added: multi-level undo, syntax highlighting, command line history, 
-on-line help, spell checking, filename completion, block operations, script 
-language, etc. There is also a Graphical User Interface (GUI) available. Still, 
-vi compatibility is maintained, those who have vi "in the fingers" will feel at 
+Vim is an improved version of the good old UNIX editor, vi. Many new features
+have been added: multi-level undo, syntax highlighting, command line history,
+on-line help, spell checking, filename completion, block operations, script
+language, etc. There is also a Graphical User Interface (GUI) available. Still,
+vi compatibility is maintained, those who have vi "in the fingers" will feel at
 home.
 
 Configuration
 ________________________________________________________________________________
 
-Vim configuration is stored in a local users ~/.vimrc file. The contents of 
-this file is based on the users preferences. 
+Vim configuration is stored in a local users ~/.vimrc file. The contents of
+this file are based on the users preferences.
 
-The following configuration is an example based on Sven Gucke's [1] published 
+The following configuration is an example based on Sven Gucke's [1] published
 vim setup and modified to satisfy the KISS @/kiss/style-guide.
 
 Note: There are no "fancy" text decorations or highlighting. Just a core set of
-      features selected to assist in code and article writing. 
+      features selected to assist in code and article writing.
 
 +------------------------------------------------------------------------------+
 |   Sven Gucke's Modified VIMRC                                                |
@@ -34,7 +34,7 @@ Note: There are no "fancy" text decorations or highlighting. Just a core set of
 |                                                                              |
 +------------------------------------------------------------------------------+
 
-The following is an explanation of each parameter. You can learn more about each 
+The following is an explanation of each parameter. You can learn more about each
 by using the ":help OPTION" command in vim.
 
 +------------------------+-----------------------------------------------------+
@@ -188,7 +188,7 @@ by using the ":help OPTION" command in vim.
 |                        |                                                     |
 +------------------------+-----------------------------------------------------+
 
-In summary, there are MANY configurations that can be applied to vim in just a 
+In summary, there are MANY configurations that can be applied to vim in just a
 few lines of text!  As a best practive, test vim out without any configuration
 applied, then slowly add in needed features. A good *starter* configuration file
 might look something like this:
