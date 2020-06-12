@@ -68,4 +68,4 @@ For for more information, checkout the @/xorg/x11-forwarding article.
 References
 ________________________________________________________________________________
 
-[0] https://github.com/Earnestly/sx
+[0] https://www.x.org/wiki/
