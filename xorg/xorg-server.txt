@@ -1,0 +1,72 @@
+XORG-SERVER [0]
+________________________________________________________________________________
+
+
+The xorg-server, part of the X.Org releases, is the main component of the X 
+Window system which abstracts the hardware and provides the foundation for most 
+graphical user interfaces, like desktop environments or window managers, and 
+their applications.
+
+
+Getting Started
+________________________________________________________________________________
+
+If you are following along from the KISS installation guide, you should already
+have the following packages installed:
+
+* xorg-server
+* xf86-input-libinput
+* liberation-fonts (optional)
+
+In order to start the X window system server, you will also need to install
+and configure _ONE_ of the following packages:
+
+* xinit (@/xorg/xinit)
+* sx (@/xorg/sx)
+
+
+Graphics Drivers
+________________________________________________________________________________
+
+Depending on your graphics card hardware, one of the following graphics card 
+packages should also be installed:
+
+* xf86-video-amdgpu
+* xf86-video-ati
+* xf86-video-intel
+* xf86-video-nouveau
+* xf86-video-vesa
+
+
+Windows Managers
+________________________________________________________________________________
+
+Note: Installing a windows manager is entirely optional and based on user 
+      preference.
+
+A windows manager (WM) is system software that controls the placement and 
+appearance of windows within a windowing system in a graphical user interface. 
+There are many great WM solutions available for KISS, most of which have been 
+contributed by individuals via the Community repository. 
+
+The following is a snapshot of some of the available WMs at this time:
+
+* 2bwm
+* bspwm
+* dwm 
+* sowm
+
+
+Remote X Session Management
+________________________________________________________________________________
+
+What if you need to access your applications remotely?  The solution is to 
+utilize X servers "baked in" X11 forwarding solution.  
+
+For for more information, checkout the @/xorg/x11-forwarding article.  
+
+
+References
+________________________________________________________________________________
+
+[0] https://github.com/Earnestly/sx
