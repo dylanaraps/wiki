@@ -74,7 +74,7 @@ to build the kernel.
 A patch can be applied which adds a POSIX shell implementation of the perl
 script. This fully removes the perl requirement.
 
-@/patches/kernel-no-perl.patch
+@/patches/kernel-no-perl.patch  (Written by $/E5ten)
 
 +------------------------------------------------------------------------------+
 |                                                                              |
