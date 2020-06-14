@@ -264,9 +264,10 @@ Upon doing so, you will be prompted to enter your GitHub user credentials. Once
 entered, the latest changes will be uploaded to your forked Wiki repository 
 on GitHub.
 
-The last step is to initiate a Pull Request (PR).  A PR can be initiated via a
-web browser by going to the https://github.com/kisslinux/wiki page and pressing
-the "Pull Request" button near the top of the page. Enter the reason for 
+The last step is to initiate a Pull Request (PR). A PR can be initiated via a
+web browser by going to the https://github.com/USERNAME/wiki page and pressing
+the "New pull request" button near the top of the page. After reviewing the 
+changes, press the "Create Pull Request" button. Enter the reason for 
 initiating a PR (i.e. "git: new article"). 
 
 Tip: You can review previously closed PRs as examples of what to write.
