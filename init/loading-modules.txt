@@ -1,8 +1,8 @@
 LOAD A MODULE AT BOOT
 ________________________________________________________________________________
 
-NOTE: Enable the udevd service if you opt to load a module at boot
-      as the daemon is needed to setup whatever drivers you load.
+NOTE: Enable the udevd service if you opt to load a module at boot as the
+      daemon is needed to setup whatever drivers you load.
 
       SEE: @/init/busybox
 
@@ -10,8 +10,7 @@ NOTE: Enable the udevd service if you opt to load a module at boot
 Using /etc/inittab (busybox-init)
 ________________________________________________________________________________
 
-A module can be loaded at boot by adding a single line to 
-your /etc/inittab.
+A module can be loaded at boot by adding a single line to your /etc/inittab.
 
 +------------------------------------------------------------------------------+
 |                                                                              |
@@ -22,9 +21,9 @@ your /etc/inittab.
 Using /etc/rc.d (all inits)
 ________________________________________________________________________________
 
-A module can be loaded at boot by adding a boot hook to your 
-/etc/rc.d folder. The file must end with `*.boot`. Assume that the 
-file is named /etc/rc.d/load-modules.boot.
+A module can be loaded at boot by adding a boot hook to your /etc/rc.d folder.
+The file must end with `*.boot`. For example you might add the following in
+/etc/rc.d/load-modules.boot
 
 +------------------------------------------------------------------------------+
 |                                                                              |
