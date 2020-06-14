@@ -266,12 +266,13 @@ on GitHub.
 
 The last step is to initiate a Pull Request (PR). A PR can be initiated via a
 web browser by going to the https://github.com/USERNAME/wiki page and pressing
-the "New pull request" button near the top of the page. After reviewing the 
-changes, press the "Create Pull Request" button. Enter the reason for 
-initiating a PR (i.e. "git: new article"). 
+the "New pull request" button near the top of the page. In the Title field, 
+enter the reason for initiating a PR (i.e. "git: new article") and press the 
+"Create pull request" button.
 
-Tip: You can review previously closed PRs as examples of what to write.
-   
+Note: Pay attention to which branch is being merged into the master branch of
+      the repository :kisslinux/wiki".
+
 
 References
 ________________________________________________________________________________
