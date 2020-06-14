@@ -8,7 +8,8 @@ Install keymaps
 ________________________________________________________________________________
 
 
-First, install the bkeymaps package from the Community repository:
+Begin by verifying that you have bkeymaps installed from the Community
+repository
 
 +------------------------------------------------------------------------------+
 |                                                                              |
