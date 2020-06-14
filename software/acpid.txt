@@ -50,8 +50,11 @@ Whenever changes are made, restart acpid for them to take effect.
 [1.0] Kernel Setup
 ____________________________________________________________________________
 
-For now, check the Gentoo Wiki for details. [0] The important information
-will be added to this page soon.
+ACPI-related kernel drivers must be enabled for acpid to function properly.  In
+menuconfig these options are located under Power management and ACPI options
+> Power Management support > ACPI support. For now, check the Gentoo Wiki for
+details above available drivers. [0] The important information will be added to
+this page soon.
 
 
 [2.0] Busybox acpid
@@ -110,7 +113,7 @@ First, install the acpid package:
     that provides rules for handling it.
 
     If the lines below are added to /etc/acpi/event/anything, then /etc/acpi/handler.sh
-    will be executed whenever any event is recieved:
+    will be executed when any event is recieved:
 
     +--------------------------------------------------------------------------+
     |                                                                          |
