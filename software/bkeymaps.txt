@@ -1,29 +1,34 @@
-SETTING THE KEYBOARD LAYOUT
+BKEYMAPS [0]
 ________________________________________________________________________________
 
 
-Acquiring keymaps from the bkeymaps package
+Install keymaps
 ________________________________________________________________________________
 
-You can get the bkeymaps package from Community.
+
+First, install the bkeymaps package from the Community repository:
 
 +------------------------------------------------------------------------------+
 |                                                                              |
-|   $ kiss b bkeymaps                                                          |
-|   $ kiss i bkeymaps                                                          |
+|   $ kiss b bkeymaps && kiss i bkeymaps                                       |
 |                                                                              |
 +------------------------------------------------------------------------------+
 
-Now you can find the keymaps in /usr/share/bkeymaps.
+The keymaps will now be located in /usr/share/bkeymaps.
 
 
-Loading Keymaps at login
+Load Keymaps at login
 ________________________________________________________________________________
 
-To load a keymap at login, you can add the command above to your .profile file.
+To load a keymap at login, add the following command to your .profile
 
 +------------------------------------------------------------------------------+
 |                                                                              |
 |   $ loadkmap < file                                                          |
 |                                                                              |
 +------------------------------------------------------------------------------+
+
+References
+________________________________________________________________________________
+
+[0] https://dev.alpinelinux.org/bkeymaps/
