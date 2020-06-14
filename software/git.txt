@@ -184,7 +184,9 @@ Note: Do not squash commits that you’ve already shared with others. You are
 [4.0] Example 3: Writing a new KISS Wiki article.
 ________________________________________________________________________________
 
-Note: In order to add a new article, you will need a GitHub user account.
+Note: The method described below requires a GitHub user account. If you do not
+      have a GitHub user account or do not wish to create one, you can still 
+      submit your articles or ideas directly to dylan@k1ss.org.
 
 Lets say you are interested in writing a new article for the KISS Wiki. The
 process is fairly straight forward!  
