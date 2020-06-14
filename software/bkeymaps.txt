@@ -1,7 +1,7 @@
 BKEYMAPS [0]
 ________________________________________________________________________________
 
-Binary keymaps to set the keyboard layout
+Binary keymaps to set the keyboard layout.
 
 
 Install keymaps
@@ -9,7 +9,7 @@ ________________________________________________________________________________
 
 
 Begin by verifying that you have bkeymaps installed from the Community
-repository
+repository.
 
 +------------------------------------------------------------------------------+
 |                                                                              |
@@ -23,7 +23,7 @@ The keymaps will now be located in /usr/share/bkeymaps.
 Load Keymaps at login
 ________________________________________________________________________________
 
-To load a keymap at login, add the following command to your .profile
+To load a keymap at login, add the following command to your .profile.
 
 +------------------------------------------------------------------------------+
 | Load keymap using busybox's loadkmap.                                        |
