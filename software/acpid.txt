@@ -1,20 +1,65 @@
 ACPID
 ________________________________________________________________________________
 
+Acpid is a daemon that executes certain actions whenever ACPI events are
+recieved. Depending on your hardware and kernel configuration, these events
+include closing a laptop lid, connecting to an AC power adapter, pressing
+certain buttons and more.
 
-Prerequisites
+
+Index
 ________________________________________________________________________________
 
-Make sure that ACPI-related kernel options are enabled. [0]
+- Usage                                                                    [0.0]
+    - Kernel Configuration                                                 [0.1]
+
+- Busybox acpid                                                            [1.0]
+
+- Acpid2                                                                   [2.0]
+    - Finding Events                                                       [2.1]
+    - Handling Events                                                      [2.2]
 
 
-Using busybox acpid
+[0.0] Usage
 ________________________________________________________________________________
 
-Busybox provides a very limited acpid program. The only event that it works
-well for is closing the lid. For some users this is enough. To run
-commands when the lid is closed, create an executable script at
-/etc/acpi/LID/00000080. The example below will suspend your computer to RAM.
+KISS Linux offers two options for acpid management: busybox acpid, which is
+installed by default, and acpid2, which can be installed from the acpid
+package. For both acpid implimentations, you will need to enable a few
+ACPI-related kernel options and optionally the runit service to manage it.
+
+To enable the acpid runit service run:
+
++------------------------------------------------------------------------------+
+|                                                                              |
+|   $ ln -s /etc/sv/acpid/ /var/service/                                       |
+|   $ sv up acpid                                                              |
+|                                                                              |
++------------------------------------------------------------------------------+
+
+Whenever changes are made, restart acpid for them to take effect.
+
++--------------------------------------------------------------------------+
+|                                                                          |
+|   $ sv restart acpid                                                     |
+|                                                                          |
++--------------------------------------------------------------------------+
+
+
+    [0.1] Kernel Configuration
+    ____________________________________________________________________________
+
+    For now, check the Gentoo Wiki for details. [0] The important information
+    will be added to this page soon.
+
+
+[1.0] Busybox acpid
+________________________________________________________________________________
+
+Busybox provides a very limited acpid program, that only works well for laptop
+lid events. Everytime the lid is closed, acpid will execute /etc/acpid/LID/00000080.
+Make sure this file is executable The following example can be used to suspend
+your laptop to RAM.
 
 +------------------------------------------------------------------------------+
 |                                                                              |
@@ -24,100 +69,87 @@ commands when the lid is closed, create an executable script at
 |                                                                              |
 +------------------------------------------------------------------------------+
 
-The rest of this article uses the more robust acpid program from the acpid package in the community repository. Install it as usual:
-
-+------------------------------------------------------------------------------+
-|                                                                              |
-|   kiss build acpid                                                           |
-|   kiss install acpid                                                         |
-|                                                                              |
-+------------------------------------------------------------------------------+
-
-
-Identifying ACPI Events
+[2.0] acpid2
 ________________________________________________________________________________
 
-
-Enable acpid:
-
-+------------------------------------------------------------------------------+
-|                                                                              |
-|   $ ln -s /etc/sv/acpid/ /var/service/                                       |
-|                                                                              |
-+------------------------------------------------------------------------------+
-
-
-Run acpi_listen to find events as they occur. For example, pressing the volume
-mute button will print something like this:
+First, install the acpid package:
 
 +------------------------------------------------------------------------------+
 |                                                                              |
-|   $ button/mute MUTE 00000080 00000000 K                                     |
+|   kiss b acpid && kiss i acpid                                               |
 |                                                                              |
 +------------------------------------------------------------------------------+
 
+    [2.1] Finding Events
+    ____________________________________________________________________________
 
-NOTE: Some 'Fn + *' keys might not appear as they are hardware-bound (e.g. WLAN
-      toggle). Just test them all and see what works. For most laptops, this
-      will also detect lid events (e.g. opening or closing).
+    Before handling events, you'll have to find out what events your computer
+    sends and which of those acpid can actually read. Run acpi_listen to find
+    them as they occur. For example, pressing the volume mute button will print
+    something like this:
 
-
-Read all events
-________________________________________________________________________________
-
-Create a file under /etc/acpi/events/ (just create these directories if they
-are missing) containing the following:
-
-+------------------------------------------------------------------------------+
-|                                                                              |
-|   event=.*                                                                   |
-|   action=/etc/acpi/handler.sh %e                                             |
-|                                                                              |
-+------------------------------------------------------------------------------+
-
-This will match any detected event and run the action file (see below).
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   $ button/mute MUTE 00000080 00000000 K                                 |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
 
 
-The handler script
-________________________________________________________________________________
+    NOTE: Some 'Fn + *' keys might not appear as they are hardware-bound (e.g.
+          WLAN toggle). Just test them all and see what works. For most laptops,
+          this will also detect lid events (e.g. opening or closing).
 
-During an event, acpid will run a corresponding action. Since the events are passed literally as
-parameters, this can now be handled by a single script. For example:
 
-+------------------------------------------------------------------------------+
-|                                                                              |
-|   button/mute MUTE 00000080 00000000 K                                       |
-|   $1=button/mute                                                             |
-|   $2=MUTE                                                                    |
-|   $3=00000080                                                                |
-|   $4=00000000                                                                |
-|   $5=K                                                                       |
-|                                                                              |
-+------------------------------------------------------------------------------+
+    [2.2] Handling Events
+    ____________________________________________________________________________
 
-Here's a simple /etc/acpi/handler.sh (make sure the script is executable).
+    Whenever an ACPI event is recieved, acpid looks for a file in /etc/acpi/events
+    that provides rules for handling it.
 
-+------------------------------------------------------------------------------+
-|                                                                              |
-|   #!/bin/sh                                                                  |
-|                                                                              |
-|   case $1 in                                                                 |
-|       button/mute)                                                           |
-|           amixer sset Master toggle                                          |
-|       ;;                                                                     |
-|   esac                                                                       |
-|                                                                              |
-+------------------------------------------------------------------------------+
+    If the lines below are added to /etc/acpi/event/anything, then /etc/acpi/handler.sh
+    will be executed whenever any event is recieved:
 
-Finally, restart acpid.
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   event=.*                                                               |
+    |   action=/etc/acpi/handler.sh %e                                         |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
 
-+------------------------------------------------------------------------------+
-|                                                                              |
-|   $ sv restart acpid                                                         |
-|                                                                              |
-+------------------------------------------------------------------------------+
+    Although different files can be placed in /etc/acpi/events/ to handle more
+    specific events, it is often easiest to use a single script.
+
+    In the example above, '%e' causes acpid to pass the details of the event as
+    parameters to /etc/acpi/handler.sh. The mute button event will be pass like this:
+
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   button/mute MUTE 00000080 00000000 K                                   |
+    |   $1=button/mute                                                         |
+    |   $2=MUTE                                                                |
+    |   $3=00000080                                                            |
+    |   $4=00000000                                                            |
+    |   $5=K                                                                   |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
+
+    The basic /etc/acpi/handler.sh below will mute the master channel, whenever
+    acpid recieves that event.
+
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   #!/bin/sh                                                              |
+    |                                                                          |
+    |   case $1 in                                                             |
+    |       button/mute)                                                       |
+    |           amixer sset Master toggle                                      |
+    |       ;;                                                                 |
+    |   esac                                                                   |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
+
 
 References
 ________________________________________________________________________________
 
-[0] More info at https://wiki.gentoo.org/wiki/ACPI#Kernel
+[0] https://wiki.gentoo.org/wiki/ACPI#Kernel
