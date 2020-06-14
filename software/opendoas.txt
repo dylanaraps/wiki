@@ -17,7 +17,7 @@ Begin by first verifying that you have opendoas installed:
 |                                                                              |
 +------------------------------------------------------------------------------+
 
-Using your preferred text editor, modify the /etc/doas.conf file.  Within the 
+Using your preferred text editor, modify the /etc/doas.conf file. Within the 
 doas.conf, there are plenty of examples of rules to choose from and modify.
 
 Below are a few examples of *basic* rules that could be set:  
