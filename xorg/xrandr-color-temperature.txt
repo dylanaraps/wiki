@@ -1,0 +1,19 @@
+SET COLOR TEMPERATURE WITH XRANDR
+________________________________________________________________________________
+
+One can use xrandr to set the color temperature of the display with the
+--output, --gamma, and --brightness flags
+
+
+Examples:
+________________________________________________________________________________
+
++-----------------+------------------------------------------------------------+
+|                 |                                                            |
+|   Day mode      |   $ xrandr --output LVDS1 --gamma 1:1:1                    |
+|                 |                                                            |
+|   Red tint      |   $ xrandr --output LVDS1 --gamma 1.1:0.8:0.7              |
+|                 |                                                            |
+|   Orange tint   |   $ xrandr --output LVDS1 --gamma 1:1:0.7 --brightness 0.9 |
+|                 |                                                            |
++-----------------+------------------------------------------------------------+
