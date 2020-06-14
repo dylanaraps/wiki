@@ -1,0 +1,37 @@
+OPENDOAS [0]
+________________________________________________________________________________
+
+doas is a minimal replacement for the venerable sudo. It was initially written 
+by Ted Unangst of the OpenBSD project to provide 95% of the features of sudo 
+with a fraction of the codebase.
+
+
+Configuration
+________________________________________________________________________________
+
+Begin by first verifying that you have opendoas installed:
+
++------------------------------------------------------------------------------+
+|                                                                              |
+|   $ kiss b opendoas && kiss i opendoas                                       |
+|                                                                              |
++------------------------------------------------------------------------------+
+
+Using a preferred text editor, set the /etc/doas.conf file.  Within the 
+doas.conf, there are plenty of examples of rules to chose from and modify.
+
+Below are a few examples of *basic* rules that could be set:  
+
++------------------------------------------------------------------------------+
+|                                                                              |
++------------------------------------------------------------------------------+
+|                                                                              |
+|   $ permit persist wheel                                                     |
+|                                                                              |
++------------------------------------------------------------------------------+
+
+
+References
+________________________________________________________________________________
+
+[0] https://github.com/Duncaen/OpenDoas
