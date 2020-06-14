@@ -1,0 +1,27 @@
+CHANGING THE CONSOLE FONT
+________________________________________________________________________________
+
+The Linux console font can be changed using the setfont utility (part of busybox
+and installed by default).
+
+
+Available Fonts
+________________________________________________________________________________
+
+Currently packaged Linux console fonts.
+
+- terminus-font (Community).
+
+
+Changing the Console Font
+________________________________________________________________________________
+
+Use the following command to change the font with your preferred font instead
+of FONT_NAME. Add it to your .profile (current user) or /etc/profile
+(system-wide) to make the change permanent.
+
++------------------------------------------------------------------------------+
+|                                                                              |
+|   [ "$DISPLAY" ] || setfont /usr/share/consolefonts/FONT_NAME.gz             |
+|                                                                              |
++------------------------------------------------------------------------------+
