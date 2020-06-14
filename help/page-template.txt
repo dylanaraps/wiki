@@ -9,10 +9,10 @@ ________________________________________________________________________________
 
 - Usage                                                                    [0.0]
 
-- Subheading                                                               [1.0]
+- Heading                                                                  [1.0]
     - Subheading                                                           [1.1]
 
-- Subheading                                                               [2.1]
+- Heading                                                                  [2.1]
 - References                                                               [3.0]
 
 
@@ -28,7 +28,7 @@ Begin by first verifying that you have SOFTWARE_NAME installed:
 +------------------------------------------------------------------------------+
 
 
-[1.0] Subheading
+[1.0] Heading
 ________________________________________________________________________________
 
 WORDS
@@ -52,7 +52,7 @@ WORDS
     +--------------------------------------------------------------------------+
 
 
-[2.0] Subheading
+[2.0] Heading
 ________________________________________________________________________________
 
 WORDS
@@ -67,6 +67,6 @@ WORDS
 [3.0] References
 ________________________________________________________________________________
 
-[0] https://github.com/rsmarples/dhcpcd
-[1] https://wiki.archlinux.org/index.php/Network_configuration
-[2] https://wiki.gentoo.org/wiki/Dhcpcd
+[0] https://example.com
+[1] https://example.com
+[2] https://example.com
