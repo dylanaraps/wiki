@@ -123,7 +123,7 @@ First, install the acpid package:
     specific events, it is often easiest to use a single script.
 
     In the example above, '%e' causes acpid to pass the details of the event as
-    parameters to /etc/acpi/handler.sh. The mute button event will be pass like
+    parameters to /etc/acpi/handler.sh. A mute button event will be passed like
     this:
 
     +--------------------------------------------------------------------------+
@@ -137,8 +137,8 @@ First, install the acpid package:
     |                                                                          |
     +--------------------------------------------------------------------------+
 
-    The basic /etc/acpi/handler.sh below will mute the master channel, whenever
-    acpid recieves that event.
+    The basic /etc/acpi/handler.sh shown below will mute the master channel
+    whenever acpid recieves the above event.
 
     +--------------------------------------------------------------------------+
     |                                                                          |
