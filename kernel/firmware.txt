@@ -18,8 +18,8 @@ ________________________________________________________________________________
 - Overview                                                                 [1.0]
     - Incorporating Firmware                                               [1.1]
     - Rebuilding the Kernel                                                [1.2]
-- CPUs                                                                     [2.0]
-    - Microcode                                                            [2.1]
+- Processor                                                                [2.0]
+    - AMD Microcode                                                        [2.1]
 - Graphics                                                                 [3.0]
     - NVIDIA                                                               [3.1]
     - AMDGPU                                                               [3.2]
@@ -78,7 +78,7 @@ peripherals.
     (this is a placeholder) 
 	
 
-[2.0] CPU
+[2.0] Processor
 ________________________________________________________________________________
 
 The following sections describe the kernel requirements for microcode loading 
