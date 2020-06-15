@@ -191,8 +191,9 @@ for various manufacturers.
     |                                                                          |
     +--------------------------------------------------------------------------+
     
-    Use the outputed Hex values from the commands above to determine which 
-    firmware blob file is required by using the following naming convention:
+    Use the outputed values (converted to Hex) from the commands above to 
+    determine which firmware blob file is required by using the following naming 
+    convention:
     
     +--------------------------------------------------------------------------+    
     |                                                                          |    
@@ -200,6 +201,24 @@ for various manufacturers.
     |                                                                          |
     +--------------------------------------------------------------------------+
     
+    Note: To convert to the above values to Hex and format it automatically, 
+          user $/illiliti has provided an example POSIX compliant shell script  
+	  that can do this for you:
+
+          +--------------------------------------------------------------------+    
+          |                                                                    |    
+          |   #!/bin/sh -f                                                     |
+          |   while IFS=: read -r key val; do                                  |
+          |       case $key in                                                 |
+          |           stepping*)   : ${stepping:=$val} ;;                      |
+          |           cpu*family*) : ${family:=$val} ;;                        |
+          |           model*)      : ${model:=$val} ;;                         |
+          |       esac                                                         |
+	  |   done < /proc/cpuinfo                                             |
+	  |   printf "%02x-%02x-%02x\n" "$family "$model" "$stepping"          |
+          |                                                                    |
+          +--------------------------------------------------------------------+
+
     Remember to reference the firmware blobs in CONFIG_EXTRA_FIRMWARE. [1.1]
     
 
