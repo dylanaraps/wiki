@@ -44,7 +44,7 @@ peripherals.
     (*.ucode files) are referenced and the firmware root directory is set.
 
     +--------------------------------------------------------------------------+
-    |   ".config" example                                                      |    
+    |   ".config" Example                                                      |    
     +--------------------------------------------------------------------------+
     |                                                                          |
     |   CONFIG_EXTRA_FIRMWARE_DIR="/lib/firmware"                              |
@@ -122,8 +122,10 @@ for various manufacturers.
     |  amd_sev_fam17h_model0xh.sbin   |         |                              | 
     |                                 |         |                              |
     +---------------------------------+---------+------------------------------+  
-    
-    
+
+    Remember to reference the firmware blobs in CONFIG_EXTRA_FIRMWARE. [1.1]
+
+
 [3.0] Graphics
 ________________________________________________________________________________
 
@@ -242,7 +244,7 @@ from various manufacturers.
     |                                                                          |
     +--------------------------------------------------------------------------+
 
-    Remember to reference the firmware blobs in CONFIG_EXTRA_FIRMWARE.
+    Remember to reference the firmware blobs in CONFIG_EXTRA_FIRMWARE. [1.1]
 
 
 [5.0] Bluetooth
