@@ -80,9 +80,8 @@ peripherals.
     mistakes or forget a step in the process.. fear not!  The road to "recovery" 
     is quick and painless. 
     
-    Let's assume for a second that, during the initial KISS installation that 
-    you used the menuconfig tool. The process after update thing the .config 
-    file would be as follows:
+    The process after updating the .config file with the required changes would 
+    be as follows:
     
     +--------------------------------------------------------------------------+
     |   Rebuild the Kernel                                                     |
