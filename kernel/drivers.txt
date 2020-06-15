@@ -1,42 +1,47 @@
 KERNEL DRIVERS
 ________________________________________________________________________________
 
-Configuring the Linux kernel is arguably the hardest step in the installation
-process. The kernel is humongous and figuring out what to enable in the
-seemingly endless option list can be a daunting task.
-
-The most important factor for success is how well one knows their hardware.
-Spend a little time doing some research prior to configuring the kernel. Knowing
-what is inside one's system is of immense value in all contexts.
-
-The physical realm however, is only part of the equation. Configuration extends
-to general features, file-systems, networking protocols, cryptography, security,
-processor features and more.
-
-This Wiki page will document kernel options, their requirement level
-(conditional, recommended or mandatory), a brief description and a rationale if
-necessary. Information about pre-built hardware as a whole will not be covered.
+This article describes the manual configuration and setup of Linux kernel 
+drivers for various peripherals.
 
 
 [0.0] Index
 ________________________________________________________________________________
 
-- Wireless Devices                                                         [1.0]
-    - Intel (iwlwifi)                                                      [1.1]
-- Bluetooth                                                                [2.0]
-- GPUs                                                                     [3.0]
-    - NVIDIA Graphics Cards                                                [3.1]
-    - Radeon Graphics Cards                                                [3.2]
-- CPUs                                                                     [4.0]
+- Overview                                                                 [1.0]
+- Wireless Devices                                                         [2.0]
+    - Intel (iwlwifi)                                                      [2.1]
+- Bluetooth                                                                [3.0]
+- GPUs                                                                     [4.0]
+    - NVIDIA Graphics Cards                                                [4.1]
+    - AMD Graphics Cards                                                   [4.2]
+- CPUs                                                                     [5.0]
 
 
-[1.0] Wireless Devices
+[1.0] Overview
 ________________________________________________________________________________
 
-The following sections describe the kernel requirements for various wireless 
-devices.
+When building drivers into the kernel, ensure that the firmware blobs 
+(*.ucode files) are referenced and the firmware root directory is set.
 
-    [4.1] Intel (iwlwifi)
++------------------------------------------------------------------------------+
+|   Example                                                                    |    
++------------------------------------------------------------------------------+
+|                                                                              |
+|   CONFIG_EXTRA_FIRMWARE_DIR="/lib/firmware"                                  |
+|   CONFIG_EXTRA_FIRMWARE="iwlwifi-****-22.ucode iwlwifi-****-23.ucode"        |
+|                                                                              |
++------------------------------------------------------------------------------+
+
+
+[2.0] Wireless Devices
+________________________________________________________________________________
+
+The following sections describe the kernel requirements for wireless devices 
+from various manufacturers.
+
+
+    [2.1] Intel (iwlwifi)
     ____________________________________________________________________________
 
     Determine which module your wireless device uses (iwldvm or iwlmvm), along
@@ -60,30 +65,19 @@ devices.
     |   IWLDVM                   Driver that supports DVM firmware             |
     |                                                                          |
     +--------------------------------------------------------------------------+
-    
-    When building drivers into the kernel, ensure that the firmware blobs 
-    (*.ucode files) are referenced and the firmware root directory is set.
-
-    +--------------------------------------------------------------------------+
-    |   Example                                                                |    
-    +--------------------------------------------------------------------------+
-    |                                                                          |
-    |   CONFIG_EXTRA_FIRMWARE_DIR="/lib/firmware"                              |
-    |   CONFIG_EXTRA_FIRMWARE="iwlwifi-****-22.ucode iwlwifi-****-23.ucode"    |
-    |                                                                          |
-    +--------------------------------------------------------------------------+
 
 
-[2.0] Bluetooth
+[3.0] Bluetooth
 ________________________________________________________________________________
 
 (this is a placeholder)
 
 
-[3.0] GPUs
+[4.0] GPUs
 ________________________________________________________________________________
 
-(this is a placeholder)
+The following sections describe the kernel requirements for graphics cards from
+various manufacturers.
 
 
     [4.1] NVIDIA Graphics Cards 
@@ -92,13 +86,13 @@ ________________________________________________________________________________
     (this is a placeholder)
 
 
-    [4.2] Radeon Graphics Cards 
+    [4.2] AMD Graphics Cards 
     ____________________________________________________________________________
 
     (this is a placeholder)
 
 
-[4.0] CPU
+[5.0] CPU
 ________________________________________________________________________________
 
 (this is a placeholder)
