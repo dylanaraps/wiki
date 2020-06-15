@@ -73,11 +73,56 @@ peripherals.
     firmware blobs, delimited by a single space character.
 		  
 
-    [1.1] Rebuilding the Kernel
+    [1.2] Rebuilding the Kernel
     ____________________________________________________________________________
 	
-    (this is a placeholder) 
-	
+    Configuring a kernel is difficult and everyone is bound to make a few 
+    mistakes or forget a step in the process.. fear not!  The road to "recovery" 
+    is quick and painless. 
+    
+    Let's assume for a second that, during the initial KISS installation that 
+    you used the menuconfig tool. The process after update thing the .config 
+    file would be as follows:
+    
+    +--------------------------------------------------------------------------+
+    |   Rebuild the Kernel                                                     |
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   $ make "$(nproc)" && make modules_install                              |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
+    |   Remount the boot partition                                             |
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   $ mount /boot                                                          |
+    |                                                                          |
+    +--------------------------------------------------------------------------+    
+    |   Install the built kernel (to /boot). (Ignore the LILO error).          |
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   $ make install                                                         |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
+    |   Rename the kernel/system.map (vmlinuz -> vmlinuz-VERSION).             |
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   $ mv /boot/vmlinuz    /boot/vmlinuz-VERSION                            |
+    |   $ mv /boot/System.map /boot/System.map-VERSION                         |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
+    |   Update the boot loader (assuming using GRUB2)                          |
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   $ grub-mkconfig -o /boot/grub/grub.cfg                                 |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
+    |   Reboot for the new kernel configuration to take effect:                |
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   $ reboot                                                               |
+    |                                                                          |
+    +--------------------------------------------------------------------------+	
+
 
 [2.0] Processor
 ________________________________________________________________________________
