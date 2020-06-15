@@ -19,6 +19,7 @@ ________________________________________________________________________________
     - Incorporating Firmware                                               [1.1]
     - Rebuilding the Kernel                                                [1.2]
 - CPUs                                                                     [2.0]
+    - Microcode                                                            [2.1]
 - Graphics                                                                 [3.0]
     - NVIDIA                                                               [3.1]
     - AMDGPU                                                               [3.2]
@@ -80,64 +81,63 @@ peripherals.
 [2.0] CPU
 ________________________________________________________________________________
 
-(this is a placeholder)
+The following sections describe the kernel requirements for microcode loading 
+for various manufacturers.
 
 
-[3.0] Wireless Devices
-________________________________________________________________________________
-
-The following sections describe the kernel requirements for wireless devices 
-from various manufacturers.
-
-
-    [3.1] Intel (iwlwifi)
+    [1.1] AMD Microcode
     ____________________________________________________________________________
-
-    Determine which module your wireless device uses (iwldvm or iwlmvm), along
-    with which firmware (iwlwifi-****.ucode) your device requires.
-    
-    * https://wireless.wiki.kernel.org/en/users/drivers/iwlwifi
-    
-    Once determined, ensure that the following kernel requirements are met:
-    
-    +--------------------------------------------------------------------------+
-    |                                                                          |
-    |   The following options are required (=y).                               |
-    |                                                                          |
-    |   WLAN_VENDOR_INTEL        Store the .config in the kernel.              |
-    |   MAC80211                 Enables hardware independent IEEE 802.11      |
-    |   CFG80211                 Enables the Linux Wireless LAN config API     |
-    |                                                                          |
-    |   One of the following options is required (=y)                          |
-    |                                                                          |
-    |   IWLMVM                   Driver that supports MVM firmware             |
-    |   IWLDVM                   Driver that supports DVM firmware             |
-    |                                                                          |
-    +--------------------------------------------------------------------------+
-
-    Remember to reference the firmware blobs in CONFIG_EXTRA_FIRMWARE.		
 	
+    Microcode updates for AMD processors are provided by linux-firmware
+    package.  AMD specific microcode is located in the amd-ucode/ and amd/ 
+    folders. [1]
+    
+    In order determine which microcode firmware blob is required, you can use
+    grep search for "cpu family" in /proc/cpuinfo:
 
-[4.0] Bluetooth
-________________________________________________________________________________
-
-(this is a placeholder)
-
-
-[5.0] Graphics
+    +--------------------------------------------------------------------------+    
+    |                                                                          |
+    |    grep -F -m 1 "cpu family" /proc/cpuinfo                               |
+    |                                                                          |
+    +--------------------------------------------------------------------------+    
+   
+    Use the output from the command above to determine which firmware blob file
+    is required below:
+    
+    +---------------------------------+---------+------------------------------+    
+    |  File(s)                        |   Dec.  |   CPU Family Name            |
+    +---------------------------------+---------+------------------------------+  
+    |                                 |         |                              |
+    |  microcode_amd.bin              |   16    |   K10                        |
+    |                                 |   17    |   Turion                     |
+    |                                 |   18    |   Llano, Fusion              |
+    |                                 |   20    |   Bobcat                     |
+    |                                 |         |                              |   
+    |  microcode_amd_fam15h.bin       |   21    |   Bulldozer, Piledriver,     |
+    |                                 |         |   Steamroller, Excavato      |
+    |                                 |         |                              |
+    |  microcode_amd_fam16h.bin       |   22    |   Jaguar, Puma               |   
+    |                                 |         |                              | 
+    |  microcode_amd_fam17h.bin       |   23    |   Zen                        |   
+    |  amd_sev_fam17h_model0xh.sbin   |         |                              | 
+    |                                 |         |                              |
+    +---------------------------------+---------+------------------------------+  
+    
+    
+[3.0] Graphics
 ________________________________________________________________________________
 
 The following sections describe the kernel requirements for graphics cards from
 various manufacturers.
 
 
-    [5.1] NVIDIA
+    [3.1] NVIDIA
     ____________________________________________________________________________
 
     (this is a placeholder)
 
 
-    [5.2] AMDGPU
+    [3.2] AMDGPU
     ____________________________________________________________________________
 
     Setting up a system to use AMDGPU requires identifying the proper card, 
@@ -199,15 +199,6 @@ various manufacturers.
     |   CONFIG_HSA_AMD              HSA kernel driver for AMD GPU devices      |
     |   CONFIG_DRM_PANEL                                                       |
     |                                                                          |
-    |   The following options are required for soundcard support (=y).         |
-    |                                                                          |
-    |   CONFIG_SND_PCI              CI sound devices                           |
-    |   CONFIG_SND_HDA_INTEL        HD Audio PCI                               |
-    |   CONFIG_SND_HDA_PATCH_LOADER Patch loading for HD-audio                 |
-    |   CONFIG_SND_HDA_CODEC_HDMI   HDMI/DisplayPort HD-audio codec support    |
-    |                                                                          |
-    |   (Remember to specify whatever codec your soundcard needs.)             |	
-    |                                                                          |
     +--------------------------------------------------------------------------+
 
     Note: When using AMDGPU, it is recommended to unset the ATI Radeon option so 
@@ -217,15 +208,72 @@ various manufacturers.
     AMDGPU firmware blobs can be found in the amdgpu/ folder of the
     linux-firmware package. For example, if I was using a GPU with the TONGA
     chipset, I would want to reference all amdgpu/tonga_* files.
-	
+
+
+[4.0] Wireless Devices
+________________________________________________________________________________
+
+The following sections describe the kernel requirements for wireless devices 
+from various manufacturers.
+
+
+    [4.1] Intel (iwlwifi)
+    ____________________________________________________________________________
+
+    Determine which module your wireless device uses (iwldvm or iwlmvm), along
+    with which firmware (iwlwifi-****.ucode) your device requires.
+    
+    * https://wireless.wiki.kernel.org/en/users/drivers/iwlwifi
+    
+    Once determined, ensure that the following kernel requirements are met:
+    
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   The following options are required (=y).                               |
+    |                                                                          |
+    |   WLAN_VENDOR_INTEL        Store the .config in the kernel.              |
+    |   MAC80211                 Enables hardware independent IEEE 802.11      |
+    |   CFG80211                 Enables the Linux Wireless LAN config API     |
+    |                                                                          |
+    |   One of the following options is required (=y)                          |
+    |                                                                          |
+    |   IWLMVM                   Driver that supports MVM firmware             |
+    |   IWLDVM                   Driver that supports DVM firmware             |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
+
+    Remember to reference the firmware blobs in CONFIG_EXTRA_FIRMWARE.
+
+
+[5.0] Bluetooth
+________________________________________________________________________________
+
+(this is a placeholder)
+
 
 [6.0] Sound
 ________________________________________________________________________________
 
-(this is a placeholder)
+The options from the Sound card support menu need only to be set if the card 
+supports HDMI or DisplayPort audio and you want to use it. On newer kernels 
+where Enable AMD Audio CoProcessor IP support appears, that should also be set.
+
++-----------------------------------------------------------------------------+
+|                                                                             |
+|   The following options are required for soundcard support (=y).            |
+|                                                                             |
+|   CONFIG_SND_PCI              CI sound devices                              |
+|   CONFIG_SND_HDA_INTEL        HD Audio PCI                                  |
+|   CONFIG_SND_HDA_PATCH_LOADER Patch loading for HD-audio                    |
+|   CONFIG_SND_HDA_CODEC_HDMI   HDMI/DisplayPort HD-audio codec support       |
+|                                                                             |
+|   (Remember to also specify whatever codec your soundcard needs.)           |	
+|                                                                             |
++-----------------------------------------------------------------------------+
 
 
 [7.0] References
 ________________________________________________________________________________
 
 [0] https://wiki.gentoo.org/wiki/AMDGPU
+[1] https://wiki.gentoo.org/wiki/AMD_microcode
