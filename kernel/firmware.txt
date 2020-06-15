@@ -7,9 +7,9 @@ hardware devices. These binary blobs are usually proprietary because some
 hardware manufacturers do not release source code necessary to build the 
 firmware itself.
 
-This Wiki page will document firmare for various peripherals, their requirement 
-level (conditional, recommended or mandatory), a brief description and a 
-rationale if necessary. 
+This Wiki page will document firmare/driver configuration for various 
+peripherals, their requirement level (conditional, recommended or mandatory), a 
+brief description and a rationale if necessary. 
 
 
 [0.0] Index
