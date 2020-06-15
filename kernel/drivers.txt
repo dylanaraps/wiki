@@ -1,0 +1,104 @@
+KERNEL DRIVERS
+________________________________________________________________________________
+
+Configuring the Linux kernel is arguably the hardest step in the installation
+process. The kernel is humongous and figuring out what to enable in the
+seemingly endless option list can be a daunting task.
+
+The most important factor for success is how well one knows their hardware.
+Spend a little time doing some research prior to configuring the kernel. Knowing
+what is inside one's system is of immense value in all contexts.
+
+The physical realm however, is only part of the equation. Configuration extends
+to general features, file-systems, networking protocols, cryptography, security,
+processor features and more.
+
+This Wiki page will document kernel options, their requirement level
+(conditional, recommended or mandatory), a brief description and a rationale if
+necessary. Information about pre-built hardware as a whole will not be covered.
+
+
+[0.0] Index
+________________________________________________________________________________
+
+- Wireless Devices                                                         [1.0]
+    - Intel (iwlwifi)                                                      [1.1]
+- Bluetooth                                                                [2.0]
+- GPUs                                                                     [3.0]
+    - NVIDIA Graphics Cards                                                [3.1]
+    - Radeon Graphics Cards                                                [3.2]
+- CPUs                                                                     [4.0]
+
+
+[1.0] Wireless Devices
+________________________________________________________________________________
+
+The following sections describe the kernel requirements for various wireless 
+devices.
+
+    [4.1] Intel (iwlwifi)
+    ____________________________________________________________________________
+
+    Determine which module your wireless device uses (iwldvm or iwlmvm), along
+    with which firmware (iwlwifi-****.ucode) your device requires.
+    
+    * https://wireless.wiki.kernel.org/en/users/drivers/iwlwifi
+    
+    Once determined, ensure that the following kernel requirements are met:
+    
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   The following options are required (=y).                               |
+    |                                                                          |
+    |   WLAN_VENDOR_INTEL        Store the .config in the kernel.              |
+    |   MAC80211                 Enables hardware independent IEEE 802.11      |
+    |   CFG80211                 Enables the Linux Wireless LAN config API     |
+    |                                                                          |
+    |   One of the following options is required (=y)                          |
+    |                                                                          |
+    |   IWLMVM                   Driver that supports MVM firmware             |
+    |   IWLDVM                   Driver that supports DVM firmware             |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
+    
+    When building drivers into the kernel, ensure that the firmware blobs 
+    (*.ucode files) are referenced and the firmware root directory is set.
+
+    +--------------------------------------------------------------------------+
+    |   Example                                                                |    
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   CONFIG_EXTRA_FIRMWARE_DIR="/lib/firmware"                              |
+    |   CONFIG_EXTRA_FIRMWARE="iwlwifi-****-22.ucode iwlwifi-****-23.ucode"    |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
+
+
+[2.0] Bluetooth
+________________________________________________________________________________
+
+(this is a placeholder)
+
+
+[3.0] GPUs
+________________________________________________________________________________
+
+(this is a placeholder)
+
+
+    [4.1] NVIDIA Graphics Cards 
+    ____________________________________________________________________________
+
+    (this is a placeholder)
+
+
+    [4.2] Radeon Graphics Cards 
+    ____________________________________________________________________________
+
+    (this is a placeholder)
+
+
+[4.0] CPU
+________________________________________________________________________________
+
+(this is a placeholder)
