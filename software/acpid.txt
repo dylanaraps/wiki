@@ -14,7 +14,7 @@ ________________________________________________________________________________
 - Kernel Setup                                                             [1.0]
 - Busybox acpid                                                            [2.0]
 
-- Acpid2                                                                   [3.0]
+- acpid2                                                                   [3.0]
     - Finding Events                                                       [3.1]
     - Handling Events                                                      [3.2]
 
@@ -46,13 +46,23 @@ Whenever changes are made, restart acpid for them to take effect.
 
 
 [1.0] Kernel Setup
-____________________________________________________________________________
+________________________________________________________________________________
 
-ACPI-related kernel drivers must be enabled for acpid to function properly.  In
-menuconfig these options are located under Power management and ACPI options
-> Power Management support > ACPI support. For now, check the Gentoo Wiki for
-details above available drivers. [0] The important information will be added to
-this page soon.
+ACPI-related kernel drivers must be enabled for acpid to function properly. In
+menuconfig, these options are found under Power management and ACPI options
+> Power Management support > ACPI support. Most of the drivers are
+self-explanatory, but the following notable options can be disabled:
+
++------------------------------------------------------------------------------+
+|                                                                              |
+|   CONFIG_ACPI_PROCFS_POWER    This option is deprecated                      |
+|   CONFIG_ACPI_EC_DEBUGFS      Potentially interferes with reboot             |
+|   CONFIG_ACPI_TABLE_UPGRADE   KISS does not use an initrd by default         |
+|   CONFIG_ACPI_DEBUG           Adds 50k to kernel size                        |
+|   CONFIG_ACPI_PCI_SLOT        Usually unnecessary                            |
+|   CONFIG_ACPI_CUSTOM_METHOD   Potential security flaw                        |
+|                                                                              |
++------------------------------------------------------------------------------+
 
 
 [2.0] Busybox acpid
@@ -74,7 +84,7 @@ example can be used to suspend your laptop to RAM.
 [2.0] acpid2
 ________________________________________________________________________________
 
-Acpid2 has the same role as busybox acpid, but it handles many more events.
+acpid2 has the same role as busybox acpid, but it handles many more events.
 
 First, install the acpid package:
 
