@@ -1,8 +1,15 @@
-KERNEL DRIVERS
+FIRMWARE
 ________________________________________________________________________________
 
-This article describes the manual configuration and setup of Linux kernel 
-drivers for various peripherals.
+Linux firmware is a package distributed alongside the Linux kernel that contains 
+firmware binary blobs necessary for partial or full functionality of certain 
+hardware devices. These binary blobs are usually proprietary because some 
+hardware manufacturers do not release source code necessary to build the 
+firmware itself.
+
+This Wiki page will document firmare for various peripherals, their requirement 
+level (conditional, recommended or mandatory), a brief description and a 
+rationale if necessary. 
 
 
 [0.0] Index
