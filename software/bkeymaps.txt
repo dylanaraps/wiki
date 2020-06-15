@@ -8,8 +8,7 @@ Install keymaps
 ________________________________________________________________________________
 
 
-Begin by verifying that you have bkeymaps installed from the Community
-repository.
+First, install bkeymaps from the Community repository:
 
 +------------------------------------------------------------------------------+
 |                                                                              |
@@ -17,10 +16,10 @@ repository.
 |                                                                              |
 +------------------------------------------------------------------------------+
 
-The keymaps will now be located in /usr/share/bkeymaps.
+The keymaps are now located in /usr/share/bkeymaps.
 
 
-Load Keymaps at login
+Load keymaps at login
 ________________________________________________________________________________
 
 To load a keymap at login, add the following command to your .profile.
