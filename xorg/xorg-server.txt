@@ -107,8 +107,8 @@ The following tools are currently available for remote X session management.
     ____________________________________________________________________________
 
     What if you need to access your applications remotely (with no additional 
-    applications)?  The solution is to utilize X server's "baked in" X11 
-    forwarding solution.  For for more information, check out the 
+    applications)? The solution is to utilize X server's "baked in" X11 
+    forwarding solution. For for more information, check out the 
     @/x11-forwarding article.  
 
 
