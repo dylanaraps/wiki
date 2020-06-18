@@ -16,7 +16,7 @@ configuration.
 Configuration
 ________________________________________________________________________________
 
-First verifying that you have x11vnc installed:
+First verify that you have x11vnc installed:
 
 +------------------------------------------------------------------------------+
 |                                                                              |
