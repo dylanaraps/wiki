@@ -34,7 +34,7 @@ a virtual terminal:
 +------------------------------------------------------------------------------+
 
 The "-forever" switch is not required, but prevents the x11vnc from exiting at
-the end of a client session.  For more information on this switch or additional 
+the end of a client session. For more information on this switch or additional 
 switch options, refer to the man page [1].
 
 
