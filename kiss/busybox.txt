@@ -1,0 +1,48 @@
+BUSYBOX [0]
+________________________________________________________________________________
+
+BusyBox combines tiny versions of many common UNIX utilities into a single small 
+executable. It provides minimalist replacements for most of the utilities you 
+usually find in GNU coreutils, util-linux, etc. The utilities in BusyBox 
+generally have fewer options than their full-featured GNU cousins; however, the 
+options that are included provide the expected functionality and behave very
+much like their GNU counterparts.
+
+
+Index
+________________________________________________________________________________
+
+- Overview                                                                 [0.0]     
+- Inittab                                                                  [1.0]
+    - Automatic Login                                                      [1.1]
+- References                                                               [2.0]
+	
+
+[0.0] Overview
+________________________________________________________________________________
+
+This page is not intended toi be a complete explanation of all BusyBox utilites,
+but rather provide supplimental material and references to pages for common
+configuration activites.
+	
+
+[1.0] Inittab
+________________________________________________________________________________
+
+The inittab file describes which processes are started at bootup and during 
+normal operation (e.g. /etc/init.d/boot, /etc/init.d/rc, gettys...). Init 
+distinguishes multiple runlevels, each of which can have its own set of 
+processes that are started. Valid runlevels are 0−6 plus A, B, and C for 
+on-demand entries. [1]
+
+    Automatic Login
+    ____________________________________________________________________________
+
+    (placeholder)
+
+
+References
+________________________________________________________________________________
+
+[0] https://busybox.net/downloads/BusyBox.html
+[1] https://git.busybox.net/busybox/tree/examples/inittab
