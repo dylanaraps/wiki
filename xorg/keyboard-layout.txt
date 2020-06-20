@@ -14,7 +14,8 @@ First, install setxkbmap:
 |                                                                              |
 +------------------------------------------------------------------------------+
 
-Now the keyboard layout can be set from the command line:
+Available layouts can be found in /usr/share/X11/xkb/symbols/ and set from the
+command line:
 
 +------------------------------------------------------------------------------+
 |                                                                              |
@@ -22,7 +23,7 @@ Now the keyboard layout can be set from the command line:
 |                                                                              |
 +------------------------------------------------------------------------------+
 
-Put the command in ~/.xinitrc so it loads whenever an X session is started.
+Put the above command in ~/.xinitrc to load it whenever an X session is started.
 
 
 Exiting xorg configuration files
