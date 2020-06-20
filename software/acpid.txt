@@ -117,7 +117,7 @@ First, install the acpid package:
     [2.2] Handling Events
     ____________________________________________________________________________
 
-    When ACPI events are recieved, acpid looks for a file in /etc/acpi/events
+    When ACPI events are received, acpid looks for a file in /etc/acpi/events
     that provides rules for handling it. If the lines below are added to
     /etc/acpi/event/anything, then /etc/acpi/handler.sh will be executed when
     any event is recieved:
