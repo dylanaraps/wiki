@@ -15,16 +15,17 @@ ________________________________________________________________________________
 - Overview                                                                 [0.0]     
 - Inittab                                                                  [1.0]
     - Automatic Login                                                      [1.1]
-- dmesg
-- runsv
-- References                                                               [2.0]
+- dmesg                                                                    [2.0]
+- runsv                                                                    [3.0]
+- References                                                               [4.0]
 	
 
 [0.0] Overview
 ________________________________________________________________________________
 
 This page is not intended to be a complete explanation of all BusyBox
-utilities, but rather provide supplamental material and references to pages for common configuration activities.
+utilities, but rather provide supplamental material and references to pages for
+common configuration activities.
 
 
 [1.0] Inittab
@@ -39,13 +40,25 @@ on-demand entries. [1]
     [1.1] Automatic Login
     ____________________________________________________________________________
 
-	To allow a regular regular user to automatically into a virtual (e.g. bypass    the login prompt) you can edit the tty1 line in the /etc/inittab file:
+        To allow a regular regular user to automatically into a virtual (e.g. 
+        bypass the login prompt) you can edit the "tty1" in /etc/inittab:
 
-	+--------------------------------------------------------------------------+
-	|
-	|   tty1::respwarn:/bin/login -f mc
-	|
-	+--------------------------------------------------------------------------+
+        +----------------------------------------------------------------------+
+	|                                                                      |
+	|   tty1::respwarn:/bin/login -f mc                                    |    
+	|                                                                      |
+	+----------------------------------------------------------------------+
+
+[2.0] dmesg
+________________________________________________________________________________
+
+(placeholder)
+
+
+[3.0] runsv
+________________________________________________________________________________
+
+(placeholder)
 
 
 References
