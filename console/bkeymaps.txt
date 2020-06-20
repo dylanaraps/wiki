@@ -17,7 +17,7 @@ repository.
 |                                                                              |
 +------------------------------------------------------------------------------+
 
-The keymaps will now be located in /usr/share/bkeymaps.
+Available keymaps are in /usr/share/bkeymaps.
 
 
 Load Keymaps at login
