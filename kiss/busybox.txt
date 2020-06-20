@@ -15,30 +15,37 @@ ________________________________________________________________________________
 - Overview                                                                 [0.0]     
 - Inittab                                                                  [1.0]
     - Automatic Login                                                      [1.1]
+- dmesg
+- runsv
 - References                                                               [2.0]
 	
 
 [0.0] Overview
 ________________________________________________________________________________
 
-This page is not intended toi be a complete explanation of all BusyBox utilites,
-but rather provide supplimental material and references to pages for common
-configuration activites.
-	
+This page is not intended to be a complete explanation of all BusyBox
+utilities, but rather provide supplamental material and references to pages for common configuration activities.
+
 
 [1.0] Inittab
 ________________________________________________________________________________
 
-The inittab file describes which processes are started at bootup and during 
+The inittab file describes which processes are started at boot-up and during 
 normal operation (e.g. /etc/init.d/boot, /etc/init.d/rc, gettys...). Init 
-distinguishes multiple runlevels, each of which can have its own set of 
-processes that are started. Valid runlevels are 0−6 plus A, B, and C for 
+distinguishes multiple run-levels, each of which can have its own set of 
+processes that are started. Valid run-levels are 0−6 plus A, B, and C for 
 on-demand entries. [1]
 
-    Automatic Login
+    [1.1] Automatic Login
     ____________________________________________________________________________
 
-    (placeholder)
+	To allow a regular regular user to automatically into a virtual (e.g. bypass    the login prompt) you can edit the tty1 line in the /etc/inittab file:
+
+	+--------------------------------------------------------------------------+
+	|
+	|   tty1::respwarn:/bin/login -f mc
+	|
+	+--------------------------------------------------------------------------+
 
 
 References
