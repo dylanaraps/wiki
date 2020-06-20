@@ -16,9 +16,8 @@ Currently packaged Linux console fonts.
 Changing the Console Font
 ________________________________________________________________________________
 
-Use the following command to change the font with your preferred font instead
-of FONT_NAME. Add it to your .profile (current user) or /etc/profile
-(system-wide) to make the change permanent.
+Use the following command to set the console font. Add it to your ~/.profile
+or /etc/profile to make the change permanent.
 
 +------------------------------------------------------------------------------+
 |                                                                              |
