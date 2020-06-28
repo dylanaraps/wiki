@@ -23,7 +23,7 @@ ________________________________________________________________________________
 ________________________________________________________________________________
 
 KISS Linux offers two options for acpid management: busybox acpid, which is
-installed by default, and acpid2, which can be installed from the acpid
+installed by default, and acpid2 [1], which can be installed from the acpid
 package. For both acpid implimentations, you will need to enable a few
 ACPI-related kernel options and optionally the runit service to manage it.
 
@@ -84,7 +84,10 @@ example can be used to suspend your laptop to RAM.
 [2.0] acpid2
 ________________________________________________________________________________
 
-acpid2 has the same role as busybox acpid, but it handles many more events.
+acpid2 offers more flexible event management using separated event files and
+handler scripts. The package also installs the acpi_listen script which can be
+used to easily find the events that your computer sends. Most importantly,
+acpid2 handles more events than busybox.
 
 First, install the acpid package:
 
@@ -166,4 +169,4 @@ First, install the acpid package:
 References
 ________________________________________________________________________________
 
-[0] https://wiki.gentoo.org/wiki/ACPI#Kernel
+[0] https://sourceforge.net/projects/acpid2
