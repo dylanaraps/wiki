@@ -32,6 +32,7 @@ Finally, use the alternatives system to swap to runit.
 
 +------------------------------------------------------------------------------+
 |                                                                              |
+|  # See #/package-manager#3.2 for more information.
 |  $ kiss a | grep ^runit | kiss a -                                           |
 |                                                                              |
 +------------------------------------------------------------------------------+
