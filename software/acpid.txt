@@ -68,11 +68,24 @@ self-explanatory, but the following notable options can be disabled:
 [2.0] Busybox acpid
 ________________________________________________________________________________
 
-Busybox provides a very limited acpid program, that only works well for laptop
-lid events. Every time the lid is closed, acpid will execute
-/etc/acpid/LID/00000080. Make sure this file is executable The following
-example can be used to suspend your laptop to RAM.
+When events are recieved, acpid checks /etc/acpi.map for a matching event and
+/etc/acpid.conf for a corresponding handler script in /etc/acpi/. For example,
+use following lines to suspend a laptop whenever the lid is closed:
 
++------------------------------------------------------------------------------+
+| /etc/acpi.map                                                                |
++------------------------------------------------------------------------------+
+|                                                                              |
+|   EV_SW 0x05 SW_LID 0x00 1 button/lid LID0 00000080                          |
+|                                                                              |
++------------------------------------------------------------------------------+
+| /etc/acpid.conf                                                              |
++------------------------------------------------------------------------------+
+|                                                                              |
+|   LID0 LID/00000080                                                          |
+|                                                                              |
++------------------------------------------------------------------------------+
+| /etc/acpi/LID/00000080                                                       |
 +------------------------------------------------------------------------------+
 |                                                                              |
 |   #!/bin/sh                                                                  |
@@ -81,13 +94,34 @@ example can be used to suspend your laptop to RAM.
 |                                                                              |
 +------------------------------------------------------------------------------+
 
+Each line in /etc/acpi.map has six space delimited fields:
+    1. Type name (EV_SW),
+    2. Type numerical value (0x05)
+    3. Keycode name (SW_LID)
+    4. Keycode numerical value (0x00)
+    5. Value (1)
+    6. Description (button/lid LID0 00000080)
+
+The event value should usually be 1 and the event types and keycodes are listed
+in /usr/include/linux/input-event-codes.h. For example, a keyboard WLAN button
+event would use EV_KEY 0x05 and KEY_WLAN 238.
+
+Each line in /etc/acpid.conf has a key (LID0) and an action (LID/00000080). The
+key is any unique substring of the event description in /etc/acpi.map and the
+action is the relative path to an executable script in /etc/acpi/.
+
+To check if a configured event is received, check /var/log/acpid.log for output
+lines that list the path to your handler scripts.
+
+
 [2.0] acpid2
 ________________________________________________________________________________
 
-acpid2 offers more flexible event management using separated event files and
-handler scripts. The package also installs the acpi_listen script which can be
-used to easily find the events that your computer sends. Most importantly,
-acpid2 handles more events than busybox.
+acpid2 provides the similar configurable event management to Busybox, but avoids
+the somewhat tedious process of mapping events. The package also provides the
+acpi_listen script which prints all events as they are recieved. When events are
+received, acpid2 checks files in /etc/acpi/event/ for a matching event and a
+corresponding handler script.
 
 First, install the acpid package:
 
@@ -100,17 +134,14 @@ First, install the acpid package:
     [2.1] Finding Events
     ____________________________________________________________________________
 
-    Before handling events, you'll have to find out what events your computer
-    sends and which of those acpid can actually read. Run acpi_listen to find
-    them as they occur. For example, pressing the volume mute button will print
-    something like this:
+    Run acpi_listen to find events as they occur. For example, pressing the
+    volume mute button will print something like this:
 
     +--------------------------------------------------------------------------+
     |                                                                          |
-    |   $ button/mute MUTE 00000080 00000000 K                                 |
+    |   button/mute MUTE 00000080 00000000 K                                   |
     |                                                                          |
     +--------------------------------------------------------------------------+
-
 
     NOTE: Some 'Fn + *' keys might not appear as they are hardware-bound (e.g.
           WLAN toggle). Just test them all and see what works. For most laptops,
@@ -120,10 +151,8 @@ First, install the acpid package:
     [2.2] Handling Events
     ____________________________________________________________________________
 
-    When ACPI events are received, acpid looks for a file in /etc/acpi/events
-    that provides rules for handling it. If the lines below are added to
-    /etc/acpi/event/anything, then /etc/acpi/handler.sh will be executed when
-    any event is recieved:
+    If the lines below are added to /etc/acpi/event/anything, then
+    /etc/acpi/handler.sh will be executed when any event is recieved:
 
     +--------------------------------------------------------------------------+
     |                                                                          |
@@ -132,8 +161,9 @@ First, install the acpid package:
     |                                                                          |
     +--------------------------------------------------------------------------+
 
-    Although different files can be placed in /etc/acpi/events/ to handle more
-    specific events, it is often easiest to use a single script.
+    Although different files can be placed in /etc/acpi/events/ to handle events
+    with different scripts like busybox acpid, but it is often easiest to use a
+    single script.
 
     In the example above, '%e' causes acpid to pass the details of the event as
     parameters to /etc/acpi/handler.sh. A mute button event will be passed like
