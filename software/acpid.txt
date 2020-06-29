@@ -114,7 +114,7 @@ To check if a configured event is received, check /var/log/acpid.log for output
 lines that list the path to your handler scripts.
 
 
-[2.0] acpid2
+[3.0] acpid2
 ________________________________________________________________________________
 
 acpid2 provides the similar configurable event management to Busybox, but avoids
@@ -131,7 +131,7 @@ First, install the acpid package:
 |                                                                              |
 +------------------------------------------------------------------------------+
 
-    [2.1] Finding Events
+    [3.1] Finding Events
     ____________________________________________________________________________
 
     Run acpi_listen to find events as they occur. For example, pressing the
@@ -148,7 +148,7 @@ First, install the acpid package:
           this will also detect lid events (e.g. opening or closing).
 
 
-    [2.2] Handling Events
+    [3.2] Handling Events
     ____________________________________________________________________________
 
     If the lines below are added to /etc/acpi/event/anything, then
