@@ -13,10 +13,7 @@ ________________________________________________________________________________
 - Usage                                                                    [0.0]
 - Kernel Setup                                                             [1.0]
 - Busybox acpid                                                            [2.0]
-
 - acpid2                                                                   [3.0]
-    - Finding Events                                                       [3.1]
-    - Handling Events                                                      [3.2]
 
 
 [0.0] Usage
@@ -27,22 +24,8 @@ installed by default, and acpid2 [1], which can be installed from the acpid
 package. For both acpid implimentations, you will need to enable a few
 ACPI-related kernel options and optionally the runit service to manage it.
 
-To enable the acpid runit service run:
-
-+------------------------------------------------------------------------------+
-|                                                                              |
-|   $ ln -s /etc/sv/acpid/ /var/service/                                       |
-|   $ sv up acpid                                                              |
-|                                                                              |
-+------------------------------------------------------------------------------+
-
-Whenever changes are made, restart acpid for them to take effect.
-
-+------------------------------------------------------------------------------+
-|                                                                              |
-|   $ sv restart acpid                                                         |
-|                                                                              |
-+------------------------------------------------------------------------------+
+To use either version of acpid, enable the acpid service and restart it
+whenever changes are made to configuration files. See @/init/busybox.
 
 
 [1.0] Kernel Setup
@@ -51,7 +34,7 @@ ________________________________________________________________________________
 ACPI-related kernel drivers must be enabled for acpid to function properly. In
 menuconfig, these options are found under Power management and ACPI options
 > Power Management support > ACPI support. Most of the drivers are
-self-explanatory, but the following notable options can be disabled:
+self-explanatory, but the following notable options can be safely disabled:
 
 +------------------------------------------------------------------------------+
 |                                                                              |
@@ -69,8 +52,8 @@ self-explanatory, but the following notable options can be disabled:
 ________________________________________________________________________________
 
 When events are recieved, acpid checks /etc/acpi.map for a matching event and
-/etc/acpid.conf for a corresponding handler script in /etc/acpi/. For example,
-use following lines to suspend a laptop whenever the lid is closed:
+/etc/acpid.conf for a corresponding handler script in /etc/acpi/ to execute. For
+example, create files below to suspend a laptop whenever the lid is closed:
 
 +------------------------------------------------------------------------------+
 | /etc/acpi.map                                                                |
@@ -117,83 +100,49 @@ lines that list the path to your handler scripts.
 [3.0] acpid2
 ________________________________________________________________________________
 
-acpid2 provides the similar configurable event management to Busybox, but avoids
-the somewhat tedious process of mapping events. The package also provides the
-acpi_listen script which prints all events as they are recieved. When events are
-received, acpid2 checks files in /etc/acpi/event/ for a matching event and a
-corresponding handler script.
-
-First, install the acpid package:
+acpid2 (provided by the acpid package) is a more user-friendly version of acpid
+that avoids the tedious process of mapping events with flexible configuration
+and better documentation. The acpid package also installs acpi_listen which
+prints events as they occur. For example, pressing the volume mute button will
+print something like this:
 
 +------------------------------------------------------------------------------+
 |                                                                              |
-|   kiss b acpid && kiss i acpid                                               |
+|   button/mute MUTE 00000080 00000000 K                                       |
 |                                                                              |
 +------------------------------------------------------------------------------+
 
-    [3.1] Finding Events
-    ____________________________________________________________________________
+When events are received, acpid2 checks files in /etc/acpi/event/ for a matching
+event and a corresponding handler script to execute. Create the following files
+to handle the mute button event by toggling the Master audio channel:
 
-    Run acpi_listen to find events as they occur. For example, pressing the
-    volume mute button will print something like this:
++------------------------------------------------------------------------------+
+| /etc/acpi/event/anything                                                     |
++------------------------------------------------------------------------------+
+|                                                                              |
+|   event=.*                                                                   |
+|   action=/etc/acpi/handler.sh %e                                             |
+|                                                                              |
++------------------------------------------------------------------------------+
+| /etc/acpi/handler.sh                                                         |
++------------------------------------------------------------------------------+
+|                                                                              |
+|   #!/bin/sh                                                                  |
+|                                                                              |
+|   case $1 in                                                                 |
+|       button/mute)                                                           |
+|           amixer sset Master toggle                                          |
+|       ;;                                                                     |
+|   esac                                                                       |
+|                                                                              |
++------------------------------------------------------------------------------+
 
-    +--------------------------------------------------------------------------+
-    |                                                                          |
-    |   button/mute MUTE 00000080 00000000 K                                   |
-    |                                                                          |
-    +--------------------------------------------------------------------------+
-
-    NOTE: Some 'Fn + *' keys might not appear as they are hardware-bound (e.g.
-          WLAN toggle). Just test them all and see what works. For most laptops,
-          this will also detect lid events (e.g. opening or closing).
-
-
-    [3.2] Handling Events
-    ____________________________________________________________________________
-
-    If the lines below are added to /etc/acpi/event/anything, then
-    /etc/acpi/handler.sh will be executed when any event is recieved:
-
-    +--------------------------------------------------------------------------+
-    |                                                                          |
-    |   event=.*                                                               |
-    |   action=/etc/acpi/handler.sh %e                                         |
-    |                                                                          |
-    +--------------------------------------------------------------------------+
-
-    Although different files can be placed in /etc/acpi/events/ to handle events
-    with different scripts like busybox acpid, but it is often easiest to use a
-    single script.
-
-    In the example above, '%e' causes acpid to pass the details of the event as
-    parameters to /etc/acpi/handler.sh. A mute button event will be passed like
-    this:
-
-    +--------------------------------------------------------------------------+
-    |                                                                          |
-    |   button/mute MUTE 00000080 00000000 K                                   |
-    |   $1=button/mute                                                         |
-    |   $2=MUTE                                                                |
-    |   $3=00000080                                                            |
-    |   $4=00000000                                                            |
-    |   $5=K                                                                   |
-    |                                                                          |
-    +--------------------------------------------------------------------------+
-
-    The basic /etc/acpi/handler.sh shown below will mute the master channel
-    whenever acpid recieves the above event.
-
-    +--------------------------------------------------------------------------+
-    |                                                                          |
-    |   #!/bin/sh                                                              |
-    |                                                                          |
-    |   case $1 in                                                             |
-    |       button/mute)                                                       |
-    |           amixer sset Master toggle                                      |
-    |       ;;                                                                 |
-    |   esac                                                                   |
-    |                                                                          |
-    +--------------------------------------------------------------------------+
+Files in /etc/acpi/event/ match events using event=REGEX with an action to
+execute. In this example, .* matches all events and the action executes
+/etc/acpi/handler.sh. The argument %e expands to five event parameters:
+$1=button/mute, $2=MUTE, $3=00000080, $4=00000000, $5=K. The event parameters
+provide an easy way to handle all events in a single script instead of the more
+complex multi-file system used by busybox.
 
 
 References
