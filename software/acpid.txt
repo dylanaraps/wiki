@@ -59,7 +59,7 @@ example, create files below to suspend a laptop whenever the lid is closed:
 | /etc/acpi.map                                                                |
 +------------------------------------------------------------------------------+
 |                                                                              |
-|   EV_SW 0x05 SW_LID 0x00 1 button/lid LID0 00000080                          |
+|   EV_SW 0x05 SW_LID 0 1 button/lid LID0 00000080                             |
 |                                                                              |
 +------------------------------------------------------------------------------+
 | /etc/acpid.conf                                                              |
@@ -81,7 +81,7 @@ Each line in /etc/acpi.map has six space delimited fields:
     1. Type name (EV_SW),
     2. Type numerical value (0x05)
     3. Keycode name (SW_LID)
-    4. Keycode numerical value (0x00)
+    4. Keycode numerical value (0)
     5. Value (1)
     6. Description (button/lid LID0 00000080)
 
