@@ -100,11 +100,10 @@ lines that list the path to your handler scripts.
 [3.0] acpid2
 ________________________________________________________________________________
 
-acpid2 (provided by the acpid package) is a more user-friendly version of acpid
-that avoids the tedious process of mapping events with flexible configuration
-and better documentation. The acpid package also installs acpi_listen which
-prints events as they occur. For example, pressing the volume mute button will
-print something like this:
+acpid2 is a more user-friendly version of acpid that avoids the tedious process
+of mapping events with flexible configuration and better documentation. The
+acpid package also installs acpi_listen which prints events as they occur. For
+example, pressing the volume mute button will print something like this:
 
 +------------------------------------------------------------------------------+
 |                                                                              |
