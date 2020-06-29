@@ -51,7 +51,7 @@ ________________________________________________________________________________
 When events are received, acpid checks /etc/acpi.map for a matching event and
 /etc/acpid.conf for a corresponding handler script in /etc/acpi/ to execute.
 
-Create the files below to suspend a laptop whenever the lid is closed:
+Create the files below to suspend your laptop whenever the lid is closed:
 
 +------------------------------------------------------------------------------+
 | /etc/acpi.map                                                                |
