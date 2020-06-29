@@ -2,9 +2,9 @@ ACPID
 ________________________________________________________________________________
 
 Acpid is a daemon that executes certain actions whenever ACPI events are
-recieved. Depending on your hardware and kernel configuration, these events
+received. Depending on your hardware and kernel configuration, these events
 include closing a laptop lid, connecting to an AC power adapter, pressing
-certain buttons and more.
+buttons and more.
 
 
 Index
@@ -20,12 +20,9 @@ ________________________________________________________________________________
 ________________________________________________________________________________
 
 KISS Linux offers two options for acpid management: busybox acpid, which is
-installed by default, and acpid2 [1], which can be installed from the acpid
-package. For both acpid implimentations, you will need to enable a few
-ACPI-related kernel options and optionally the runit service to manage it.
-
-To use either version of acpid, enable the acpid service and restart it
-whenever changes are made to configuration files. See @/init/busybox.
+installed by default, and acpid2 [1], which can be installed with the acpid
+package. To use either version of acpid, you will need to enable a few kernel
+options and enable the acpid service. See @/init/busybox.
 
 
 [1.0] Kernel Setup
@@ -51,9 +48,10 @@ self-explanatory, but the following notable options can be safely disabled:
 [2.0] Busybox acpid
 ________________________________________________________________________________
 
-When events are recieved, acpid checks /etc/acpi.map for a matching event and
-/etc/acpid.conf for a corresponding handler script in /etc/acpi/ to execute. For
-example, create files below to suspend a laptop whenever the lid is closed:
+When events are received, acpid checks /etc/acpi.map for a matching event and
+/etc/acpid.conf for a corresponding handler script in /etc/acpi/ to execute.
+
+Create the files below to suspend a laptop whenever the lid is closed:
 
 +------------------------------------------------------------------------------+
 | /etc/acpi.map                                                                |
@@ -77,7 +75,7 @@ example, create files below to suspend a laptop whenever the lid is closed:
 |                                                                              |
 +------------------------------------------------------------------------------+
 
-Each line in /etc/acpi.map has six space delimited fields:
+Each line in /etc/acpi.map has six space-delimited fields:
     1. Type name (EV_SW),
     2. Type numerical value (0x05)
     3. Keycode name (SW_LID)
@@ -85,16 +83,17 @@ Each line in /etc/acpi.map has six space delimited fields:
     5. Value (1)
     6. Description (button/lid LID0 00000080)
 
-The event value should usually be 1 and the event types and keycodes are listed
-in /usr/include/linux/input-event-codes.h. For example, a keyboard WLAN button
-event would use EV_KEY 0x05 and KEY_WLAN 238.
+Event types and keycodes are listed in /usr/include/linux/input-event-codes.h.
+For example, a keyboard WLAN button event would use EV_KEY 0x05 and KEY_WLAN
+238. The event value should be 1 and the event description can be any string
+potentially including spaces.
 
 Each line in /etc/acpid.conf has a key (LID0) and an action (LID/00000080). The
 key is any unique substring of the event description in /etc/acpi.map and the
 action is the relative path to an executable script in /etc/acpi/.
 
-To check if a configured event is received, check /var/log/acpid.log for output
-lines that list the path to your handler scripts.
+To see if a configured event is received, check /var/log/acpid.log for output
+lines that list the path of your handler scripts.
 
 
 [3.0] acpid2
