@@ -7,7 +7,8 @@ ________________________________________________________________________________
 
 A defconfig is sufficent for the machine to boot. Sound and WIFI must be manu-
 ally enabled. A firmware blob for INTEL Centrino Advanced-N 6205 is necessary.
-Thinkpad specific ACPI options _can_ be enabled.
+It can be found in the root directory of the proprietary kernel firmware. Think-
+Pad specific ACPI options _can_ be enabled.
 
 +------------------------------------------------------------------------------+
 |                                                                              |
@@ -20,8 +21,10 @@ Thinkpad specific ACPI options _can_ be enabled.
 | .config                                                                      |
 +------------------------------------------------------------------------------+
 |                                                                              |
-|   CONFIG_IWLWIFI=m                                                           |
-|   CONFIG_IWLDVM=m                                                            |
+|   CONFIG_IWLWIFI=y                                                           |
+|   CONFIG_IWLDVM=y                                                            |
+|   CONFIG_EXTRA_FIRMWARE="iwlwifi-6000g2a-6.ucode"                            |
+|   CONFIG_EXTRA_FIRMWARE_DIR="/usr/lib/firmware"                              |
 |   CONFIG_SND_HDA_CODEC_REALTEK=y                                             |
 |   CONFIG_THINKPAD_ACPI=y                                                     |
 |                                                                              |
