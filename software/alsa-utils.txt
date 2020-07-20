@@ -17,7 +17,7 @@ First verify that you have alsa-utils installed:
 +------------------------------------------------------------------------------+
 
 By default, ALSA routes audio to card "0" and device "0" (see /etc/asound.conf
-file), which may not be preferred.  Luckily, we can change this behavior via 
+file), which may not be preferred. Luckily, we can change this behavior via 
 local user configuration:
 
 +------------------------------------------------------------------------------+
@@ -29,7 +29,7 @@ local user configuration:
 |                                                                              |
 +------------------------------------------------------------------------------+
 
-In the example, the numeric device name is specified.  When multiple sound cards 
+In the example, the numeric device name is specified. When multiple sound cards 
 are in use, the device numbers could be reordered across boots, such that using 
 a descriptive device name is preferred.
 
