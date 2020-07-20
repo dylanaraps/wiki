@@ -1,4 +1,4 @@
-ALSA-UTILS[0]
+ALSA-UTILS [0]
 ________________________________________________________________________________
 
 The Advanced Linux Sound Architecture (ALSA) provides audio and MIDI 
