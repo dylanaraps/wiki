@@ -5,25 +5,33 @@ Anything in the user's '$PATH' which matches the glob 'kiss-*' will interpreted
 as an extension and be directly usable via the package manager. Here are some
 extensions written by the community.
 
-kiss-bin: an extension for dealing with binary package repositories
+kiss-bin
 ________________________________________________________________________________
+
+Make dealing with binary package repositories easier.
 
 Source: $/CarbsLinux/kiss-bin
 
-kiss-find: search for packages in all known kiss repositories
+
+kiss-find
 ________________________________________________________________________________
+
+Search for packages in all known kiss repositories.
 
 Source: $/Admicos/kiss-repo/tree/master/custom/kiss-find
 
 
-kiss-rmdeps: Recursive package dependency removal tool
+kiss-rmdeps
 ________________________________________________________________________________
+
+Remove dependencies recursively.
 
 Source: https://gist.github.com/FriendlyNeighborhoodShane/41593680b39c0c04cd82b5497ca25a26
 
 
-kiss-steal: Copy packages from any KISS repo automatically
+kiss-steal
 ________________________________________________________________________________
 
-Source: $/Admicos/kiss-repo/tree/master/custom/kiss-steal
+Copy packages from any KISS repo automatically
 
+Source: $/Admicos/kiss-repo/tree/master/custom/kiss-steal
