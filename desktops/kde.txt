@@ -161,8 +161,7 @@ if you know you will not need bluetooth, you have no need for bluedevil.
 
     +--------------------------------------------------------------------------+
     |                                                                          |
-    |   $ kiss b plasma-desktop                                                | 
-    |   $ kiss i plasma-desktop                                                | 
+    |   $ kiss b plasma-desktop && kiss i plasma-desktop                       | 
     |                                                                          |
     +--------------------------------------------------------------------------+
 
@@ -170,8 +169,7 @@ if you know you will not need bluetooth, you have no need for bluedevil.
 
     +--------------------------------------------------------------------------+
     |                                                                          |
-    |   $ kiss b elogind                                                       |
-    |   $ kiss i elogind                                                       |
+    |   $ kiss b elogind && kiss i elogind                                     |
     |                                                                          |
     +--------------------------------------------------------------------------+
 
@@ -292,7 +290,7 @@ the console, or you can make use of a login manager.
     +--------------------------------------------------------------------------+
     |                                                                          |
     |   $ launch="exec dbus-launch --exit-with-session startplasma-x11"        |
-    |   $ echo "$launch" >> $HOME/.xinitrc                                     |
+    |   $ echo "$launch" >> "$HOME/.xinitrc"                                   |
     |                                                                          |
     +--------------------------------------------------------------------------+
 
@@ -306,8 +304,7 @@ the console, or you can make use of a login manager.
 
     +--------------------------------------------------------------------------+
     |                                                                          |
-    |   $ kiss b sddm                                                          |
-    |   $ kiss i sddm                                                          |
+    |   $ kiss b sddm && kiss i sddm                                           |
     |                                                                          |
     +--------------------------------------------------------------------------+
 
@@ -361,8 +358,7 @@ few things available to you that you can change, if you so choose.
     |                                                                          |
     |   $ KISS_FORCE=1 kiss r kwin kwayland-server                             |
     |                                                                          |
-    |   $ kiss b kwinft                                                        |
-    |   $ kiss i kwinft                                                        |
+    |   $ kiss b kwinft && kiss i kwinft                                       |
     |                                                                          |
     |   $ kiss b plasma-workspace && kiss i plasma-workspace                   |
     |   $ kiss b plasma-desktop   && kiss i plasma-desktop                     |
