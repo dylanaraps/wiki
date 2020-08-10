@@ -196,6 +196,10 @@ KDE setup is available from the GitHub repository [3]. This archive can be
 chrooted into or directly unpacked to '/'. Note that it is 500+MB in size.
 It is built from a kiss-chroot archive with identical generic C(XX)FLAGS. 
 
+NOTE: In general, it is a security risk to install prebuilt packages. This
+archive is provided as a courtesy by $/dilyn-corner. Always verify the
+authenticity of packages, and the identities of packagers!
+
 The KISS-kde archive is a fully installed version of plasma-desktop. See [1.0]
 for the distinction between plasma-desktop and plasma.
 
