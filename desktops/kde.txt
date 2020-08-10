@@ -185,6 +185,10 @@ if you know you will not need bluetooth, you have no need for bluedevil.
     |                                                                          |
     +--------------------------------------------------------------------------+
 
+No services are required to be running in order to start a plasma session.
+However, starting the eudev service provides certain useful features such as
+automatic device detection and hotplugging.
+
 
 [2.0] The KISS-kde tarball
 ________________________________________________________________________________
