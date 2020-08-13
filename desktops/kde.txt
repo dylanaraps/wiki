@@ -165,14 +165,6 @@ if you know you will not need bluetooth, you have no need for bluedevil.
     |                                                                          |
     +--------------------------------------------------------------------------+
 
-    Take care of any circular dependencies:
-
-    +--------------------------------------------------------------------------+
-    |                                                                          |
-    |   $ kiss b elogind && kiss i elogind                                     |
-    |                                                                          |
-    +--------------------------------------------------------------------------+
-
     Optionally, enable and start the eudev and dbus services:
 
     +--------------------------------------------------------------------------+
