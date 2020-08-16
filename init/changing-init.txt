@@ -98,14 +98,14 @@ turn the system off is "shutdown".
 
 
     [3.1] Setting up runsvdir
-	____________________________________________________________________________
+	___________________________________________________________________________
 
 	Hummingbird doesn't provide a service manager, and doesn't read from
 	inittab either. Some people find it useful to have one, such as runsvdir.
 
-	+------------------------------------------------------------------------------+
-	|                                                                              |
-	|   $ mkdir /etc/rc.d                                                          |
-	|   $ echo 'runsvdir -P /var/service &' > /etc/rc.d/runsvdir.boot              |
-	|                                                                              |
-	+------------------------------------------------------------------------------+
+	+-------------------------------------------------------------------------+
+	|                                                                         |
+	|   $ mkdir /etc/rc.d                                                     |
+	|   $ echo 'runsvdir -P /var/service &' > /etc/rc.d/runsvdir.boot         |
+	|                                                                         |
+	+-------------------------------------------------------------------------+
