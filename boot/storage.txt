@@ -19,7 +19,9 @@ ________________________________________________________________________________
 - Formatting                                                               [3.0]
     - Filesystems                                                          [3.1]
     - Formatting a Disk                                                    [3.2]
-- References                                                               [4.0]
+- Partitioning Examples                                                    [4.0]
+    - GPT with UEFI support (no swap)                                      [4.1]
+- References                                                               [5.0]
 
 
 [1.0] Overview
@@ -129,12 +131,12 @@ take into consideration:
     +-------------------------------+------------------------------------------+
     |                               |                                          |
     |    GPT with UEFI Support      |   /dev/sda1 (BIOS BOOT, EXT4,   128MB)   |
-    |    with Physical Swap         |   /dev/sda2 (UEFI ESP,  FAT32,  33M)     |
+    |    with physical swap         |   /dev/sda2 (UEFI ESP,  FAT32,  33M)     |
     |                               |   /dev/sda3 (SWAP,      SWAP,   >512MB)  |
     |                               |   /dev/sda4 (ROOTFS,    EXT4,   *)       |
     |                               |                                          |
     |    GPT with UEFI Support      |   /dev/sda1 (BIOS BOOT, EXT4,   128MB)   |
-    |    with No Physical Swap      |   /dev/sda2 (UEFI ESP,  FAT32,  33M)     |
+    |    wihout physical swap       |   /dev/sda2 (UEFI ESP,  FAT32,  33M)     |
     |                               |   /dev/sda3 (ROOTFS,    EXT4,   *)       |
     |                               |                                          |
     +-------------------------------+------------------------------------------+
@@ -183,7 +185,7 @@ In the next section the various file systems that Linux supports are described.
     [3.1] Filesystems
     ____________________________________________________________________________
 
-    The following is a description of supported file systems.  
+    (place holder text)
 
 
     [3.2] Formatting a Disk
@@ -223,7 +225,55 @@ In the next section the various file systems that Linux supports are described.
     +------------------+-------------------+-----------------------------------+
 
 
-[4.0] References
+[4.0] Partitioning Examples
+________________________________________________________________________________
+
+The following are step-by-step partitioning examples, based on the schemas 
+defined herin:
+
+    [4.1] GPT with UEFI support (no swap)
+    ____________________________________________________________________________
+    
+    This example assumes the target device block of /dev/sda, using gdisk for 
+    the actual partitioning process.
+    
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |    root@localhost ~ # gdisk /dev/sda                                     |
+    |    Create GPT partition table:                                           |
+    |    Command: o                                                            |
+    |    This option deletes all partitions and creates a new protective MBR.  |
+    |    Proceed? (Y/N): y                                                     |
+    |                                                                          |
+    |    Create Partition 1 (/boot):                                           |
+    |    Command: n                                                            |
+    |    Partition Number:  (RETURN key for 1)                                 |
+    |    First sector:                                                         |
+    |    Last sector: +128M                                                    |
+    |    Hex Code:                                                             |
+    |                                                                          |
+    |    Create Partition 2 (UEFI ESP):                                        |
+    |    Command: n                                                            |
+    |    Partition Number:  (RETURN key for 2)                                 |
+    |    First sector:                                                         |
+    |    Last sector: +33M                                                     |
+    |    Hex Code: EF00                                                        |
+    |                                                                          |
+    |    Create Partition 3 (/):                                               |
+    |    Command: n                                                            |
+    |    Partition Number:  (RETURN key for 3)                                 |
+    |    First sector:                                                         |
+    |    Last sector:  (RETURN key for rest of disk)                           |
+    |    Hex Code:                                                             |
+    |                                                                          |
+    |    Write Partition Table To Disk:                                        |
+    |    Command: w                                                            |
+    |    Do you want to proceed? (Y/N): Y                                      |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
+
+
+[5.0] References
 ________________________________________________________________________________
 
 [0] https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Disks
