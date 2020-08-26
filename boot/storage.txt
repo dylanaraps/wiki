@@ -187,10 +187,10 @@ In the next section the various file systems that Linux supports are described.
     ____________________________________________________________________________
     
     In order for a disk to be useful as an installation medium, the storage
-    space must be formatted to the desigred format.  The following are example
-    commands that are useful for creating those partition types. Note that not 
-    all commands will be available on your distribution Live CD.  For this 
-    reason, I would recommend consulting the individuals distribution help 
+    space must be formatted to the desired file system type.  The following are 
+    example commands that are useful for creating those partition types. Note 
+    that not all commands will be available on your distribution Live CD.  For 
+    this reason, I would recommend consulting the individuals distribution help 
     pages.
     
     +------------------+-------------------------------------------------------+
