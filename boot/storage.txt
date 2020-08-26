@@ -77,6 +77,8 @@ tools that may be required throughout the process.
     |                  |   issues will arise with DOS disklabel.               |
     |                  |                                                       |
     |   ROOTFS         |   ROOTFS (Root Filesystem) is the primary partition   |
+    |                  |   where the entire system is directly or indirectly   |
+    |                  |   mounted to (e.g. /dev, /home, etc).                 |
     |                  |                                                       |
     |   BIOS BOOT      |   BIOS boot partition is a very small (1 to 2 MB)     |
     |                  |   partition in which boot loaders like GRUB2 can      |
