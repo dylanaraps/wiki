@@ -18,6 +18,7 @@ ________________________________________________________________________________
     - EFI/UEFI or BIOS                                                     [2.3]
 - Formatting                                                               [3.0]
     - Filesystems                                                          [3.1]
+    - Formatting a Disk                                                    [3.2]
 - References                                                               [4.0]
 
 
@@ -177,13 +178,13 @@ Now that the partitions are created, it is time to place a filesystem on them.
 In the next section the various file systems that Linux supports are described.
 
 
-    [3.1] File Systems
+    [3.1] Filesystems
     ____________________________________________________________________________
 
     The following is a description of supported file systems.  
 
 
-    [3.1] Formatting a Disk
+    [3.2] Formatting a Disk
     ____________________________________________________________________________
     
     In order for a disk to be useful as an installation medium, the storage
@@ -193,31 +194,31 @@ In the next section the various file systems that Linux supports are described.
     this reason, I would recommend consulting the individuals distribution help 
     pages.
     
-    +------------------+-------------------------------------------------------+
-    |    Filesystem    |   Command                                             |
-    +------------------+-------------------------------------------------------+
-    |                  |                                                       |
-    |    btrfs         |   mkfs.btrfs                                          |
-    |                  |                                                       |
-    |    ext2          |   mkfs.ext2                                           |
-    |                  |                                                       |
-    |    ext3          |   mkfs.ext3                                           |
-    |                  |                                                       |
-    |    ext4          |   mkfs.ext4                                           |
-    |                  |                                                       |
-    |    f2fs          |   mkfs.f2fs                                           |
-    |                  |                                                       |
-    |    jfs           |   mkfs.jfs                                            |
-    |                  |                                                       |
-    |    reiserfs      |   mkfs.reiserfs                                       |
-    |                  |                                                       |
-    |    xfs           |   mkfs.xfs                                            |
-    |                  |                                                       |
-    |    vfat          |   mkfs.vfat                                           |
-    |                  |                                                       |
-    |    NTFS          |   mkfs.ntfs                                           |
-    |                  |                                                       |
-    +------------------+-------------------------------------------------------+
+    +------------------+-------------------+-----------------------------------+
+    |    Filesystem    |   Command         |   Userspace Utilities (Repo)      |
+    +------------------+-------------------+-----------------------------------+
+    |                  |                   |                                   |
+    |    btrfs         |   mkfs.btrfs      |   btrfs-progs (Community)         |
+    |                  |                   |                                   |
+    |    ext2          |   mkfs.ext2       |   e2fsprogs (Extra)               |
+    |                  |                   |                                   |
+    |    ext3          |   mkfs.ext3       |   e2fsprogs (Extra)               |
+    |                  |                   |                                   |
+    |    ext4          |   mkfs.ext4       |   e2fsprogs (Extra)               |
+    |                  |                   |                                   |
+    |    f2fs          |   mkfs.f2fs       |   f2fs-tools                      |
+    |                  |                   |                                   |
+    |    jfs           |   mkfs.jfs        |   jfsutils                        |
+    |                  |                   |                                   |
+    |    reiserfs      |   mkfs.reiserfs   |   reiserfsprogs                   |
+    |                  |                   |                                   |
+    |    xfs           |   mkfs.xfs        |   xfsprogs                        |
+    |                  |                   |                                   |
+    |    vfat          |   mkfs.vfat       |   dosfstools                      |
+    |                  |                   |                                   |
+    |    NTFS          |   mkfs.ntfs       |   ntfs-3g (Community)             |
+    |                  |                   |                                   |
+    +------------------+-------------------+-----------------------------------+
 
 
 [4.0] References
@@ -225,3 +226,4 @@ ________________________________________________________________________________
 
 [0] https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Disks
 [1] http://www.uefi.org/sites/default/files/resources/UEFI%202_5.pdf
+[2] https://wiki.archlinux.org/index.php/file_systems
