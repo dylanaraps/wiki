@@ -1,7 +1,7 @@
 STORAGE
 ________________________________________________________________________________
 
-This article will attempt to guide users through the process of preparing a disk 
+This article will provide general guidance on the process of preparing a disk 
 device (HDD or SDD) for a new installation of KISS Linux.  Advanced storage
 formats (e.g. RAID and NVME) and requirements are considered out of scope.
 
@@ -11,12 +11,13 @@ ________________________________________________________________________________
 
 - Overview                                                                 [1.0]
     - Definitions                                                          [1.1]
-	- Tools                                                                [1.2]
+    - Tools                                                                [1.2]
 - Partitioning Schemas                                                     [2.0]
-	- Partition Number, Format and Size                                    [2.1]
-	- Swap Space                                                           [2.2]
-	- EFI/UEFI or BIOS                                                     [2.3]
+    - Partition Number, Format and Size                                    [2.1]
+    - Swap Space                                                           [2.2]
+    - EFI/UEFI or BIOS                                                     [2.3]
 - Formatting                                                               [3.0]
+    - Filesystems                                                          [3.1]
 - References                                                               [4.0]
 
 
@@ -33,80 +34,80 @@ tools that may be required throughout the process.
 
     [1.1] Terminology
     ____________________________________________________________________________
-	
-	+------------------+-------------------------------------------------------+
-	|                  |                                                       |
-	|   Block Device   |   Represents an abstract interface to the disk.       |
-	|                  |   User programs can use these block devices to        |
-	|                  |   interact with the disk without worrying about       |
-	|                  |   whether the drives are SATA, SCSI, or something     |
-	|                  |   else. (e.g. /dev/sd*, /dev/nvme0n1, etc)            |
-	|                  |                                                       |
-	|   Partitions     |   Represent smaller, more manageable block devices.   |
-	|                  |   There are currently two standard partitioning       |
-	|                  |   technologies in use: DOS disklabel (sometimes       |
-	|                  |   also called MBR) and GPT; these are somewhat        |
-	|                  |   loosely tied to the two boot process types legacy   |
-	|                  |   (BIOS) boot and UEFI.                               |
-	|                  |                                                       |
-  |   DOS            |   The DOS disklabel setup uses 32-bit identifiers     |
-	|   Disklabel      |   for the start sector and length of the partitions,  |
-	|                  |   and supports three partition types: primary,        |
-	|                  |   extended, and logical. Primary partitions have      |
-	|                  |   their information stored in the master boot         |
-	|                  |   record itself - a very small (usually 512 bytes)    |
-	|                  |   location at the very beginning of a disk. Due to    |
-	|                  |   this small space, only four primary partitions      |
-	|                  |   are supported (for instance, /dev/sda1 to           |
-	|                  |   /dev/sda4).                                         |
-	|                  |                                                       |
-	|   GPT            |   GPT (GUID Partition Table) setup uses 64-bit        |
-	|                  |   identifiers for the partitions. The location in     |
-	|                  |   which it stores the partition information is much   |
-	|                  |   bigger than the 512 bytes of a DOS disklabel,       |
-	|                  |   which means there is practically no limit on the    |
-	|                  |   amount of partitions for a GPT disk. Also the       |
-	|                  |   size of a partition is bounded by a much greater    |
-	|                  |   limit (almost 8 ZiB - yes, zettabytes).             |
-	|                  |                                                       |
-	|                  |   When a system's software interface between the      |
-	|                  |   operating system and firmware is UEFI (instead of   |
-	|                  |   BIOS), GPT is almost mandatory as compatibility     |
-	|                  |   issues will arise with DOS disklabel.               |
-  |                  |                                                       |
-	|   ROOTFS         |   ROOTFS (Root Filesystem) is the primary partition   |
-	|                  |                                                       |
-	|   BIOS BOOT      |   BIOS boot partition is a very small (1 to 2 MB)     |
-	|                  |   partition in which boot loaders like GRUB2 can      |
-	|                  |   put additional data that doesn't fit in the         |
-	|                  |   allocated storage (a few hundred bytes in case of   |
-	|                  |   MBR) and cannot be placed elsewhere.                |
-	|                  |                                                       |
-	+------------------+-------------------------------------------------------+
+    
+    +------------------+-------------------------------------------------------+
+    |                  |                                                       |
+    |   Block Device   |   Represents an abstract interface to the disk.       |
+    |                  |   User programs can use these block devices to        |
+    |                  |   interact with the disk without worrying about       |
+    |                  |   whether the drives are SATA, SCSI, or something     |
+    |                  |   else. (e.g. /dev/sd*, /dev/nvme0n1, etc)            |
+    |                  |                                                       |
+    |   Partitions     |   Represent smaller, more manageable block devices.   |
+    |                  |   There are currently two standard partitioning       |
+    |                  |   technologies in use: DOS disklabel (sometimes       |
+    |                  |   also called MBR) and GPT; these are somewhat        |
+    |                  |   loosely tied to the two boot process types legacy   |
+    |                  |   (BIOS) boot and UEFI.                               |
+    |                  |                                                       |
+    |   DOS            |   The DOS disklabel setup uses 32-bit identifiers     |
+    |   Disklabel      |   for the start sector and length of the partitions,  |
+    |                  |   and supports three partition types: primary,        |
+    |                  |   extended, and logical. Primary partitions have      |
+    |                  |   their information stored in the master boot         |
+    |                  |   record itself - a very small (usually 512 bytes)    |
+    |                  |   location at the very beginning of a disk. Due to    |
+    |                  |   this small space, only four primary partitions      |
+    |                  |   are supported (for instance, /dev/sda1 to           |
+    |                  |   /dev/sda4).                                         |
+    |                  |                                                       |
+    |   GPT            |   GPT (GUID Partition Table) setup uses 64-bit        |
+    |                  |   identifiers for the partitions. The location in     |
+    |                  |   which it stores the partition information is much   |
+    |                  |   bigger than the 512 bytes of a DOS disklabel,       |
+    |                  |   which means there is practically no limit on the    |
+    |                  |   amount of partitions for a GPT disk. Also the       |
+    |                  |   size of a partition is bounded by a much greater    |
+    |                  |   limit (almost 8 ZiB - yes, zettabytes).             |
+    |                  |                                                       |
+    |                  |   When a system's software interface between the      |
+    |                  |   operating system and firmware is UEFI (instead of   |
+    |                  |   BIOS), GPT is almost mandatory as compatibility     |
+    |                  |   issues will arise with DOS disklabel.               |
+    |                  |                                                       |
+    |   ROOTFS         |   ROOTFS (Root Filesystem) is the primary partition   |
+    |                  |                                                       |
+    |   BIOS BOOT      |   BIOS boot partition is a very small (1 to 2 MB)     |
+    |                  |   partition in which boot loaders like GRUB2 can      |
+    |                  |   put additional data that doesn't fit in the         |
+    |                  |   allocated storage (a few hundred bytes in case of   |
+    |                  |   MBR) and cannot be placed elsewhere.                |
+    |                  |                                                       |
+    +------------------+-------------------------------------------------------+
 
     * Due to using 32-bit identifiers, DOS partitioning tables cannot handle 
-	  disks that are >2 TBs in size. Also, unless a extended partition is 
-	  created, DOS disklables supports a maximum of four partitions.
-	* Using GPT on a BIOS-based computer works, but then one cannot dual-boot 
-	  with a Microsoft Windows operating system. The reason is that Microsoft 
-	  Windows will boot in UEFI mode if it detects a GPT partition label. Also 
-	  note that some buggy (old) motherboard firmware configured to boot in 
-	  BIOS/CSM/legacy mode might also have problems with booting from GPT  
-	  labeled disks.
+      disks that are >2 TBs in size. Also, unless a extended partition is 
+      created, DOS disklables supports a maximum of four partitions.
+    * Using GPT on a BIOS-based computer works, but then one cannot dual-boot 
+      with a Microsoft Windows operating system. The reason is that Microsoft 
+      Windows will boot in UEFI mode if it detects a GPT partition label. Also 
+      note that some buggy (old) motherboard firmware configured to boot in 
+      BIOS/CSM/legacy mode might also have problems with booting from GPT  
+      labeled disks.
 
 
     [1.2] Tools
     ____________________________________________________________________________
 
     Depending on which Live CD or distribution (e.g. Arch or Gentoo) KISS Linux
-	is installed from, you may find one or several of the following tools at 
-	your disposal:
+    is installed from, you may find one or several of the following tools at 
+    your disposal:
 
     - gdisk
     - parted
-	- fdisk
-	
-	
+    - fdisk
+    
+    
 [2.0] Partitioning Schemas
 ________________________________________________________________________________
 
@@ -115,58 +116,108 @@ take into consideration:
 
     [2.1] Partition Number, Format and Size
     ____________________________________________________________________________
-	
-	The number of partitions required is highly variable and dependent on the
-	environment.  The following table provides examples of common partition
-	schemas, formats and recommended sizes:
-	
-	+-------------------------------+------------------------------------------+
-	|    Schema Description         |   Partition (Type,      Format, Size)    |
-	+-------------------------------+------------------------------------------+
-	|                               |                                          |
-	|    GPT with UEFI Support      |   /dev/sda1 (BIOS BOOT, EXT4,   128MB)   |
-	|    with Physical Swap         |   /dev/sda2 (UEFI ESP,  FAT32,  33M)     |
-	|                               |   /dev/sda3 (SWAP,      SWAP,   >512MB)  |
-	|                               |   /dev/sda4 (ROOTFS,    EXT4,   REST)    |
-	|                               |                                          |
-	|    GPT with UEFI Support      |   /dev/sda1 (BIOS BOOT, EXT4,   128MB)   |
-	|    with No Physical Swap      |   /dev/sda2 (UEFI ESP,  FAT32,  33M)     |
-	|                               |   /dev/sda3 (ROOTFS,    EXT4,   REST)    |
-	|                               |                                          |
-	+-------------------------------+------------------------------------------+
-	
+    
+    The number of partitions required is highly variable and dependent on the
+    environment.  The following table provides examples of common partition
+    schemas, formats and recommended sizes:
+    
+    +-------------------------------+------------------------------------------+
+    |    Schema Description         |   Partition (Type,      Format, Size)    |
+    +-------------------------------+------------------------------------------+
+    |                               |                                          |
+    |    GPT with UEFI Support      |   /dev/sda1 (BIOS BOOT, EXT4,   128MB)   |
+    |    with Physical Swap         |   /dev/sda2 (UEFI ESP,  FAT32,  33M)     |
+    |                               |   /dev/sda3 (SWAP,      SWAP,   >512MB)  |
+    |                               |   /dev/sda4 (ROOTFS,    EXT4,   *)       |
+    |                               |                                          |
+    |    GPT with UEFI Support      |   /dev/sda1 (BIOS BOOT, EXT4,   128MB)   |
+    |    with No Physical Swap      |   /dev/sda2 (UEFI ESP,  FAT32,  33M)     |
+    |                               |   /dev/sda3 (ROOTFS,    EXT4,   *)       |
+    |                               |                                          |
+    +-------------------------------+------------------------------------------+
+    
+    * In most cases, the user will desire the root partition to span the remain 
+      space on the disk device.
+
+      
     [2.2] Swap Space
     ____________________________________________________________________________
-	
-	The purpose of swap space is to provide disk storage to the kernel when 
-	internal memory (RAM) is under pressure. When the system is not going to run 
-	memory intensive applications or the system has lots of memory available, 
-	then it probably does not need much swap space. However, swap space is also 
-	used to store the entire memory in case of hibernation. If the system is 
-	going to need hibernation, then a bigger swap space is necessary, often at 
-	least the amount of memory installed in the system. 
-	
-	Note that a physical swap partition is not required as a swap file can be 
-	used, created/specified and resized later in the KISS Linux installation
-	process. 
-	
-	
+    
+    The purpose of swap space is to provide disk storage to the kernel when 
+    internal memory (RAM) is under pressure. When the system is not going to run 
+    memory intensive applications or the system has lots of memory available, 
+    then it probably does not need much swap space. However, swap space is also 
+    used to store the entire memory in case of hibernation. If the system is 
+    going to need hibernation, then a bigger swap space is necessary, often at 
+    least the amount of memory installed in the system. 
+    
+    Note that a physical swap partition is not required as a swap file can be 
+    used, created/specified and resized later in the KISS Linux installation
+    process. 
+    
+    
     [2.3] EFI/UEFI or BIOS
     ____________________________________________________________________________
 
     Depending on your chosen boot process type UEFI or BIOS, you may need to 
-	create additional partitions. Typically, these additional partitions are
-	created before specifying the root partition.  
-	
-	- For UEFI, a ESP partition must be created and FAT formatted (preferably 
-	  FAT32) [1].
-	- BIOS boot partition is needed when a GPT partition layout is used with 
-	  GRUB2 in BIOS/Legacy mode. It is not required when booting in EFI/UEFI 
-	  mode.
-	
-	
+    create additional partitions. Typically, these additional partitions are
+    created before specifying the root partition.  
+    
+    - For UEFI, a ESP partition must be created and FAT formatted (preferably 
+      FAT32) [1].
+    - BIOS boot partition is needed when a GPT partition layout is used with 
+      GRUB2 in BIOS/Legacy mode. It is not required when booting in EFI/UEFI 
+      mode.
+    
+    
 [3.0] Formatting
 ________________________________________________________________________________
+
+Now that the partitions are created, it is time to place a filesystem on them. 
+In the next section the various file systems that Linux supports are described.
+
+
+    [3.1] File Systems
+    ____________________________________________________________________________
+
+    The following is a description of supported file systems.  
+
+
+    [3.1] Formatting a Disk
+    ____________________________________________________________________________
+    
+    In order for a disk to be useful as an installation medium, the storage
+    space must be formatted to the desigred format.  The following are example
+    commands that are useful for creating those partition types. Note that not 
+    all commands will be available on your distribution Live CD.  For this 
+    reason, I would recommend consulting the individuals distribution help 
+    pages.
+    
+    +------------------+-------------------------------------------------------+
+    |    Filesystem    |   Command                                             |
+    +------------------+-------------------------------------------------------+
+    |                  |                                                       |
+    |    btrfs         |   mkfs.btrfs                                          |
+    |                  |                                                       |
+    |    ext2          |   mkfs.ext2                                           |
+    |                  |                                                       |
+    |    ext3          |   mkfs.ext3                                           |
+    |                  |                                                       |
+    |    ext4          |   mkfs.ext4                                           |
+    |                  |                                                       |
+    |    f2fs          |   mkfs.f2fs                                           |
+    |                  |                                                       |
+    |    jfs           |   mkfs.jfs                                            |
+    |                  |                                                       |
+    |    reiserfs      |   mkfs.reiserfs                                       |
+    |                  |                                                       |
+    |    xfs           |   mkfs.xfs                                            |
+    |                  |                                                       |
+    |    vfat          |   mkfs.vfat                                           |
+    |                  |                                                       |
+    |    NTFS          |   mkfs.ntfs                                           |
+    |                  |                                                       |
+    +------------------+-------------------------------------------------------+
 
 
 [4.0] References
