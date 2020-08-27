@@ -143,6 +143,10 @@ take into consideration:
     
     * In most cases, the user will desire the root partition to span the remain 
       space on the disk device.
+    * Building big packages like rust or firefox from source require a large 
+      amount of memory. Make sure that your physical RAM and swap add up to 
+      ~10GB or more of size. Or consider the usage of a dynamical growing swap 
+      file.
 
       
     [2.2] Swap Space
