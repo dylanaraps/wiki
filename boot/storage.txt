@@ -90,20 +90,6 @@ tools that may be required throughout the process.
     |                  |   allocated storage (a few hundred bytes in case of   |
     |                  |   MBR) and cannot be placed elsewhere.                |
     |                  |                                                       |
-    |   SWAP SPACE     |   Swap space can take the form of a disk partition    | 
-    |                  |   or a file. Users may create a swap space during     |
-    |                  |   installation or at any later time as desired.       |
-    |                  |   Swap space can be used for two purposes, to         |
-    |                  |   extend the virtual memory beyond the installed      |
-    |                  |   physical memory (RAM), a.k.a "enable swap", and     |
-    |                  |   also for suspend-to-disk support.                   |
-    |                  |   If it is beneficial to enable swap depends on the   |
-    |                  |   amount of installed physical memory, and the        |
-    |                  |   amount of memory required to run all the desired    | 
-    |                  |   programs. If the amount of physical memory is       |
-    |                  |   less than the required amount, then it is           |
-    |                  |   beneficial to enable swap.                          |
-    |                  |                                                       |
     +------------------+-------------------------------------------------------+
 
     * Due to using 32-bit identifiers, DOS partitioning tables cannot handle 
@@ -115,7 +101,6 @@ tools that may be required throughout the process.
       note that some buggy (old) motherboard firmware configured to boot in 
       BIOS/CSM/legacy mode might also have problems with booting from GPT  
       labeled disks.
-
 
     [1.2] Tools
     ____________________________________________________________________________
@@ -247,7 +232,12 @@ In the next section the various file systems that Linux supports are described.
     |                  |                   |                                   |
     +------------------+-------------------+-----------------------------------+
 
-    [3.2] Swap Files
+    [3.2] Swap Partition
+    ____________________________________________________________________________  
+    
+    
+    
+    [3.3] Swap File
     ____________________________________________________________________________    
     
     As an alternative to creating an entire partition, a swap file offers the 
