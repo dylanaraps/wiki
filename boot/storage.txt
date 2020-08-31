@@ -23,7 +23,6 @@ ________________________________________________________________________________
     - Swap Partition                                                       [3.4]
 - Partitioning Examples                                                    [4.0]
     - GPT with BIOS BOOT    (no swap)                                      [4.1]
-
 - References                                                               [5.0]
 
 
@@ -299,6 +298,29 @@ In the next section the various file systems that Linux supports are described.
     Lastly, you will want to edit your fstab configuration to add an entry for 
     the swap file.
     
+
+    [3.4] Swap Partition
+    ____________________________________________________________________________ 
+    
+    To set up a partition as Linux swap area, the mkswap command is use 
+    (remember to replace "sda1" with the appropriate device letter):
+    
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   mkswap /dev/sda1                                                       |
+    |                                                                          |
+    +--------------------------------------------------------------------------+  
+    
+    To enable the device for paging:
+
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   swapon /dev/sda1                                                       |
+    |                                                                          |
+    +--------------------------------------------------------------------------+  
+    
+    Lastly, you will want to edit your fstab configuration to add an entry for 
+    the swap partition.
 
 [4.0] Partitioning Examples
 ________________________________________________________________________________
