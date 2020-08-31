@@ -22,7 +22,8 @@ ________________________________________________________________________________
     - Swap File                                                            [3.3]
     - Swap Partition                                                       [3.4]
 - Partitioning Examples                                                    [4.0]
-    - GPT with BIOS BOOT    (no swap)                                      [4.1]
+    - GPT with UFEI (without swap partition)                               [4.1]
+    - GPT with UFEI (with swap partition)                                  [4.1]
 - References                                                               [5.0]
 
 
