@@ -14,12 +14,13 @@ ________________________________________________________________________________
     - Tools                                                                [1.2]
 - Partitioning Schemas                                                     [2.0]
     - Partition Number, Format and Size                                    [2.1]
-    - Swap Space                                                           [2.2]
+    - Swap Partition or Swap File                                          [2.2]
     - EFI/UEFI or BIOS                                                     [2.3]
 - Formatting                                                               [3.0]
     - Filesystems                                                          [3.1]
     - Formatting a Disk                                                    [3.2]
-    - Swap Files                                                           [3.3]
+    - Swap File                                                            [3.3]
+    - Swap Partition                                                       [3.4]
 - Partitioning Examples                                                    [4.0]
     - GPT with BIOS BOOT    (no swap)                                      [4.1]
 
@@ -90,6 +91,26 @@ tools that may be required throughout the process.
     |                  |   allocated storage (a few hundred bytes in case of   |
     |                  |   MBR) and cannot be placed elsewhere.                |
     |                  |                                                       |
+    |   SWAP FILES     |   Swap space can take the form of a disk partition    | 
+    |                  |   or a file. Users may create a swap space during     | 
+    |                  |   installation or at any later time as desired.       |
+    |                  |   Swap space can be used for two purposes, to         |
+    |                  |   extend the virtual memory beyond the installed      | 
+    |                  |   physical memory (RAM), a.k.a "enable swap", and     | 
+    |                  |   also for suspend-to-disk support.                   |
+    |                  |                                                       |
+    |                  |   If it is beneficial to enable swap depends on the   |
+    |                  |   amount of installed physical memory, and the        | 
+    |                  |   amount of memory required to run all the desired    |  
+    |                  |   programs. If the amount of physical memory is       | 
+    |                  |   less than the required amount, then it is           | 
+    |                  |   beneficial to enable swap.                          |
+    |                  |                                                       |
+    |                  |   The biggest drawback to enabling swap is its        | 
+    |                  |   lower performance, as swap operations are usually   | 
+    |                  |   significantly slower than directly accessing data   | 
+    |                  |   in RAM.                                             | 
+    |                  |                                                       |
     +------------------+-------------------------------------------------------+
 
     * Due to using 32-bit identifiers, DOS partitioning tables cannot handle 
@@ -131,13 +152,13 @@ take into consideration:
     |    Schema Description         |   Partition (Type,      Format, Size)    |
     +-------------------------------+------------------------------------------+
     |                               |                                          |
-    |    GPT and BIOS Partition     |   /dev/sda1 (BIOS BOOT, EXT4,   128MB)   |
-    |    wihout physical swap       |   /dev/sda2 (UEFI ESP,  FAT32,  33M)     |
+    |    GPT + BIOS                 |   /dev/sda1 (BIOS BOOT, EXT4,   128MB)   |
+    |    without swap partition     |   /dev/sda2 (UEFI ESP,  FAT32,  33M)     |
     |                               |   /dev/sda3 (ROOTFS,    EXT4,   *)       |
     |                               |                                          |
-    |    GPT and BIOS Partition     |   /dev/sda1 (BIOS BOOT, EXT4,   128MB)   |
-    |    with physical swap         |   /dev/sda2 (UEFI ESP,  FAT32,  33M)     |
-    |                               |   /dev/sda3 (SWAP,      SWAP,   >512MB)  |
+    |    GPT + BIOS                 |   /dev/sda1 (BIOS BOOT, EXT4,   128MB)   |
+    |    with swap partition        |   /dev/sda2 (UEFI ESP,  FAT32,  33M)     |
+    |                               |   /dev/sda3 (swap,      swap,   >512MB)  |
     |                               |   /dev/sda4 (ROOTFS,    EXT4,   *)       |
     |                               |                                          |
     +-------------------------------+------------------------------------------+
@@ -153,20 +174,10 @@ take into consideration:
       custom configuration files, downloads, etc.
 
       
-    [2.2] Swap Space
+    [2.2] Swap Partition or Swap File
     ____________________________________________________________________________
     
-    The purpose of swap space is to provide disk storage to the kernel when 
-    internal memory (RAM) is under pressure. When the system is not going to run 
-    memory intensive applications or the system has lots of memory available, 
-    then it probably does not need much swap space. However, swap space is also 
-    used to store the entire memory in case of hibernation. If the system is 
-    going to need hibernation, then a bigger swap space is necessary, often at 
-    least the amount of memory installed in the system. 
-    
-    Note that a physical swap partition is not required as a swap file can be 
-    used, created/specified and resized later in the KISS Linux installation
-    process. 
+    (placeholder text)
     
     
     [2.3] EFI/UEFI or BIOS
@@ -230,13 +241,11 @@ In the next section the various file systems that Linux supports are described.
     |                  |                   |                                   |
     |    NTFS          |   mkfs.ntfs       |   ntfs-3g (Community)             |
     |                  |                   |                                   |
+    |    swap          |   mkswap          |                                   |
+    |                  |                   |                                   |    
     +------------------+-------------------+-----------------------------------+
 
-    [3.2] Swap Partition
-    ____________________________________________________________________________  
-    
-    
-    
+
     [3.3] Swap File
     ____________________________________________________________________________    
     
@@ -244,7 +253,8 @@ In the next section the various file systems that Linux supports are described.
     ability to vary its size on-the-fly, and is more easily removed altogether. 
     This may be especially desirable if disk space is at a premium.
 
-    To create a swap file, use dd commmand and specify the file size:
+    To create a swap file, use dd commmand and specify the file size (remember 
+    to change 512, for 512MB, with the appropriate desired swap file size):
     
     +--------------------------------------------------------------------------+
     |                                                                          |
@@ -286,6 +296,9 @@ In the next section the various file systems that Linux supports are described.
     |                                                                          |
     +--------------------------------------------------------------------------+
     
+    Lastly, you will want to edit your fstab configuration to add an entry for 
+    the swap file.
+    
 
 [4.0] Partitioning Examples
 ________________________________________________________________________________
@@ -293,7 +306,7 @@ ________________________________________________________________________________
 The following are step-by-step partitioning examples, based on the schemas 
 defined herin:
 
-    [4.1] GPT with BIOS BOOT (no swap)
+    [4.1] GPT with EFI (no swap partition)
     ____________________________________________________________________________
     
     This example assumes the target device block of /dev/sda, using gdisk for 
@@ -334,6 +347,53 @@ defined herin:
     |                                                                          |
     +--------------------------------------------------------------------------+
 
+    [4.2] GPT with EFI BOOT (with swap partition)
+    ____________________________________________________________________________
+    
+    This example assumes the target device block of /dev/sda, using gdisk for 
+    the actual partitioning process and a swap file size of 512MB.
+    
+    +--------------------------------------------------------------------------+
+    |                                                                          |    
+    |    root@localhost ~ # gdisk /dev/sda                                     |
+    |    Create GPT partition table:                                           |
+    |    Command: o                                                            |
+    |    This option deletes all partitions and creates a new protective MBR.  |
+    |    Proceed? (Y/N): y                                                     |
+    |                                                                          |
+    |    Create Partition 1 (/boot):                                           |
+    |    Command: n                                                            |
+    |    Partition Number:  (RETURN key for 1)                                 |
+    |    First sector:                                                         |
+    |    Last sector: +128M                                                    |
+    |    Hex Code:                                                             |
+    |                                                                          |
+    |    Create Partition 2 (UEFI ESP):                                        |
+    |    Command: n                                                            |
+    |    Partition Number:  (RETURN key for 2)                                 |
+    |    First sector:                                                         |
+    |    Last sector: +33M                                                     |
+    |    Hex Code: EF00                                                        |
+    |                                                                          | 
+    |    Create Partition 3 (SWAP):                                            |
+    |    Command: n                                                            |
+    |    Partition Number:  (RETURN key for 3)                                 |
+    |    First sector:                                                         |
+    |    Last sector: +512                                                     |
+    |    Hex Code: 8200                                                        |
+    |                                                                          |
+    |    Create Partition 4 (/):                                               |
+    |    Command: n                                                            |
+    |    Partition Number:  (RETURN key for 4)                                 |
+    |    First sector:                                                         |
+    |    Last sector:  (RETURN key for rest of disk)                           |
+    |    Hex Code:                                                             |
+    |                                                                          |
+    |    Write Partition Table To Disk:                                        |
+    |    Command: w                                                            |
+    |    Do you want to proceed? (Y/N): Y                                      |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
 
 [5.0] References
 ________________________________________________________________________________
