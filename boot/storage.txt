@@ -152,12 +152,8 @@ take into consideration:
     |    Schema Description         |   Partition (Type,      Format, Size)    |
     +-------------------------------+------------------------------------------+
     |                               |                                          |
-    |    GPT + BIOS                 |   /dev/sda1 (BIOS BOOT, EXT4,   128MB)   |
-    |    without swap partition     |   /dev/sda2 (UEFI ESP,  FAT32,  33M)     |
-    |                               |   /dev/sda3 (ROOTFS,    EXT4,   *)       |
-    |                               |                                          |
-    |    GPT + BIOS                 |   /dev/sda1 (BIOS BOOT, EXT4,   128MB)   |
-    |    with swap partition        |   /dev/sda2 (UEFI ESP,  FAT32,  33M)     |
+    |    GPT + BIOS (with swap)     |   /dev/sda1 (BIOS BOOT, EXT4,   128MB)   |
+    |                               |   /dev/sda2 (UEFI ESP,  FAT32,  33M)     |
     |                               |   /dev/sda3 (swap,      swap,   >512MB)  |
     |                               |   /dev/sda4 (ROOTFS,    EXT4,   *)       |
     |                               |                                          |
@@ -425,3 +421,4 @@ ________________________________________________________________________________
 [1] http://www.uefi.org/sites/default/files/resources/UEFI%202_5.pdf
 [2] https://wiki.archlinux.org/index.php/file_systems
 [3] https://wiki.archlinux.org/index.php/swap
+[4] https://www.funtoo.org/Partitioning_using_gdisk
