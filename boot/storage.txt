@@ -2,7 +2,7 @@ STORAGE
 ________________________________________________________________________________
 
 This article will provide general guidance on the process of preparing a disk 
-device (HDD or SDD) for a new installation of KISS Linux.  Advanced storage
+device (SSD or HDD) for a new installation of KISS Linux.  Advanced storage
 formats (e.g. RAID and NVME) and requirements are considered out of scope.
 
 
