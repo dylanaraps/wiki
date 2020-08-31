@@ -19,8 +19,9 @@ ________________________________________________________________________________
 - Formatting                                                               [3.0]
     - Filesystems                                                          [3.1]
     - Formatting a Disk                                                    [3.2]
+    - Swap Files                                                           [3.3]
 - Partitioning Examples                                                    [4.0]
-    - GPT with UEFI support (no swap)                                      [4.1]
+    - GPT with BIOS BOOT    (no swap)                                      [4.1]
 
 - References                                                               [5.0]
 
@@ -88,6 +89,20 @@ tools that may be required throughout the process.
     |                  |   put additional data that doesn't fit in the         |
     |                  |   allocated storage (a few hundred bytes in case of   |
     |                  |   MBR) and cannot be placed elsewhere.                |
+    |                  |                                                       |
+    |   SWAP SPACE     |   Swap space can take the form of a disk partition    | 
+    |                  |   or a file. Users may create a swap space during     |
+    |                  |   installation or at any later time as desired.       |
+    |                  |   Swap space can be used for two purposes, to         |
+    |                  |   extend the virtual memory beyond the installed      |
+    |                  |   physical memory (RAM), a.k.a "enable swap", and     |
+    |                  |   also for suspend-to-disk support.                   |
+    |                  |   If it is beneficial to enable swap depends on the   |
+    |                  |   amount of installed physical memory, and the        |
+    |                  |   amount of memory required to run all the desired    | 
+    |                  |   programs. If the amount of physical memory is       |
+    |                  |   less than the required amount, then it is           |
+    |                  |   beneficial to enable swap.                          |
     |                  |                                                       |
     +------------------+-------------------------------------------------------+
 
@@ -199,8 +214,8 @@ In the next section the various file systems that Linux supports are described.
     [3.2] Formatting a Disk
     ____________________________________________________________________________
     
-    In order for a disk to be useful as an installation medium, the storage
-    space must be formatted to the desired file system type.  The following are 
+    In order for a disk to be used as an installation medium, the storage space 
+    must be formatted to the desired file system type.  The following are 
     example commands that are useful for creating those partition types. Note 
     that not all commands will be available on your distribution Live CD.  For 
     this reason, I would recommend consulting the individuals distribution help 
@@ -232,6 +247,55 @@ In the next section the various file systems that Linux supports are described.
     |                  |                   |                                   |
     +------------------+-------------------+-----------------------------------+
 
+    [3.2] Swap Files
+    ____________________________________________________________________________    
+    
+    As an alternative to creating an entire partition, a swap file offers the 
+    ability to vary its size on-the-fly, and is more easily removed altogether. 
+    This may be especially desirable if disk space is at a premium.
+
+    To create a swap file, use dd commmand and specify the file size:
+    
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   dd if=/dev/zero of=/swapfile bs=1M count=512 status=progress           |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
+    
+    Set the right permissions:
+
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   chmod 600 /swapfile                                                    |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
+    
+    After creating the correctly sized file, format it to swap:
+    
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   mkswap /swapfile                                                       |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
+   
+    Activate the swap file:
+   
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   swapon /swapfile                                                       |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
+    
+    To remove a swap file, it's a simple as disabling the current one and 
+    deleting the swap file:
+    
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   swapoff /swapfile                                                      |
+    |   rm -f /swapfile                                                        |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
+    
 
 [4.0] Partitioning Examples
 ________________________________________________________________________________
@@ -239,7 +303,7 @@ ________________________________________________________________________________
 The following are step-by-step partitioning examples, based on the schemas 
 defined herin:
 
-    [4.1] GPT with UEFI support (no swap)
+    [4.1] GPT with BIOS BOOT (no swap)
     ____________________________________________________________________________
     
     This example assumes the target device block of /dev/sda, using gdisk for 
@@ -287,3 +351,4 @@ ________________________________________________________________________________
 [0] https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Disks
 [1] http://www.uefi.org/sites/default/files/resources/UEFI%202_5.pdf
 [2] https://wiki.archlinux.org/index.php/file_systems
+[3] https://wiki.archlinux.org/index.php/swap
