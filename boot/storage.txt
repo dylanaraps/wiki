@@ -21,6 +21,7 @@ ________________________________________________________________________________
     - Formatting a Disk                                                    [3.2]
 - Partitioning Examples                                                    [4.0]
     - GPT with UEFI support (no swap)                                      [4.1]
+
 - References                                                               [5.0]
 
 
@@ -130,14 +131,14 @@ take into consideration:
     |    Schema Description         |   Partition (Type,      Format, Size)    |
     +-------------------------------+------------------------------------------+
     |                               |                                          |
-    |    GPT with UEFI Support      |   /dev/sda1 (BIOS BOOT, EXT4,   128MB)   |
+    |    GPT and BIOS Partition     |   /dev/sda1 (BIOS BOOT, EXT4,   128MB)   |
+    |    wihout physical swap       |   /dev/sda2 (UEFI ESP,  FAT32,  33M)     |
+    |                               |   /dev/sda3 (ROOTFS,    EXT4,   *)       |
+    |                               |                                          |
+    |    GPT and BIOS Partition     |   /dev/sda1 (BIOS BOOT, EXT4,   128MB)   |
     |    with physical swap         |   /dev/sda2 (UEFI ESP,  FAT32,  33M)     |
     |                               |   /dev/sda3 (SWAP,      SWAP,   >512MB)  |
     |                               |   /dev/sda4 (ROOTFS,    EXT4,   *)       |
-    |                               |                                          |
-    |    GPT with UEFI Support      |   /dev/sda1 (BIOS BOOT, EXT4,   128MB)   |
-    |    wihout physical swap       |   /dev/sda2 (UEFI ESP,  FAT32,  33M)     |
-    |                               |   /dev/sda3 (ROOTFS,    EXT4,   *)       |
     |                               |                                          |
     +-------------------------------+------------------------------------------+
     
@@ -147,6 +148,9 @@ take into consideration:
       amount of memory. Make sure that your physical RAM and swap add up to 
       ~10GB or more of size. Or consider the usage of a dynamical growing swap 
       file.
+    * A separate /home partition may be preferred, especially if you plan on 
+      re-installing KISS Linux in the future and would like to preserve any 
+      custom configuration files, downloads, etc.
 
       
     [2.2] Swap Space
