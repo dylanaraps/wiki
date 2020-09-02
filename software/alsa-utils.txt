@@ -64,7 +64,7 @@ ________________________________________________________________________________
   |                                                                            |
   +----------------------------------------------------------------------------+
 
-- Use the following command to open a full screen alsa control interface:
+- Use the following command to open an easy to use, terminal based alsa control interface:
   
   +----------------------------------------------------------------------------+
   |                                                                            |
