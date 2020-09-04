@@ -23,13 +23,13 @@ doas.conf, there are plenty of examples of rules to choose from and modify.
 Below are a few examples of *basic* rules that could be set:  
 
 +------------------------------------------------------------------------------+
-|   Allow a specific regular user, USER, to escalate root permissions.         |
+|   Allow a specific regular user, USER, to escalate to root permissions.      |
 +------------------------------------------------------------------------------+
 |                                                                              |
 |   permit USER                                                                |
 |                                                                              |
 +------------------------------------------------------------------------------+
-|   Allow a specific group (i.e. "wheel") to escalate root permissions.        |
+|   Allow a specific group (i.e. "wheel") to escalate to root permissions.     |
 +------------------------------------------------------------------------------+
 |                                                                              |
 |   permit wheel                                                               |
