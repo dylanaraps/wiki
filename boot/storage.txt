@@ -254,7 +254,7 @@ In the next section the various file systems that Linux supports are described.
     
     +--------------------------------------------------------------------------+
     |                                                                          |
-    |   dd if=/dev/zero of=/swapfile bs=1M count=512 status=progress           |
+    |   dd if=/dev/zero of=/swapfile bs=1M count=512                           |
     |                                                                          |
     +--------------------------------------------------------------------------+
     
