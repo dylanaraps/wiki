@@ -1,8 +1,8 @@
 KDE
 ________________________________________________________________________________
 
-KDE [0] is desktop environment which consists in the Plasma Desktop, the KDE 
-Frameworks, and a collection of free and open source, cross-plastform  programs.
+KDE [0] is desktop environment which consists of the Plasma Desktop, the KDE 
+Frameworks, and a collection of free and open source, cross-platform programs.
 The project makes integral use of the Qt framework [1] to help provide a 
 uniform experience for users between all of the software a user will install.
 
@@ -350,7 +350,7 @@ few things available to you that you can change, if you so choose.
 
     +--------------------------------------------------------------------------+
     |                                                                          |
-    |   $ pkill x                                                              |
+    |   $ pkill X                                                              |
     |                                                                          |
     |   $ KISS_FORCE=1 kiss r kwin kwayland-server                             |
     |                                                                          |
