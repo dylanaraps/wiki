@@ -95,8 +95,12 @@ if you know you will not need bluetooth, you have no need for bluedevil.
     Next, enure that you have the proper required packages installed. These
     include eudev, dbus, coreutils, and gnugrep. The former two are both runtime
     dependencies, but the latter are both build-time requirements. As such, feel
-    free to remove them at the end if you wish! Additionally, libudev-zero has
-    not been tested here. Feel free to try it out.
+    free to remove them at the end if you wish!
+    
+    coreutils and gnugrep both provide files which conflict with other KISS
+    packages, such as busybox. To ensure we are using the correct programs when
+    we attempt to build plasma, we use the alternatives system! For more
+    information on this system, see [4].
 
     If you want to get an idea for how long it will take to build the entire
     plasma-desktop dependency tree, you can time the coreutils build and multiply
@@ -239,7 +243,8 @@ bootloader, and adding users. For help with kernels, see @/kernel. For help
 with bootloaders, see @/boot. The archive already includes dosfstools and
 e2fsprogs.
 
-In particular, refer to sections 7.0 [4] and 8.0 [5] of the KISS install guide. 
+Refer to the official installation guide [5] for small tweaks you may wish to make,
+such as user management or changing your hostname.
 
 NOTE: Please ensure you have cgroup support enabled in your kernel [6]!
 
@@ -425,8 +430,8 @@ ________________________________________________________________________________
 [1] https://qt.io
 [2] https://k1ss.org/guidestones
 [3] https://github.com/dilyn-corner/KISS-kde/releases
-[4] https://k1ss.org/install#7.0
-[5] https://k1ss.org/install#8.0
+[4] https://k1ss.org/package-manager#3.2
+[5] https://k1ss.org/install
 [6] http://linuxfromscratch.org/blfs/view/svn/general/elogind.html 
 [7] https://wiki.archlinux.org/index.php/SDDM
 [8] https://gitlab.com/kwinft/kwinft
