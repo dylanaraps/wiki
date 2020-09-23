@@ -323,7 +323,7 @@ In the next section the various file systems that Linux supports are described.
 ________________________________________________________________________________
 
 The following are step-by-step partitioning examples, based on the schemas 
-defined herin:
+defined herein:
 
     [4.1] GPT with EFI (no swap partition)
     ____________________________________________________________________________
