@@ -314,7 +314,7 @@ the console, or you can make use of a login manager.
     the usual way.
     
     NOTE: by default, it may not be possible for root to login via sddm. Best
-    practices would dictate that you login as a nonroot user.
+    practices would dictate that you login as a unprivileged user.
     
     +--------------------------------------------------------------------------+
     |                                                                          |
