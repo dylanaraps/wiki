@@ -14,8 +14,8 @@ on the GitHub page!
 Note that, due to the KISS Guidestones [2], the $/dilyn-corner/KISS-kde project
 is entirely community maintained. It will always remain separate from the core
 KISS project, including the community repository. Specifically, KDE violates the
-software inclusion guidestone. dbus, logind, pam, and wayland are all required
-to install and use KDE. 
+software inclusion guidestone. The required violations are dbus and wayland. 
+However, logind and pam are optional requirements to install and use KDE. 
 
 
 Index
@@ -57,10 +57,7 @@ ________________________________________________________________________________
 KDE can also be installed from an existing KISS installation. While this
 method takes far longer, it offers more fine-grained control on the overall
 system. The use of your own C(XX)FLAGS, smaller packages (e.g. mesa), as
-as well as choosing $KISS_ROOT. Overall build time is approximately 800x the
-time it takes for you to build coreutils. Most of this time is spent
-building qt5-webengine. A KISS package of qt5, qt5-declarative, and
-qt5-webengine are available on the GitHub page [3] to offer some time saving.
+as well as choosing $KISS_ROOT. 
 
 You have two choices on what to install: plasma-desktop or plasma. Building 
 plasma-desktop will pull in the minimum required dependencies for a working 
@@ -90,37 +87,42 @@ if you know you will not need bluetooth, you have no need for bluedevil.
     |   $ export KISS_PATH="$HOME/KISS-kde/frameworks:$KISS_PATH"              |
     |   $ export KISS_PATH="$KISS_PATH:$HOME/community/community"              |
     |                                                                          |
+    |   # you can optionally include the kde path for sddm, dolphin, etc.      |
+    |   $ export KISS_PATH="$KISS_PATH:$HOME/KISS-kde/kde"                     |    
+    |                                                                          |
     +--------------------------------------------------------------------------+
 
-    Next, enure that you have the proper required packages installed. These
-    include eudev, dbus, coreutils, and gnugrep. The former two are both runtime
-    dependencies, but the latter are both build-time requirements. As such, feel
-    free to remove them at the end if you wish!
+    Next, enure that you have the proper required packages installed:
+    libudev-zero and dbus. libudev-zero has been tested to work with KDE.
+    Optionally, eudev also works. The choice is up to you! Currently,
+    dbus-alternatives (like a stub library) are untested.
     
-    coreutils and gnugrep both provide files which conflict with other KISS
-    packages, such as busybox. To ensure we are using the correct programs when
-    we attempt to build plasma, we use the alternatives system! For more
-    information on this system, see [4].
+    Note: Currently, in order to build plasma (not plasma-desktop), you will
+    require coreutils. Specifically, elogind, libblockdev, and udisks2 require
+    three separate programs. Patches are welcome to resolve this!
+    coreutils provides files which conflict with other KISS packages, such as 
+    busybox. To ensure we are using the correct programs when we attempt to 
+    build plasma, we use the alternatives system! For more information on this 
+    system, see [4].
 
-    If you want to get an idea for how long it will take to build the entire
-    plasma-desktop dependency tree, you can time the coreutils build and multiply
-    that time by ~800 to get a rough estimate of the time in minutes.
-    
     +--------------------------------------------------------------------------+
     |                                                                          |
-    |   $ kiss b eudev dbus coreutils gnugrep                                  |
-    |   $ kiss i eudev dbus coreutils gnugrep                                  |
+    |   $ kiss b libudev-zero dbus                                             |
+    |   $ kiss i libudev-zero dbus                                             |
+    |   # If you opt to install plasma instead of plasma-desktop,              |
+    |   $ kiss b coreutils && kiss i coreutils                                 |
     |   $ kiss a coreutils /usr/bin/realpath                                   |
     |   $ kiss a coreutils /usr/bin/mktemp                                     |
     |   $ kiss a coreutils /usr/bin/ln                                         |
-    |   $ kiss a gnugrep   /usr/bin/grep                                       |
     |                                                                          |
     +--------------------------------------------------------------------------+
 
     Note that if you currently have packages like xorg-server installed, you
-    might want to rebuild them to pickup on the new eudev they can take 
+    might want to rebuild them to pickup on the new device manager they can take 
     advantage of. If you do not currently have xorg-server installed, you will
     want to get it. A pure wayland KDE is both untested and unlikely to work.
+    Note: with the release of plasma 5.20.0, KDE is defaulting to a wayland
+    environment. xorg support may be dropped in the future!
 
     +--------------------------------------------------------------------------+
     |                                                                          |
@@ -130,30 +132,53 @@ if you know you will not need bluetooth, you have no need for bluedevil.
     +--------------------------------------------------------------------------+
 
     Make sure you do not currently have qt5 installed. The build files have been
-    tweaked for this repository to make use of dbus and eudev. As a result, 
-    carrying over the community version of these packages will lead to unknown 
-    problems. If you would like to skip building them and instead install the
-    prebuilt packages provided on the GitHub page, install the dependencies 
-    and do
+    tweaked for this repository to make use of dbus and libudev-zero. As a 
+    result, carrying over the community version of these packages will lead to 
+    unknown problems.
+    Because of the time required to build qt5* packages, some prebuilt tarballs
+    are available on the Github repository [3]. The current release is 5.15.1,
+    available with the 2020.10-1 release of KISS-kde
 
     +--------------------------------------------------------------------------+
     |                                                                          |
-    |   $ ver=2020.08                                                          |
-    |   $ qtver=5.15.0-1                                                       | 
+    |   $ ver=2020.10-1                                                        |
+    |   $ qtver=5.15.1-1                                                       | 
     |   $ url=https://github.com/dilyn-corner/KISS-kde/releases/download/$ver  |
     |                                                                          |
     |   $ wget $url/qt5.$qtver.tar.gz \                                        |
-    |          -O qt5\#$qtver.tar.gz                                           |
+    |          -O qt5@$qtver.tar.gz                                            |
     |   $ wget $url/qt5-declarative.$qtver.tar.gz \                            |
-    |         -O qt5-declarative\#$qtver.tar.gz                                |
+    |         -O qt5-declarative@$qtver.tar.gz                                 |
+    |   # Not a build-time requirement, but useful for e.g. falkon             |
     |   $ wget $url/qt5-webengine.$qtver.tar.gz \                              |
-    |          -O qt5-webengine\#$qtver.tar.gz                                 |
-    |                                                                          |
-    |   $ kiss i qt5                                                           |
-    |   $ kiss i qt5-declarative                                               |
-    |   $ kiss i qt5-webengine                                                 |
+    |          -O qt5-webengine@$qtver.tar.gz                                  |
     |                                                                          |
     +--------------------------------------------------------------------------+
+
+    It is recommended to verify the checksums for these tarballs to ensure
+    package integrity!
+
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   $ wget $url/qt5.$qtver.tar.gz.sha256                                   |
+    |                                                                          |
+    |   $ sha256sum -c < qt5@$qtver.tar.gz                                     |
+    |   $ sha256sum -c < qt5-declarative@$qtver.tar.gz                         |
+    |   $ sha256sum -c < qt5-webengine@$qtver.tar.gz                           |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
+
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   $ kiss i qt5@$qtver.tar.gz                                             |
+    |   $ kiss i qt5-declarative@$qtver.tar.gz                                 |
+    |   $ kiss i qt5-webengine@$qtver.tar.gz                                   |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
+
+    NOTE: In general, it is a security risk to install prebuilt packages. these
+    archives are provided as a courtesy by $/dilyn-corner. Always verify the
+    authenticity of packages, and the identities of packagers!
 
 
     [1.2] Installing
@@ -169,21 +194,16 @@ if you know you will not need bluetooth, you have no need for bluedevil.
     |                                                                          |
     +--------------------------------------------------------------------------+
 
-    Optionally, enable and start the eudev and dbus services:
+    Optionally, enable and start the dbus service:
 
     +--------------------------------------------------------------------------+
     |                                                                          |
-    |   $ ln -s /etc/sv/dbus  /var/service                                     |
-    |   $ ln -s /etc/sv/udevd /var/service                                     |
-    |                                                                          |
+    |   $ ln -s /etc/sv/dbus /var/service                                      |
     |   $ sv up dbus                                                           |
-    |   $ sv up udevd                                                          |
     |                                                                          |
     +--------------------------------------------------------------------------+
 
 No services are required to be running in order to start a plasma session.
-However, starting the eudev service provides certain useful features such as
-automatic device detection and hotplugging.
 
 
 [2.0] The KISS-kde tarball
@@ -191,7 +211,7 @@ ________________________________________________________________________________
 
 Similarly to KISS itself, a tarball containing a fully-functional KISS with
 KDE setup is available from the GitHub repository [3]. This archive can be
-chrooted into or directly unpacked to '/'. Note that it is 500+MB in size.
+chrooted into or directly unpacked to '/'. Note that it is ~400MB in size.
 It is built from a kiss-chroot archive with identical generic C(XX)FLAGS. 
 
 NOTE: In general, it is a security risk to install prebuilt packages. This
@@ -201,11 +221,14 @@ authenticity of packages, and the identities of packagers!
 The KISS-kde archive is a fully installed version of plasma-desktop. See [1.0]
 for the distinction between plasma-desktop and plasma.
 
-To download the latest release,
+There will be monthly releases of the KISS-kde tarball to keep up with upstream. 
+The format of releases will be in YYYY-MM format.
+
+To download e.g. the October 2020 release, 
 
 +------------------------------------------------------------------------------+
 |                                                                              |
-|   $ ver=2020.08                                                              |
+|   $ ver=2020.10-1                                                            |
 |   $ url=https://github.com/dilyn-corner/KISS-kde/releases/download/$ver      |
 |   $ wget $url/kiss-kde-$ver.tar.xz                                           |
 |                                                                              |
@@ -226,7 +249,7 @@ to install the latest release,
 
 +------------------------------------------------------------------------------+
 |                                                                              |
-|   $ tar xf kiss-kde-$ver.tar.xz -C /mnt --strip-components 1                 |
+|   $ tar xf kiss-kde-$ver.tar.xz -C /mnt                                      |
 |                                                                              |
 +------------------------------------------------------------------------------+
 
@@ -240,13 +263,13 @@ and enter the chroot environment,
 
 The only remaining work to be done is creating a kernel, choosing a
 bootloader, and adding users. For help with kernels, see @/kernel. For help
-with bootloaders, see @/boot. The archive already includes dosfstools and
-e2fsprogs.
+with bootloaders, see @/boot. 
 
-Refer to the official installation guide [5] for small tweaks you may wish to make,
-such as user management or changing your hostname.
+Refer to the official installation guide [5] for important things to do, such as
+user management, changing your hostname, etc.
 
-NOTE: Please ensure you have cgroup support enabled in your kernel [6]!
+NOTE: Please ensure you have cgroup support enabled in your kernel [6] if you
+have chosen to install elogind!
 
 It is recommended that you change the root password; the default is "toor".
 
@@ -255,7 +278,7 @@ line is (un)commented in /root/.xinitrc:
 
 +------------------------------------------------------------------------------+
 |                                                                              |
-|   $ vi .xinitrc                                                              |
+|   $ vi $HOME/.xinitrc                                                        |
 |   $ startx                                                                   |
 |                                                                              |
 +------------------------------------------------------------------------------+
@@ -300,21 +323,31 @@ the console, or you can make use of a login manager.
     ____________________________________________________________________________
 
     The KISS-kde repository also includes sddm [7], the Simple Desktop Display
-    Manager, as an option for a login manager. Enabling it is very easy and it
-    comes preconfigured with the breeze theme. First, build and install sddm.
+    Manager, as an option for a login manager. It requires a login manager.
+    elogind is the default; other options are currently being tested.
+    First, build and install elogind
 
     +--------------------------------------------------------------------------+
     |                                                                          |
+    |   $ kiss b elogind && kiss i elogind                                     |
+    |   # So that polkit will build the correct libs to support elogind,       |
+    |   $ kiss b polkit && kiss i polkit                                       |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
+
+    Then, install sddm
+    
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   # sddm is in the KISS-kde/kde repo                                     |
     |   $ kiss b sddm && kiss i sddm                                           |
     |                                                                          |
     +--------------------------------------------------------------------------+
 
-    Then, enable the relevant services. polkit and elogind should already be
-    installed if you followed the prior instructions. If not, install them in
-    the usual way.
-    
     NOTE: by default, it may not be possible for root to login via sddm. Best
     practices would dictate that you login as a unprivileged user.
+    
+    Enable the requisite services for sddm to function properly
     
     +--------------------------------------------------------------------------+
     |                                                                          |
@@ -406,7 +439,7 @@ few things available to you that you can change, if you so choose.
     latte-dock (a dock app) [10].
 
     Separate from these are the KDE Applications, such as krita or dolphin.
-    These are located in KISS-kde/kdeapps. Add the repository to your $KISS_PATH
+    These are located in KISS-kde/kde. Add the repository to your $KISS_PATH
     in order to install them! Some useful (and working) applications include
     dolphin and konsole. Over time, the list of working KDE Applications should
     grow!
