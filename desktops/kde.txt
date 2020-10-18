@@ -26,6 +26,7 @@ ________________________________________________________________________________
 - From Scratch                                                             [1.0]
     - Prerequisites                                                        [1.1]
     - Installing                                                           [1.2]
+    - Launching                                                            [1.3]
 
 - The KISS-kde tarball                                                     [2.0]
 
@@ -48,25 +49,22 @@ ________________________________________________________________________________
 To begin using the K Desktop Environment there are two choices. The first option
 is to use a prebuilt tarball similar to the KISS release tarballs and install it
 analogously to how one installs KISS. The second is to build every package from
-source from an existing KISS installation or from a Live CD.
+source from an existing KISS installation.
 
 
 [1.0] From Scratch
 ________________________________________________________________________________
 
-KDE can also be installed from an existing KISS installation. While this
-method takes far longer, it offers more fine-grained control on the overall
-system. The use of your own C(XX)FLAGS, smaller packages (e.g. mesa), as
-as well as choosing $KISS_ROOT. 
+KDE can be installed from an existing KISS installation. While this method takes 
+far longer, it offers more fine-grained control on the overall system. The use 
+of your own CFLAGS, smaller packages (e.g. mesa), and choosing $KISS_ROOT. 
 
-You have two choices on what to install: plasma-desktop or plasma. Building 
-plasma-desktop will pull in the minimum required dependencies for a working 
-KDE environment, plus a few extra niceities such as a system settings manager, 
-the breeze icon theme, and fonts. Alternatively, plasma is a meta-package that 
-includes things like an info center, a bug/crash reporting framework, additional
-plasma wallpapers, and bluedevil. It's basically KDE with all of the frills. Opt
-for plasma-desktop if you only want to selectively include these. For instance
-if you know you will not need bluetooth, you have no need for bluedevil. 
+The package to install when going this route is plasma-desktop. This package
+will pull in the required packages to have a fully working desktop environment,
+and will additionally include a system settings manager, a default theme
+(breeze), and some default icons (breeze-icons). There are some extra packages
+which can be installed for more features, such as bluedevil, drkonqi, and
+powerdevil. See [4.0] more information.
 
 
     [1.1] Prerequisites
@@ -97,19 +95,26 @@ if you know you will not need bluetooth, you have no need for bluedevil.
     Optionally, eudev also works. The choice is up to you! Currently,
     dbus-alternatives (like a stub library) are untested.
     
-    Note: Currently, in order to build plasma (not plasma-desktop), you will
-    require coreutils. Specifically, elogind, libblockdev, and udisks2 require
-    three separate programs. Patches are welcome to resolve this!
-    coreutils provides files which conflict with other KISS packages, such as 
-    busybox. To ensure we are using the correct programs when we attempt to 
-    build plasma, we use the alternatives system! For more information on this 
-    system, see [4].
+    Note: in order to build certain extras, coreutils is required. Specifically: 
+    elogind, libblockdev, and udisks2 require three separate programs. Patches 
+    are welcome to resolve this! coreutils provides files which conflict with 
+    other KISS packages, such as busybox. To ensure we are using the correct 
+    programs when we attempt to build plasma, we use the alternatives system! 
+    For more information on this system, see [3].
+
+    The following are the currently required:
+    elogind:     /usr/bin/realpath --relative-to
+    udisks2:     /usr/bin/ln -r
+    libblockdev: /usr/bin/mktemp --tmpdir
+
+    NOTE: additionally, if desired, you must enable cgroup support in your
+    kernel. see [4] for more details.
 
     +--------------------------------------------------------------------------+
     |                                                                          |
     |   $ kiss b libudev-zero dbus                                             |
     |   $ kiss i libudev-zero dbus                                             |
-    |   # If you opt to install plasma instead of plasma-desktop,              |
+    |   # If you opt to install e.g. elogind                                   |
     |   $ kiss b coreutils && kiss i coreutils                                 |
     |   $ kiss a coreutils /usr/bin/realpath                                   |
     |   $ kiss a coreutils /usr/bin/mktemp                                     |
@@ -136,7 +141,7 @@ if you know you will not need bluetooth, you have no need for bluedevil.
     result, carrying over the community version of these packages will lead to 
     unknown problems.
     Because of the time required to build qt5* packages, some prebuilt tarballs
-    are available on the Github repository [3]. The current release is 5.15.1,
+    are available on the Github repository [5]. The current release is 5.15.1,
     available with the 2020.10-1 release of KISS-kde
 
     +--------------------------------------------------------------------------+
@@ -185,8 +190,7 @@ if you know you will not need bluetooth, you have no need for bluedevil.
     ____________________________________________________________________________
 
     Now that all of the build requirements are taken care of, we can install 
-    the desktop environment. Make your choice between plasma-desktop or plasma, 
-    and build them by
+    the desktop environment.
 
     +--------------------------------------------------------------------------+
     |                                                                          |
@@ -203,28 +207,40 @@ if you know you will not need bluetooth, you have no need for bluedevil.
     |                                                                          |
     +--------------------------------------------------------------------------+
 
-No services are required to be running in order to start a plasma session.
+    No services are required to be running in order to start a plasma session.
+
+
+    [1.3] Launching
+    ____________________________________________________________________________
+
+    Once plasma-desktop has been installed, launching KDE is as simple as
+    adding the following to whatever script you use to start X:
+
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   $ exec dbus-launch --exit-with-session startplasma-x11                 | 
+    |                                                                          |
+    +--------------------------------------------------------------------------+
 
 
 [2.0] The KISS-kde tarball
 ________________________________________________________________________________
 
 Similarly to KISS itself, a tarball containing a fully-functional KISS with
-KDE setup is available from the GitHub repository [3]. This archive can be
-chrooted into or directly unpacked to '/'. Note that it is ~400MB in size.
+KDE setup is available from the GitHub repository [5]. This archive can be
+chrooted into or directly unpacked to '/'. Note that it is ~300MB in size.
 It is built from a kiss-chroot archive with identical generic C(XX)FLAGS. 
 
 NOTE: In general, it is a security risk to install prebuilt packages. This
 archive is provided as a courtesy by $/dilyn-corner. Always verify the
 authenticity of packages, and the identities of packagers!
 
-The KISS-kde archive is a fully installed version of plasma-desktop. See [1.0]
-for the distinction between plasma-desktop and plasma.
+The KISS-kde archive is a fully installed version of plasma-desktop.
 
 There will be monthly releases of the KISS-kde tarball to keep up with upstream. 
 The format of releases will be in YYYY-MM format.
 
-To download e.g. the October 2020 release, 
+To download e.g. the October 2020 release,
 
 +------------------------------------------------------------------------------+
 |                                                                              |
@@ -261,29 +277,12 @@ and enter the chroot environment,
 |                                                                              |
 +------------------------------------------------------------------------------+
 
-The only remaining work to be done is creating a kernel, choosing a
-bootloader, and adding users. For help with kernels, see @/kernel. For help
-with bootloaders, see @/boot. 
-
-Refer to the official installation guide [5] for important things to do, such as
-user management, changing your hostname, etc.
-
-NOTE: Please ensure you have cgroup support enabled in your kernel [6] if you
-have chosen to install elogind!
+From here, simply follow the rest of the install guide [6].
+For help with kernels, see @/kernel. For help with bootloaders, see @/boot. 
 
 It is recommended that you change the root password; the default is "toor".
 
-If you would like to start a wayland session instead of an X session, swap which
-line is (un)commented in /root/.xinitrc:
-
-+------------------------------------------------------------------------------+
-|                                                                              |
-|   $ vi $HOME/.xinitrc                                                        |
-|   $ startx                                                                   |
-|                                                                              |
-+------------------------------------------------------------------------------+
-
-Finally, 
+After setting up everything, it should be as simple as: 
 
 +------------------------------------------------------------------------------+
 |                                                                              |
@@ -373,7 +372,7 @@ own needs! No further setup or configuration is required. However, there are a
 few things available to you that you can change, if you so choose.
 
 
-    [4.1] kwinft
+    [4.1] window managers
     ____________________________________________________________________________
 
     kwinft [8] is a composited window manager for X11 and Wayland systems. Most
@@ -401,12 +400,30 @@ few things available to you that you can change, if you so choose.
     |                                                                          |
     +--------------------------------------------------------------------------+
 
+    It is also possible to use your favorite window manager with KDE, and it is
+    shockingly simple. All that is required is to install whatever window
+    manager you would prefer (dwm, i3, sowm, etc.), and add the following to
+    your environment:
+
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   # replace 'sowm' with whichever wm you prefer                          |
+    |   $ export KDEWM=sowm                                                    |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
+
+    A 'good place' is up to the user; for per-user choice, add it to .profile or
+    your xinitrc file. To use the choice system-wide, add it to /etc/profile or
+    /etc/X11/xinit/xinitrc.
+
 
     [4.2] sddm
     ____________________________________________________________________________
 
-    sddm can be configured quite heavily. Configuration is read from
-    /etc/sddm.conf. If it does not exist, you can generate it: 
+    sddm is a feature-rich but straightforward login manager; see [3.2] for
+    installation and setup instructions. 
+    sddm can be configured heavily. Configuration is read from /etc/sddm.conf. 
+    If it does not exist, you can generate it: 
 
     +--------------------------------------------------------------------------+
     |                                                                          |
@@ -432,17 +449,36 @@ few things available to you that you can change, if you so choose.
     [4.3] Extras
     ____________________________________________________________________________
 
-    Many things are included in KISS-kde/extra. Most exist as supplements to
-    items in the framework or plasma, but many are for KDE Applications. 
-    However, there are a few that might be of interest to most users. This
-    includes kvantum (a robust theme engine) [9], sddm (a login manager), and 
-    latte-dock (a dock app) [10].
+    Several things are included in KISS-kde/kde. Examples include sddm, 
+    kvantum [9] and latte-dock [10].
 
     Separate from these are the KDE Applications, such as krita or dolphin.
-    These are located in KISS-kde/kde. Add the repository to your $KISS_PATH
-    in order to install them! Some useful (and working) applications include
-    dolphin and konsole. Over time, the list of working KDE Applications should
-    grow!
+    Some useful (and working) applications include dolphin and konsole. 
+
+    Finally, there are several useful extra programs which will enhance the
+    standard KDE experience.
+
+    +-------------+------------------------------------------------------------+
+    | Package     | Description                                                |
+    |-------------+------------------------------------------------------------|
+    |             |                                                            |
+    | sddm        | The Simple Desktop Display Manager                         |
+    | kvantum     | An svg-based theme engine for qt5                          |
+    | latte-dock  | A feature-rich dock based on the Plasma Framework          | 
+    |             |                                                            |
+    | dolphin     | The default KDE file manager                               |
+    | konsole     | The default KDE terminal emulator                          |
+    |             |                                                            |
+    | baloo       | A framework for file indexing and metadata management      |
+    | drkonqi     | A useful crash handler                                     |
+    | udisks2     | A disk manager                                             |
+    | kgamma5     | Change the monitor's gamma                                 |
+    | khotkeys    | Expanded hotkey modification                               |
+    | bludevil    | Bluetooth integration                                      |
+    | powerdevil  | Power usage settings                                       |
+    | kinfocenter | Displays useful system information                         |
+    |             |                                                            |
+    +-------------+------------------------------------------------------------+
 
 
 [5.0] How You Can Help
@@ -462,10 +498,10 @@ ________________________________________________________________________________
 [0] https://kde.org
 [1] https://qt.io
 [2] https://k1ss.org/guidestones
-[3] https://github.com/dilyn-corner/KISS-kde/releases
-[4] https://k1ss.org/package-manager#3.2
-[5] https://k1ss.org/install
-[6] http://linuxfromscratch.org/blfs/view/svn/general/elogind.html 
+[3] https://k1ss.org/package-manager#3.2
+[4] http://linuxfromscratch.org/blfs/view/svn/general/elogind.html 
+[5] https://github.com/dilyn-corner/KISS-kde/releases
+[6] https://k1ss.org/install
 [7] https://wiki.archlinux.org/index.php/SDDM
 [8] https://gitlab.com/kwinft/kwinft
 [9] https://github.com/tsujan/Kvantum
