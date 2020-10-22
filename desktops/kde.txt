@@ -67,6 +67,24 @@ choices can be changed at any time, and will simply require rebuilding certain
 packages. The following subsections offer an explanation of what these choices
 are and how best to handle their consequences.
 
+The first thing to do is clone the repositories and add them to your $KISS_PATH.
+Assuming that you keep these repositories in $HOME,
+
++------------------------------------------------------------------------------+
+|                                                                              |
+|   $ git clone https://github.com/kisslinux/community                         |
+|   $ git clone https://github.com/dilyn-corner/KISS-kde                       |
+|                                                                              |
+|   $ export KISS_PATH="$HOME/KISS-kde/extra:$KISS_PATH"                       |
+|   $ export KISS_PATH="$HOME/KISS-kde/plasma:$KISS_PATH"                      |
+|   $ export KISS_PATH="$HOME/KISS-kde/frameworks:$KISS_PATH"                  |
+|   $ export KISS_PATH="$KISS_PATH:$HOME/community/community"                  |
+|                                                                              |
+|   # you can optionally include the kde path for sddm, dolphin, etc.          |
+|   $ export KISS_PATH="$KISS_PATH:$HOME/KISS-kde/kde"                         |    
+|                                                                              |
++------------------------------------------------------------------------------+
+
 
     [0.1] Authentication
     ____________________________________________________________________________
@@ -220,30 +238,10 @@ powerdevil. See [4.0] for more information.
     [1.1] Prerequisites
     ____________________________________________________________________________
 
-    First, clone the required repositories and add them to your $KISS_PATH. Omit
-    any repositories you already have, just ensure that community comes AFTER
-    KISS-kde/extra. These repositories may be stored anywhere; assume they are
-    in $HOME.
-
-    +--------------------------------------------------------------------------+
-    |                                                                          |
-    |   $ git clone https://github.com/kisslinux/community                     |
-    |   $ git clone https://github.com/dilyn-corner/KISS-kde                   |
-    |                                                                          |
-    |   $ export KISS_PATH="$HOME/KISS-kde/extra:$KISS_PATH"                   |
-    |   $ export KISS_PATH="$HOME/KISS-kde/plasma:$KISS_PATH"                  |
-    |   $ export KISS_PATH="$HOME/KISS-kde/frameworks:$KISS_PATH"              |
-    |   $ export KISS_PATH="$KISS_PATH:$HOME/community/community"              |
-    |                                                                          |
-    |   # you can optionally include the kde path for sddm, dolphin, etc.      |
-    |   $ export KISS_PATH="$KISS_PATH:$HOME/KISS-kde/kde"                     |    
-    |                                                                          |
-    +--------------------------------------------------------------------------+
-
-    Next, ensure that you have the proper required packages installed:
-    libudev-zero and dbus. libudev-zero has been tested to work with KDE.
-    Optionally, eudev also works. The choice is up to you! Currently,
-    dbus-alternatives (like a stub library) are untested.
+    Ensure that you have the proper required packages installed: libudev-zero 
+    and dbus. libudev-zero has been tested to work with KDE. Optionally, eudev 
+    also works. The choice is up to you! Currently, dbus-alternatives (like a 
+    stub library) are untested.
     
     NOTE: in order to build certain extras, coreutils is required. Specifically: 
     elogind, libblockdev, and udisks2 require three separate programs. Patches 
