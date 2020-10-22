@@ -92,6 +92,17 @@ are and how best to handle their consequences.
     elogind), PAM should be chosen. Otherwise, shadow is an excellent option 
     (and is available in community).
 
+    If a user wishes to go this route, simply build and install linux-pam or
+    shadow, and then install polkit:
+
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   $ kiss b linux-pam   && kiss i linux-pam                               |
+    |   $ kiss b polkit      && kiss i polkit                                  |
+    |   $ kiss b polkit-qt-1 && kiss i polkit-qt-1                             |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
+
     If users change their mind after setting up KDE, reverting is as simple as
     rebuilding the relevant packages. For instance, if a user decided to build 
     polkit and linux-pam and wishes to drop the stack entirely, 
@@ -99,7 +110,7 @@ are and how best to handle their consequences.
     +--------------------------------------------------------------------------+
     |                                                                          |
     |   # Uninstall linux-pam and polkit                                       |
-    |   $ KISS_FORCE=1 && kiss r linux-pam polkit polkit-qt-1                  |
+    |   $ KISS_FORCE=1 kiss r linux-pam polkit polkit-qt-1                     |
     |                                                                          |
     |   # Rebuild kauth, kscreenlocker                                         |
     |   $ kiss b kauth kscreenlocker                                           |
