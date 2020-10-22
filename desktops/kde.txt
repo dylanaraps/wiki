@@ -238,17 +238,22 @@ powerdevil. See [4.0] for more information.
     [1.1] Prerequisites
     ____________________________________________________________________________
 
-    Ensure that you have the proper required packages installed: libudev-zero 
-    and dbus. libudev-zero has been tested to work with KDE. Optionally, eudev 
-    also works. The choice is up to you! Currently, dbus-alternatives (like a 
-    stub library) are untested.
+    Ensure that you have the proper required packages installed: libudev-zero, 
+    dbus, and xorg-server. libudev-zero has been tested to work with KDE. 
+    Optionally, eudev also works. The choice is up to you! Currently, 
+    dbus-alternatives (like a stub library) are untested. The dependencies of
+    the KDE packages assume many Xorg libraries are already installed. Not 
+    having xorg-server might result in missing dependencies.
+
+    These are the only requirements for building plasma-desktop.
     
     NOTE: in order to build certain extras, coreutils is required. Specifically: 
     elogind, libblockdev, and udisks2 require three separate programs. Patches 
     are welcome to resolve this! coreutils provides files which conflict with 
     other KISS packages, such as busybox. To ensure we are using the correct 
-    programs when we attempt to build plasma, we use the alternatives system! 
-    For more information on this system, see [5].
+    programs when we attempt to build these extras, we use the alternatives 
+    system! For more information on this system, see [5]. This is not required
+    if you do not care about elogind.
 
     +-------------+------------------------------------------------------------+
     | Package     | Requirement                                                |
@@ -261,7 +266,7 @@ powerdevil. See [4.0] for more information.
     +-------------+------------------------------------------------------------+
 
     NOTE: additionally, if desired, you must enable cgroup support in your
-    kernel. see [6] for more details.
+    kernel for elogind. see [6] for more details.
 
     Ensure the relevant prerequisites are installed:
 
@@ -269,6 +274,9 @@ powerdevil. See [4.0] for more information.
     |                                                                          |
     |   $ kiss b libudev-zero dbus                                             |
     |   $ kiss i libudev-zero dbus                                             |
+    |   $ kiss b xorg-server libinput xf86-input-libinput                      |
+    |   $ kiss i xorg-server libinput xf86-input-libinput                      |
+    |                                                                          |
     |   # If you opt to install e.g. elogind                                   |
     |   $ kiss b coreutils && kiss i coreutils                                 |
     |   $ kiss a coreutils /usr/bin/realpath                                   |
@@ -277,20 +285,13 @@ powerdevil. See [4.0] for more information.
     |                                                                          |
     +--------------------------------------------------------------------------+
 
-    If you currently have packages like xorg-server installed, you might want to
-    rebuild them to pickup on the new device manager they can take advantage of.
-    If you do not currently have xorg-server installed, you will want to get it.
+    NOTE: If you had packages like xorg-server installed, you might want to 
+    rebuild them to pickup on the new device manager they can take advantage of. 
+    If you do not currently have xorg-server installed, you will want to get it. 
     A pure wayland KDE is both untested and unlikely to work.
 
     NOTE: with the release of plasma 5.20.0, KDE is more aggressively supporting
     a wayland environment. xorg support may be dropped in the future!
-
-    +--------------------------------------------------------------------------+
-    |                                                                          |
-    |   $ kiss b xorg-server libinput xf86-input-libinput                      |
-    |   $ kiss i xorg-server libinput xf86-input-libinput                      |
-    |                                                                          |
-    +--------------------------------------------------------------------------+
 
     Make sure you do not currently have qt5 installed. The build files have been
     tweaked for this repository to make use of dbus and libudev-zero. As a 
@@ -299,7 +300,7 @@ powerdevil. See [4.0] for more information.
 
     Because of the time required to build qt5* packages, some prebuilt tarballs
     are available on the Github repository [5]. They are built in a standard 
-    KISS tarball, with C(XX)FLAGS=-march=-x86-64 -mtune=generic -Os -pipe.
+    KISS tarball, with C(XX)FLAGS=-march=x86-64 -mtune=generic -Os -pipe.
 
     NOTE: In general, it is a security risk to install prebuilt packages. these
     archives are provided as a courtesy by $/dilyn-corner. Always verify the
