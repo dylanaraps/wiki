@@ -441,7 +441,7 @@ and enter the chroot environment,
 
 +------------------------------------------------------------------------------+
 |                                                                              |
-|   $ ./mnt/bin/kiss-chroot /mnt                                               |
+|   $ /mnt/bin/kiss-chroot /mnt                                                |
 |                                                                              |
 +------------------------------------------------------------------------------+
 
@@ -529,7 +529,8 @@ the console, or you can make use of a login manager.
     NOTE: by default, it may not be possible for root to login via sddm. Best
     practices would dictate that you login as an unprivileged user.
     
-    Enable the requisite services for sddm to function properly
+    Enable the requisite services for sddm to function properly. For KISS'
+    default service manager,
     
     +--------------------------------------------------------------------------+
     |                                                                          |
@@ -646,7 +647,8 @@ few things available to you that you can change, if you so choose.
 ________________________________________________________________________________
 
 Here is a collection of some common issues you might encounter in buiding or
-running KDE.
+running KDE. If you encounter any other problems, please submit an issue at
+$dilyn-corner/KISS-kde.
 
 
     [5.1] My fonts don't work!
