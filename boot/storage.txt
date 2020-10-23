@@ -79,7 +79,7 @@ terminology and the tools which are required throughout the process.
     |                  |   mounted to. This is commonly referred to as '/'.    |
     |                  |                                                       |
     |   BOOT           |   The boot partition is where important files         |
-    |                  |   required at boot time, such as the kernel,are       |
+    |                  |   required at boot time, such as the kernel, are      |
     |                  |   stored. This partition is required only on UEFI     |
     |                  |   systems. It is usually mounted at /boot.            |
     |                  |                                                       |
@@ -106,8 +106,8 @@ terminology and the tools which are required throughout the process.
     Due to using 32-bit identifiers, DOS partitioning tables cannot handle disks
     that are >2 TBs in size. 
     
-    Unless a extended partition is created, DOS disklables supports a maximum of
-    four partitions.
+    Unless an extended partition is created, DOS disklables supports a maximum 
+    of four partitions.
     
     Using GPT on a BIOS-based computer works, and is referred to as a hybrid
     setup. This type of setup requries a 1MB BIOS boot partition (unformatted)
@@ -127,14 +127,15 @@ terminology and the tools which are required throughout the process.
     images should be named vmlinuz.efi.
     In point of fact, it is only necessary on UEFI systems, though it may be 
     useful on BIOS systems. The BOOT partition need not be mounted to /efi.
-    Indeed, the only requirements are that it be formatted to FAT32, and be at 
-    least 100MB in size - the recommended minimum size is 256MB. That the kernel
-    be named vmlinuz.efi serves only to make the fact that it is a UEFI system 
-    explicit.
+    Indeed, the only requirements are that it be formatted to FAT32 (in the case
+    of UEFI systems), and be at least 100MB in size. The recommended minimum
+    size for UEFI systems is 256MB.
+    That the kernel be named vmlinuz.efi serves only to make the fact that it 
+    is a UEFI system explicit.
 
-    Please be aware that UEFI/BIOS and GPT/MBR are not synonymous. The former
+    Please be aware that UEFI/GPT and BIOS/MBR are not synonymous. UEFI/BIOS
     refer to particular types of systems that utilize the Unified Extensible
-    Firmware Interface or the Basic Input/Output System. These is determined
+    Firmware Interface or the Basic Input/Output System. This is determined
     strictly by the motherboard used in a given system. The latter, however,
     refer to particular partition types: GUID Partition Tables versus the
     Master Boot Record. These types directly limit the structures available
@@ -143,7 +144,7 @@ terminology and the tools which are required throughout the process.
     
     An important point of consideration is whether or not a separate HOME 
     partition should be used. This is useful in cases where users wish to keep
-    there data in a location separate from their operating system, for instance
+    their data in a location separate from their operating system, for instance
     in cases of critical failures requiring the OS to be reinstalled, or if 
     users wish to encrypt their personal data separately from their core OS.
     This separation between / and /home allow users to easily migrate their data
@@ -178,7 +179,7 @@ terminology and the tools which are required throughout the process.
 
     In general, most programs can handle the majority of use-cases. The tool of 
     choice is almost entirely user preference. However, some utilities have 
-    powerful and advanced features that can render data on disks damaged. fdisk
+    powerful and advanced features that can aid in fixing damaged disks. fdisk
     is a one such program, and is useful in cases where more fine-grained
     control is required. For general system setup, however, any tool will do.
     
@@ -186,12 +187,12 @@ terminology and the tools which are required throughout the process.
 [1.0] Partitioning Schemata
 ________________________________________________________________________________
 
-Because disk setup is in general difficult to modify after a particular
-structure has been chosen, great care should be taken to ensure all the correct
-choices are made for a given use case. Things to consider include whether or not
-a SWAP partition is needed, whether to use a separate home partition, whether
-separate partitions are needed for general data storage (like music or photos),
-and whether dual-booting is desired.
+Great care should be taken when pkcing a partition structure, as changing it 
+afterwards is (generally) a difficult endeavor. Ensure that the chosen structure
+meets your use case. Things to consider include whether or not a swap partition
+is needed, whether to use a separate home partition, whether separate partitions
+are needed for general data storage (like music or photos), and whether
+dual-booting is desired.
 
 
     [1.1] Minimum Partition Layouts
@@ -199,7 +200,7 @@ and whether dual-booting is desired.
     
     The number of partitions required is highly variable and dependent on the
     use case. The following table provides examples of common partition 
-    schemata, formats and recommended minimum sizes:
+    schemata, formats, and recommended minimum sizes:
     
     +-------------------------------+------------------------------------------+
     |    Schemata Description       |   Partition (Type,      Format, Size)    |
@@ -215,15 +216,15 @@ and whether dual-booting is desired.
     |    Hybrid BIOS/GPT            |   /dev/sda1 (BIOS BOOT, XXXX,   1MB  )   |
     |                               |   /dev/sda2 (SWAP,      swap,   RAM  )   |
     |                               |   /dev/sda3 (ROOTFS,    EXT4,   xxxGB)   |
-    |                               |   /dev/sda4 (HOME,      EXT4,   yyyGB)   |
-    |                               |   /dev/sda5 (DATA,      EXT4,   zzzGB)   |
+    |                               |   /dev/sda4 (HOME,      XFS,    yyyGB)   |
+    |                               |   /dev/sda5 (DATA,      BTRFS,  zzzGB)   |
     |                               |                                          |
     +-------------------------------+------------------------------------------+
     
     The boot partition is generally only used for storing kernels or an
     initramfs. As these files are usually very small (<20MB), 256MB is more
     than enough to accomodate most use-cases. 512MB is plenty. A separate BOOT
-    is only only required on UEFI systems.
+    is only required on UEFI systems.
 
     In cases where no other additional partition is desired, the ROOTFS or HOME
     partition should span the remainder of the disk.
@@ -232,7 +233,9 @@ and whether dual-booting is desired.
     be used is paramount for successful builds, especially for large packages 
     such as rust, firefox, or qt5-webengine. If the amount of RAM available is 
     less than 8GB, the usage of a swap partition or swap file is strongly 
-    recommended to avoid build failures due to out-of-memory (OOM) issues.
+    recommended to avoid build failures due to out-of-memory (OOM) issues. A 
+    decent rule of thumb for swap size is to have the same amount of swap as
+    you have RAM.
 
     These examples only serve to show a minimum partition layout required for 
     each type of disk style (UEFI, BIOS, hybrid).
@@ -252,7 +255,7 @@ and whether dual-booting is desired.
     Historically, swap was placed at the beginning of disks as this allowed for 
     the fastest possible seek times on traditional spinning disk drives (hard
     drives). This was preferred because disk access times are orders of 
-    magnitude slower than RAM access time, and long swap operations  result in
+    magnitude slower than RAM access times, and long swap operations result in
     a desktop feeling 'slow' or 'laggy'. However, with the rise in popularity
     (and fall in price) of solid state drives (and, more recently, NVMe based
     storage), along with the precipitous decrease in storage space cost, the
@@ -270,10 +273,11 @@ and whether dual-booting is desired.
     For more modern systems, swap files are in general preferable to partitions.
     Care should be taken, however. Changes may occur outside of the user's
     control that necessitate intervention to allow the system to boot. For
-    instance, if a swapfile disappears but is still referenced in /etc/fstab
-    will drop a system into an emergency shell upon boot. Additionally, 
-    file fragmentation could cause swap files to become unreliable. Finally,
-    kernel updates could potentially cause issues [7].
+    instance, if a swapfile disappears but is still referenced in /etc/fstab,
+    disk mount will fail at boot and the system will drop users into an 
+    emergency shell upon boot. Additionally, file fragmentation could cause swap
+    files to become unreliable. Finally, kernel updates could potentially cause 
+    issues [7].
 
     In addition to swap, @/zswap and @/zram are useful options.
     
@@ -314,11 +318,11 @@ create the relevant filesystems for each partition.
     ReiserFS, and ZFS. The community repository is an excellent place to share
     work in including these filesystems in KISS! Others are available in 
     user-created repositories. ZFS is one such example [8]. Due to licensing 
-    restrictions, ZFS requires additional work to use than other filesystems.
+    restrictions, ZFS requires more work to use than other filesystems.
 
     EXT4 is a solid, general purpose filesystem. For UEFI systems, FAT32 is a 
     required filesystem for the BOOT partition. BTRFS is an experimental 
-    filesystem which sees heavily development by organizations like Facebook,
+    filesystem which sees heavy development by organizations like Facebook,
     and offers a different way of managing storage than more traditional (EXT,
     DOS, NTFS) filesystems. All of these have built-in kernel support.
 
@@ -329,7 +333,7 @@ create the relevant filesystems for each partition.
     [2.2] Swap Partition
     ____________________________________________________________________________ 
     
-    To set up a partition as a Linux swap space, the mkswap command is use. 
+    To set up a partition as a Linux swap space, the mkswap command is used. 
     Replace X with the drive where the swap partition is located, and Y by the
     partition on that drive that will be formatted as swap.
     
@@ -341,7 +345,7 @@ create the relevant filesystems for each partition.
     +--------------------------------------------------------------------------+
 
 
-    [2.3] Swap file
+    [2.3] Swap File
     ____________________________________________________________________________    
     As an alternative to creating an entire partition, a swap file offers 
     similar functionality, and the added benefits of being able to vary its size 
@@ -386,7 +390,7 @@ create the relevant filesystems for each partition.
     |                                                                          |
     +--------------------------------------------------------------------------+
 
-    To remove a swap file, it's a simple as disabling and deleting the it, 
+    To remove a swap file, it's as simple as disabling and deleting it, 
     
     +--------------------------------------------------------------------------+
     |                                                                          |
@@ -401,7 +405,7 @@ ________________________________________________________________________________
 
 The following is a step-by-step partitioning example. 
 
-PLEASE BE AWARE: the following commands can cause irreparable damage to the 
+PLEASE BE AWARE: The following commands can cause irreparable damage to the 
 data on your drives. Ensure that the data on these drives is backed up to a 
 separate device, and make sure you select the correct device for partitioning.
 
@@ -411,7 +415,7 @@ LOSS IF USED WITHOUT BACKUPS.
 Hex codes are, for the most part, only super useful to users. They are
 hexadecimal identifiers which filesystem programs can interpret, and programs
 like fdisk and cfdisk will use the hex code of a given partition to display a
-useful fact about partition, like that it's specifically for an EFI partition,
+useful fact about partitions, like that it's specifically for an EFI partition,
 or a Linux root partition, or a Solaris partition. These labels are irrelevant
 to what is actually ON any given partition; that is determined entirely by the
 filesystem you choose to put on it. Because GPT uses 64-bit partitions
@@ -445,7 +449,7 @@ To create a GPT + EFI disk with a separate /home,
 |    Last sector: +128M                                                        |
 |    Hex Code (L to show codes): ef00                                          |
 |                                                                              |
-|    # Create Partition 2 (ROOTFS ):                                           |
+|    # Create Partition 2 (ROOTFS):                                           |
 |    $ n                                                                       |
 |    Partition Number:  (RETURN key for 2)                                     |
 |    First sector:                                                             |
