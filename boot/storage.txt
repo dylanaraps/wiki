@@ -23,7 +23,8 @@ ________________________________________________________________________________
     - Swap File                                                            [2.3]
 
 - Partitioning Example                                                     [3.0]
-- References                                                               [4.0]
+- fstab                                                                    [4.0]
+- References                                                               [5.0]
 
 
 [0.0] Overview
@@ -86,12 +87,12 @@ terminology and the tools which are required throughout the process.
     |   HOME           |   This partition is where most user data is stored.   |
     |                  |   It is usually mounted at /home.                     |
     |                  |                                                       |
-    |   SWAP           |   Swap space can take the form of a disk partition    | 
-    |                  |   or a file. Users may create a swap space during     | 
+    |   SWAP           |   Swap space can take the form of a disk partition    |
+    |                  |   or a file. Users may create a swap space during     |
     |                  |   installation or at any later time as desired.       |
     |                  |   Swap space can be used for two purposes: to         |
-    |                  |   extend the virtual memory beyond the installed      | 
-    |                  |   physical memory (RAM), and also for hibernation     | 
+    |                  |   extend the virtual memory beyond the installed      |
+    |                  |   physical memory (RAM), and also for hibernation     |
     |                  |   or for suspend-to-disk support.                     |
     |                  |                                                       |
     |   FILESYSTEM     |   A filesystem allows for data to actually be written |
@@ -202,24 +203,24 @@ dual-booting is desired.
     use case. The following table provides examples of common partition 
     schemata, formats, and recommended minimum sizes:
     
-    +-------------------------------+------------------------------------------+
-    |    Schemata Description       |   Partition (Type,      Format, Size)    |
-    +-------------------------------+------------------------------------------+
-    |                               |                                          |
-    |    GPT + UEFI (with /home)    |   /dev/sda1 (BOOT,      FAT32,  256MB)   |
-    |                               |   /dev/sda2 (ROOTFS,    EXT4,   30GB )   |
-    |                               |   /dev/sda3 (HOME,      EXT4,   *    )   |
-    |                               |                                          |
-    |    Legacy BIOS (with swap)    |   /dev/sda1 (SWAP,      swap,   RAM  )   |
-    |                               |   /dev/sda2 (ROOTFS,    EXT4,   *    )   |
-    |                               |                                          |
-    |    Hybrid BIOS/GPT            |   /dev/sda1 (BIOS BOOT, XXXX,   1MB  )   |
-    |                               |   /dev/sda2 (SWAP,      swap,   RAM  )   |
-    |                               |   /dev/sda3 (ROOTFS,    EXT4,   xxxGB)   |
-    |                               |   /dev/sda4 (HOME,      XFS,    yyyGB)   |
-    |                               |   /dev/sda5 (DATA,      BTRFS,  zzzGB)   |
-    |                               |                                          |
-    +-------------------------------+------------------------------------------+
+    +----------------------------+---------------------------------------------+
+    |    Schemata Description    |   Partition (Type,      Format, Size)       |
+    +----------------------------+---------------------------------------------+
+    |                            |                                             |
+    |   GPT + UEFI (with /home)  |   /dev/sda1 (BOOT,      FAT32,  256MB)      |
+    |                            |   /dev/sda2 (ROOTFS,    EXT4,   30GB )      |
+    |                            |   /dev/sda3 (HOME,      EXT4,   *    )      |
+    |                            |                                             |
+    |   Legacy BIOS (with swap)  |   /dev/sda1 (SWAP,      swap,   RAM  )      |
+    |                            |   /dev/sda2 (ROOTFS,    EXT4,   *    )      |
+    |                            |                                             |
+    |   Hybrid BIOS/GPT          |   /dev/sda1 (BIOS BOOT, XXXX,   1MB  )      |
+    |                            |   /dev/sda2 (SWAP,      swap,   RAM  )      |
+    |                            |   /dev/sda3 (ROOTFS,    EXT4,   xxxGB)      |
+    |                            |   /dev/sda4 (HOME,      XFS,    yyyGB)      |
+    |                            |   /dev/sda5 (DATA,      BTRFS,  zzzGB)      |
+    |                            |                                             |
+    +----------------------------+---------------------------------------------+
     
     The boot partition is generally only used for storing kernels or an
     initramfs. As these files are usually very small (<20MB), 256MB is more
@@ -462,7 +463,7 @@ To create a GPT + EFI disk with a separate /home,
 |    Last sector: +128M                                                        |
 |    Hex Code (L to show codes): ef00                                          |
 |                                                                              |
-|    # Create Partition 2 (ROOTFS):                                           |
+|    # Create Partition 2 (ROOTFS):                                            |
 |    $ n                                                                       |
 |    Partition Number:  (RETURN key for 2)                                     |
 |    First sector:                                                             |
@@ -487,7 +488,67 @@ partition manipulation and a constantly updating table of information on the
 current partition layout and structure.
 
 
-[4.0] References
+[4.0] fstab
+________________________________________________________________________________
+
+The fstab file contains a list of partitions with their filesystem type, their 
+mount location, and the options they should be mounted with. The mount program
+will read the fstab file (by default /etc/fstab) and will mount all of the
+partitions and filesystems for you. This is useful for automatically mounting 
+things like BOOT, HOME, and tmpfs during the init process. 
+
+The fstab is NOT required - the kernel location and ROOTFS should be specified 
+in the bootloader entry. If you find yourself mounting the same partitions
+repeatedly with consistent options, the fstab file serves to automate this
+prcess for you.
+
+Here is an example fstab, which will mount ROOTFS to /, BOOT to /boot, HOME to 
+/home, enable the swap file, and mount some important virtual filesystems:
+
++------------------------------------------------------------------------------+
+|                                                                              |
+|   # device      mount-point   type   options         dump  fsck order        | 
+|                                                                              |
+|   /dev/sda2     /             ext4   defaults        0     1                 |  
+|   /dev/sda1     /boot         vfat   defaults        0     2                 |  
+|   /dev/sda3     /home         ext4   defaults        0     2                 |  
+|   /swapfile     none          swap   defaults        0     0                 |  
+|   tmpfs         /tmp          tmpfs  rw,nodev,nosuid 0     0                 |  
+|   proc          /proc         proc   defaults        0     0                 |  
+|   sysfs         /sys          sysfs  defaults        0     0                 |  
+|   devpts        /dev/pts      devpts gid=4,mode=620  0     0                 |  
+|                                                                              |
++------------------------------------------------------------------------------+
+
+tmpfs, proc, sysfs, and devpts should be mounted during the init process.
+Therefore, proc, sysfs, and devpts can be left out of the fstab. A reason to
+keep tmpfs in the fstab is to use it for building packages in RAM To only do
+this for certain packages, see [10].
+
+Devices can be refered to either by their /dev pathname, by a label, by UUID, or
+by Part-UUID. For systems with multiple drives, it is recommended to use UUIDs
+or labels instead of /dev pathnames, as these are volatile and could change
+during each system reboot. See [11] for details on identifying disks.
+
+The dump entry refers to the backup utility, dump [12]. If dump is not used, the
+column can be omitted. 
+
+fsck order gives the order in which a filesystem check should be ran in. ROOTFS
+should be specified with a 1. All other filesystems should be specified with 2
+or 0. swap and virtual filesystems should not be fsck'd.
+
+There are a large number of options that you can choose from for mounting
+partitions. 'defaults' is a basic, filesystem-independent option which will
+mount the partition rw,suid,dev,exec,auto,nouser,async. For an explanation of
+these options (and far more detailed information on the fstab) see [13].
+
+CAUTION: an improperly configured fstab will result in the user being dumped
+into an emergency shell! Even a small typo will result in this. If it occurs,
+simply check the fstab for errors, mount the partitions that failed to be
+mounted, and exit the emergency shell.
+
+
+[5.0] References
 ________________________________________________________________________________
 
 [0]  https://refspecs.linuxfoundation.org/fhs.shtml
@@ -500,3 +561,7 @@ ________________________________________________________________________________
 [7]  https://bugzilla.kernel.org/show_bug.cgi?id=207585
 [8]  https://github.com/jedavies-dev/kiss-zfs 
 [9]  https://wiki.archlinux.org/index.php/file_systems 
+[10] https://k1ss.org/package-manager#6.3
+[11] https://wiki.archlinux.org/index.php/Fstab#Identifying_filesystems
+[12] https://linux.die.net/man/8/dump
+[13] https://man7.org/linux/man-pages/man5/fstab.5.html
