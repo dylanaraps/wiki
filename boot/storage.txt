@@ -331,7 +331,7 @@ create the relevant filesystems for each partition.
 
 
     [2.2] Swap Partition
-    ____________________________________________________________________________ 
+    ____________________________________________________________________________
     
     To set up a partition as a Linux swap space, the mkswap command is used. 
     Replace X with the drive where the swap partition is located, and Y by the
@@ -346,7 +346,8 @@ create the relevant filesystems for each partition.
 
 
     [2.3] Swap File
-    ____________________________________________________________________________    
+    ____________________________________________________________________________
+
     As an alternative to creating an entire partition, a swap file offers 
     similar functionality, and the added benefits of being able to vary its size 
     on-the-fly, as well as being more easily removed. This may be especially 
