@@ -483,7 +483,3 @@ ________________________________________________________________________________
 [7]  https://bugzilla.kernel.org/show_bug.cgi?id=207585
 [8]  https://github.com/jedavies-dev/kiss-zfs 
 [9]  https://wiki.archlinux.org/index.php/file_systems 
-[10] http://uefi.org/sites/default/files/resources/UEFI%202_5.pdf
-[11] https://wiki.archlinux.org/index.php/file_systems
-[12] https://wiki.archlinux.org/index.php/swap
-[13] https://funtoo.org/Partitioning_using_gdisk
