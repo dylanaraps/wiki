@@ -357,29 +357,41 @@ create the relevant filesystems for each partition.
 
     +--------------------------------------------------------------------------+
     |                                                                          |
-    |   $ dd if=/dev/zero of=$LOCATION bs=$BYTES count=$SIZE                   |
+    |   $ dd if=/dev/zero of=$LOCATION bs=$BYTES count=$BLOCKS                 |
     |                                                                          |
     +--------------------------------------------------------------------------+
 
     $LOCATION is the partition where the swapfile should be located. For the 
     next few commands, assume $LOCATION=/swapfile.
 
-    $BYTES is The block size, which is determined by the filesystem on the 
-    partition where $LOCATION is. This setting is important for optimizing
-    read/write throughput. dd defaults to 512 bytes, but this is suboptimal for 
-    drives with larger supported block sizes. To determine the supported block
-    size for your device, run dumpe2fs (provided by e2fsprogs):
+    $BYTES is the size of each block to be written to the file. Disks have 
+    varying supported block sizes; choosing the correct size for your partition
+    is important for optimizing read/write throughput. dd defaults to 512 bytes, 
+    but this is suboptimal for drives with larger supported block sizes. To 
+    determine the block size for your device, you can use stat:
     
     +--------------------------------------------------------------------------+
     |                                                                          |
-    |   $ dumpe2fs -h /dev/sdXY | grep 'Block size'                            |
+    |   $ stat -fc %s .                                                        |
     |                                                                          |
     +--------------------------------------------------------------------------+
 
     For instance, if the result is 4096, bs=4k should be chosen. 
     
-    $SIZE is the space you wish to allocate to the swapfile, suffixed by
-    kilobytes (kB), kibibytes (k), megabytes (M), mebibytes (MB), etc.
+    $BLOCKS is the number of blocks of size $BYTES you wish to write to
+    $LOCATION.
+
+    $BYTEs and $BLOCKS can be suffixed by b (512 bytes), kB (1,000 bytes), k
+    (1,024 bytes), MB (a thousand kB), M (a thousand k), GB (a million kB), or
+    G (a million k).
+
+    To create a 16GB swapfile at /swapfile with a 4k block size, 
+
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   $ dd if=/dev/zero of=/swapfile bs=4k count=4M                          |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
 
     Set the right permissions, format the file to swap, and activate it as swap.
 
