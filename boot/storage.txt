@@ -188,7 +188,7 @@ terminology and the tools which are required throughout the process.
 [1.0] Partitioning Schemata
 ________________________________________________________________________________
 
-Great care should be taken when pkcing a partition structure, as changing it 
+Great care should be taken when picking a partition structure, as changing it 
 afterwards is (generally) a difficult endeavor. Ensure that the chosen structure
 meets your use case. Things to consider include whether or not a swap partition
 is needed, whether to use a separate home partition, whether separate partitions
