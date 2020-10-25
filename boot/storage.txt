@@ -17,12 +17,13 @@ ________________________________________________________________________________
     - Minimum Partition Layouts                                            [1.1]
     - Swap Partition vs File                                               [1.2]
 
-- Formatting                                                               [2.0]
-    - Filesystems                                                          [2.1]
-    - Swap Partition                                                       [2.2]
-    - Swap File                                                            [2.3]
+- Partitioning Example                                                     [2.0]
 
-- Partitioning Example                                                     [3.0]
+- Formatting                                                               [3.0]
+    - Filesystems                                                          [3.1]
+    - Swap Partition                                                       [3.2]
+    - Swap File                                                            [3.3]
+
 - fstab                                                                    [4.0]
 - References                                                               [5.0]
 
@@ -281,15 +282,106 @@ dual-booting is desired.
 
     In addition to swap, @/zswap and @/zram are useful options.
     
-      
-[2.0] Formatting
+
+[2.0] Partitioning Example
 ________________________________________________________________________________
 
-Now that the partition scheme has been chosen, it is time to create the relevant
+The following is a step-by-step partitioning example. 
+
+PLEASE BE AWARE: The following commands can cause irreparable damage to the 
+data on your drives. Ensure that the data on these drives is backed up to a 
+separate device, and make sure you select the correct device for partitioning.
+
+Again, these commands are dangerous and WILL CAUSE DATA LOSS.
+
+In order to identify the correct disk, there are several commands that can help
+
++------------------------------------------------------------------------------+
+|                                                                              |
+|    $ fdisk -l                                                                |
+|    $ sfdisk -l                                                               |
+|    $ parted -l                                                               |
+|    $ lsblk                                                                   |
+|                                                                              |
++------------------------------------------------------------------------------+
+
+While partitioning disks, you will be asked multiple questions. These include
+the starting sector of the partition, the last sector of the partition, and the
+hex code for that partition. 
+
+Generally, using the default as the first sector is the best choice - this will
+ensure there are no strange breaks between partitions. 
+
+Most programs support relative last sector locations. Therefore, instead of
+typing out the desired sector number, one need only write '+400GB' to make the
+partition start at the first available sector and continue for the next 400GB. 
+
+Hex codes or partition IDs are hexadecimal identifiers which the kernel and 
+filesystem programs can interpret, and programs like fdisk and cfdisk will use 
+the hex code of a given partition to display a useful fact about the partition, 
+like that it's specifically an EFI partition, or a Linux root partition, or a 
+Solaris partition. Because GPT uses 64-bit partitions identifiers, far more 
+partition types are available for use on GPT systems over MBR systems.
+    
+Be aware that altering partitions on in-use disks could cause data corruption,
+and the changes in partition layout may not be available until the next reboot.
+
+This example assumes the target device block of /dev/nvme0n1, using gdisk 
+for the actual partitioning process.
+
+To create a GPT + EFI disk with a separate /home,
+
++------------------------------------------------------------------------------+
+|                                                                              |
+|    $ gdisk /dev/nvme0n1                                                      |
+|                                                                              |
+|    # Enter '?' for a list of available commands                              |
+|                                                                              |
+|    # Delete partition data by creating a new GPT:                            |
+|    $ o                                                                       |
+|    This option deletes all partitions and creates a new GPT.                 |
+|    Proceed? (Y/N): y                                                         |
+|                                                                              |
+|    # Create Partition 1 (/boot):                                             |
+|    $ n                                                                       |
+|    Partition Number:  (RETURN key for 1)                                     |
+|    First sector: (RETURN key for first available)                            |
+|    Last sector: +128M                                                        |
+|    Hex Code (L to show codes): ef00                                          |
+|                                                                              |
+|    # Create Partition 2 (ROOTFS):                                            |
+|    $ n                                                                       |
+|    Partition Number:  (RETURN key for 2)                                     |
+|    First sector: (RETURN key for first available)                            |
+|    Last sector: +30G                                                         |
+|    Hex Code: 0304                                                            |
+|                                                                              |
+|    # Create Partition 3 (HOME):                                              |
+|    $ n                                                                       |
+|    Partition Number:  (RETURN key for 3)                                     |
+|    First sector: (RETURN key for first available)                            |
+|    Last sector:  (RETURN key for rest of disk)                               |
+|    Hex Code: 0302                                                            |
+|                                                                              |
+|    # Write Partition Table To Disk:                                          |
+|    $ w                                                                       |
+|    Do you want to proceed? (Y/N): Y                                          |
+|                                                                              |
++------------------------------------------------------------------------------+
+
+cfdisk may be preferable to users who prefer a more visual representation of
+partition manipulation and a constantly updating table of information on the
+current partition layout and structure.
+
+
+[3.0] Formatting
+________________________________________________________________________________
+
+Now that the disks have been partitioned, it is time to create the relevant
 filesystems for each partition.
 
 
-    [2.1] Filesystems
+    [3.1] Filesystems
     ____________________________________________________________________________
 
     There are many different filesystems to choose from on any given Linux 
@@ -344,7 +436,7 @@ filesystems for each partition.
     +--------------------------------------------------------------------------+
 
 
-    [2.2] Swap Partition
+    [3.2] Swap Partition
     ____________________________________________________________________________
     
     To set up a partition as a Linux swap space, the mkswap command is used. 
@@ -359,7 +451,7 @@ filesystems for each partition.
     +--------------------------------------------------------------------------+
 
 
-    [2.3] Swap File
+    [3.3] Swap File
     ____________________________________________________________________________
 
     As an alternative to creating an entire partition, a swap file offers 
@@ -395,11 +487,11 @@ filesystems for each partition.
     $BLOCKS is the number of blocks of size $BYTES you wish to write to
     $LOCATION.
 
-    $BYTEs and $BLOCKS can be suffixed by b (512 bytes), kB (1,000 bytes), k
+    $BYTES and $BLOCKS can be suffixed by b (512 bytes), kB (1,000 bytes), k
     (1,024 bytes), MB (a thousand kB), M (a thousand k), GB (a million kB), or
     G (a million k).
 
-    To create a 16GB swapfile at /swapfile with a 4k block size, 
+    To create a 16G swapfile at /swapfile with a 4k block size, 
 
     +--------------------------------------------------------------------------+
     |                                                                          |
@@ -407,7 +499,7 @@ filesystems for each partition.
     |                                                                          |
     +--------------------------------------------------------------------------+
 
-    Set the right permissions, format the file to swap, and activate it as swap.
+    Set the permissions, create the swap filesystem, and activate it as swap,
 
     +--------------------------------------------------------------------------+
     |                                                                          |
@@ -421,85 +513,11 @@ filesystems for each partition.
     
     +--------------------------------------------------------------------------+
     |                                                                          |
-    |   swapoff /swapfile                                                      |
-    |   rm -f   /swapfile                                                      |
+    |  $ swapoff /swapfile                                                     |
+    |  $ rm -f   /swapfile                                                     |
     |                                                                          |
     +--------------------------------------------------------------------------+
     
-
-[3.0] Partitioning Example
-________________________________________________________________________________
-
-The following is a step-by-step partitioning example. 
-
-PLEASE BE AWARE: The following commands can cause irreparable damage to the 
-data on your drives. Ensure that the data on these drives is backed up to a 
-separate device, and make sure you select the correct device for partitioning.
-
-Again, these commands are dangerous to run without backups and WILL CAUSE DATA
-LOSS IF USED WITHOUT BACKUPS.
-
-Hex codes are, for the most part, only super useful to users. They are
-hexadecimal identifiers which filesystem programs can interpret, and programs
-like fdisk and cfdisk will use the hex code of a given partition to display a
-useful fact about partitions, like that it's specifically for an EFI partition,
-or a Linux root partition, or a Solaris partition. These labels are irrelevant
-to what is actually ON any given partition; that is determined entirely by the
-filesystem you choose to put on it. Because GPT uses 64-bit partitions
-identifiers, far more partition types are available for use on GPT systems over
-MBR systems.
-    
-Be aware that changing the partitions on an in-use disk could cause data
-corruption, and the changes in partition layout may not be available until the
-next reboot.
-
-This example assumes the target device block of /dev/nvme0n1, using gdisk 
-for the actual partitioning process.
-
-To create a GPT + EFI disk with a separate /home,
-
-+------------------------------------------------------------------------------+
-|                                                                              |
-|    $ gdisk /dev/nvme0n1                                                      |
-|                                                                              |
-|    # Enter '?' for a list of available commands                              |
-|                                                                              |
-|    # Delete partition data by creating a new GPT                             |
-|    $ o                                                                       |
-|    This option deletes all partitions and creates a new GPT.                 |
-|    Proceed? (Y/N): y                                                         |
-|                                                                              |
-|    # Create Partition 1 (/boot):                                             |
-|    $ n                                                                       |
-|    Partition Number:  (RETURN key for 1)                                     |
-|    First sector:                                                             |
-|    Last sector: +128M                                                        |
-|    Hex Code (L to show codes): ef00                                          |
-|                                                                              |
-|    # Create Partition 2 (ROOTFS):                                            |
-|    $ n                                                                       |
-|    Partition Number:  (RETURN key for 2)                                     |
-|    First sector:                                                             |
-|    Last sector: +30G                                                         |
-|    Hex Code: 0304                                                            |
-|                                                                              |
-|    # Create Partition 3 (HOME):                                              |
-|    $ n                                                                       |
-|    Partition Number:  (RETURN key for 3)                                     |
-|    First sector:                                                             |
-|    Last sector:  (RETURN key for rest of disk)                               |
-|    Hex Code: 0302                                                            |
-|                                                                              |
-|    # Write Partition Table To Disk:                                          |
-|    $ w                                                                       |
-|    Do you want to proceed? (Y/N): Y                                          |
-|                                                                              |
-+------------------------------------------------------------------------------+
-
-cfdisk may be preferable to users who prefer a more visual representation of
-partition manipulation and a constantly updating table of information on the
-current partition layout and structure.
-
 
 [4.0] fstab
 ________________________________________________________________________________
