@@ -329,6 +329,20 @@ filesystems for each partition.
     For a more complete list of other filesystem options and what limitations 
     and features exist for them, refer to the Arch Wiki [9].
 
+    To make a FAT32 UEFI partition and an EXT4 ROOTFS and HOME on /dev/sda*,
+ 
+    +--------------------------------------------------------------------------+
+    |                                                                          |
+    |   $ mkfs.ext4     /dev/sda2                                              |
+    |   $ mkfs.ext4     /dev/sda3                                              |
+    |   $ mkfs.fat -F32 /dev/sda1                                              |
+    |                                                                          |
+    |   $ mount /dev/sda2 /mnt                                                 |
+    |   $ mount /dev/sda3 /mnt/home                                            |
+    |   $ mount /dev/sda1 /mnt/boot                                            |
+    |                                                                          |
+    +--------------------------------------------------------------------------+
+
 
     [2.2] Swap Partition
     ____________________________________________________________________________
@@ -339,8 +353,8 @@ filesystems for each partition.
     
     +--------------------------------------------------------------------------+
     |                                                                          |
-    |   mkswap /dev/sdXY                                                       |
-    |   swapon /dev/sdXY                                                       |
+    |   $ mkswap /dev/sdXY                                                     |
+    |   $ swapon /dev/sdXY                                                     |
     |                                                                          |
     +--------------------------------------------------------------------------+
 
