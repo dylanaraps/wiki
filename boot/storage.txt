@@ -181,8 +181,8 @@ terminology and the tools which are required throughout the process.
     In general, most programs can handle the majority of use-cases. The tool of 
     choice is almost entirely user preference. However, some utilities have 
     powerful and advanced features that can aid in fixing damaged disks. fdisk
-    is a one such program, and is useful in cases where more fine-grained
-    control is required. For general system setup, however, any tool will do.
+    is one such program, and is useful in cases where more fine-grained control
+    is required. For general system setup, however, any tool will do.
     
     
 [1.0] Partitioning Schemata
@@ -247,7 +247,7 @@ dual-booting is desired.
 
     When considering swap space, there are benefits and tradeoffs to certain 
     choices. The traditional recommendation has been to create a swap partition
-    as close to the first partition as possible, that is at least half the
+    as close to the first partition as possible, which is at least half the
     amount of RAM available - this number is a sliding scale and varies by use
     case. For instance, if few RAM intensive programs are going to be used, and 
     little compiling will be done on the host system, less swap space is needed
@@ -273,12 +273,11 @@ dual-booting is desired.
     
     For more modern systems, swap files are in general preferable to partitions.
     Care should be taken, however. Changes may occur outside of the user's
-    control that necessitate intervention to allow the system to boot. For
-    instance, if a swapfile disappears but is still referenced in /etc/fstab,
-    disk mount will fail at boot and the system will drop users into an 
-    emergency shell upon boot. Additionally, file fragmentation could cause swap
-    files to become unreliable. Finally, kernel updates could potentially cause 
-    issues [7].
+    control that necessitate intervention. For instance, if a swapfile
+    disappears but is still referenced in /etc/fstab, disk mounting will fail
+    at boot and the system will drop users into an emergency shell.
+    Additionally, file fragmentation could cause swap files to become unreliable
+    Finally, kernel updates could potentially cause issues [7].
 
     In addition to swap, @/zswap and @/zram are useful options.
     
@@ -286,8 +285,8 @@ dual-booting is desired.
 [2.0] Formatting
 ________________________________________________________________________________
 
-Now that the most beneficial partition scheme has been chosen, it is time to 
-create the relevant filesystems for each partition.
+Now that the partition scheme has been chosen, it is time to create the relevant
+filesystems for each partition.
 
 
     [2.1] Filesystems
@@ -522,7 +521,7 @@ Here is an example fstab, which will mount ROOTFS to /, BOOT to /boot, HOME to
 
 tmpfs, proc, sysfs, and devpts should be mounted during the init process.
 Therefore, proc, sysfs, and devpts can be left out of the fstab. A reason to
-keep tmpfs in the fstab is to use it for building packages in RAM To only do
+keep tmpfs in the fstab is to use it for building packages in RAM. To only do
 this for certain packages, see [10].
 
 Devices can be refered to either by their /dev pathname, by a label, by UUID, or
