@@ -561,8 +561,7 @@ by Part-UUID. For systems with multiple drives, it is recommended to use UUIDs
 or labels instead of /dev pathnames, as these are volatile and could change
 during each system reboot. See [11] for details on identifying disks.
 
-The dump entry refers to the backup utility, dump [12]. If dump is not used, the
-column can be omitted. 
+The dump entry refers to the backup utility, dump [12].
 
 fsck order gives the order in which a filesystem check should be ran in. ROOTFS
 should be specified with a 1. All other filesystems should be specified with 2
