@@ -108,7 +108,7 @@ terminology and the tools which are required throughout the process.
     Due to using 32-bit identifiers, DOS partitioning tables cannot handle disks
     that are >2 TBs in size. 
     
-    Unless an extended partition is created, DOS disklables supports a maximum 
+    Unless an extended partition is created, DOS disk labels supports a maximum 
     of four partitions.
     
     Using GPT on a BIOS-based computer works, and is referred to as a hybrid
@@ -124,6 +124,16 @@ terminology and the tools which are required throughout the process.
     is undesireable, and in general it is a good idea to use GPT in cases where
     UEFI can be used.
     
+    UEFI/GPT and BIOS/MBR are not synonymous. UEFI/BIOS refer to particular
+    types of systems that utilize the Unified Extensible Firmware Interface or 
+    the Basic Input/Output System. This is determined strictly by the 
+    motherboard used in a given system. GPT/DOS, however, refer to particular
+    disk labels: GUID Partition Tables versus the DOS label. These types
+    directly limit the structures available on any given disk drive - both the
+    number of partitions available, as well as the size of any given partition.
+    A good rule of thumb, however, is that UEFI systems use GPT disk labels, 
+    BIOS systems use DOS disk labels, and hybrid systems use BIOS + GPT.
+    
     The BOOT partition is a source of much confusion for users. For instance,
     it is erroneously claimed that it must be mounted to /efi, or that kernel
     images should be named vmlinuz.efi.
@@ -134,16 +144,9 @@ terminology and the tools which are required throughout the process.
     size for UEFI systems is 256MB.
     That the kernel be named vmlinuz.efi serves only to make the fact that it 
     is a UEFI system explicit.
+    If users intend on using a multiboot system, a single BOOT partition can be
+    shared by all operating systems.
 
-    Please be aware that UEFI/GPT and BIOS/MBR are not synonymous. UEFI/BIOS
-    refer to particular types of systems that utilize the Unified Extensible
-    Firmware Interface or the Basic Input/Output System. This is determined
-    strictly by the motherboard used in a given system. The latter, however,
-    refer to particular partition types: GUID Partition Tables versus the
-    Master Boot Record. These types directly limit the structures available
-    on any given disk drive - both the number of partitions available, as 
-    well as the size of any given partition.
-    
     An important point of consideration is whether or not a separate HOME 
     partition should be used. This is useful in cases where users wish to keep
     their data in a location separate from their operating system, for instance
@@ -212,7 +215,7 @@ dual-booting is desired.
     |                            |   /dev/sda2 (ROOTFS,    EXT4,   30GB )      |
     |                            |   /dev/sda3 (HOME,      EXT4,   *    )      |
     |                            |                                             |
-    |   Legacy BIOS (with swap)  |   /dev/sda1 (SWAP,      swap,   RAM  )      |
+    |   Legacy DOS (with swap)   |   /dev/sda1 (SWAP,      swap,   RAM  )      |
     |                            |   /dev/sda2 (ROOTFS,    EXT4,   *    )      |
     |                            |                                             |
     |   Hybrid BIOS/GPT          |   /dev/sda1 (BIOS BOOT, XXXX,   1MB  )      |
@@ -240,7 +243,7 @@ dual-booting is desired.
     you have RAM.
 
     These examples only serve to show a minimum partition layout required for 
-    each type of disk style (UEFI, BIOS, hybrid).
+    each type of disk style (UEFI + GPT, BIOS + DOS, hybrid).
     
 
     [1.2] Swap Partition vs File
@@ -248,7 +251,7 @@ dual-booting is desired.
 
     When considering swap space, there are benefits and tradeoffs to certain 
     choices. The traditional recommendation has been to create a swap partition
-    as close to the first partition as possible, which is at least half the
+    as close to the first partition as possible, that is at least half the
     amount of RAM available - this number is a sliding scale and varies by use
     case. For instance, if few RAM intensive programs are going to be used, and 
     little compiling will be done on the host system, less swap space is needed
@@ -259,11 +262,10 @@ dual-booting is desired.
     drives). This was preferred because disk access times are orders of 
     magnitude slower than RAM access times, and long swap operations result in
     a desktop feeling 'slow' or 'laggy'. However, with the rise in popularity
-    (and fall in price) of solid state drives (and, more recently, NVMe based
-    storage), along with the precipitous decrease in storage space cost, the
-    requirement of a separate swap partition has laxed. If users have access to
-    low latency, large storage drives, a swap file may be a preferable
-    alternative. 
+    of solid state drives (and, more recently, NVMe based storage), along with 
+    the precipitous decrease in storage space cost, the requirement of a 
+    separate swap partition has laxed. If users have access to low latency, 
+    large storage drives, a swap file may be a preferable alternative. 
 
     Swap files allow for ondemand, resizeable swap spaces. Swap may not be 
     necessary for day-to-day operation but only in cases where large builds are
@@ -277,10 +279,11 @@ dual-booting is desired.
     control that necessitate intervention. For instance, if a swapfile
     disappears but is still referenced in /etc/fstab, disk mounting will fail
     at boot and the system will drop users into an emergency shell.
-    Additionally, file fragmentation could cause swap files to become unreliable
+    Additionally, file fragmentation can cause swap files to become unreliable.
     Finally, kernel updates could potentially cause issues [7].
 
-    In addition to swap, @/zswap and @/zram are useful options.
+    In addition to swap, @/zswap and @/zram are useful options to consider for 
+    maximizing swap usage and memory management.
     
 
 [2.0] Partitioning Example
@@ -388,7 +391,7 @@ filesystems for each partition.
     system. Which filesystem is used depends almost entirely on the use-case of 
     the system. For simple data storage read only by UNIX systems, EXT4 is a 
     perfectly normal choice. For data that needs to be accessible to Windows,
-    FAT is required. The Apple Filesystem (APFS) is primary used by Macs.
+    FAT or NTFS is required. The Apple Filesystem (APFS) is used by Macs.
     In the simple case where only Linux systems require access to a given
     partition, many choices exist. Below is a list of filesystems which are 
     available in KISS either in the official repository or in community.
@@ -421,7 +424,9 @@ filesystems for each partition.
     For a more complete list of other filesystem options and what limitations 
     and features exist for them, refer to the Arch Wiki [9].
 
-    To make a FAT32 UEFI partition and an EXT4 ROOTFS and HOME on /dev/sda*,
+    Continuing from the partition example in [2.0], we will make a FAT32
+    parition on BOOT (/dev/nvme0n1p1), and an EXT4 partition on ROOTFS and HOME
+    (/dev/nvme0n1p2 and /dev/nvme0n1p3, respectively):
  
     +--------------------------------------------------------------------------+
     |                                                                          |
@@ -467,14 +472,14 @@ filesystems for each partition.
     |                                                                          |
     +--------------------------------------------------------------------------+
 
-    $LOCATION is the partition where the swapfile should be located. For the 
-    next few commands, assume $LOCATION=/swapfile.
+    $LOCATION is where the swapfile should be made. Assume $LOCATION=/swapfile.
 
     $BYTES is the size of each block to be written to the file. Disks have 
-    varying supported block sizes; choosing the correct size for your partition
-    is important for optimizing read/write throughput. dd defaults to 512 bytes, 
-    but this is suboptimal for drives with larger supported block sizes. To 
-    determine the block size for your device, you can use stat:
+    varying supported block sizes; choosing the correct size for the partition
+    the swapfile will be is important for optimizing read/write throughput. 
+    dd defaults to 512 bytes, but this is suboptimal for drives with larger 
+    supported block sizes. To determine the block size for your device, you can 
+    use stat:
     
     +--------------------------------------------------------------------------+
     |                                                                          |
@@ -482,10 +487,10 @@ filesystems for each partition.
     |                                                                          |
     +--------------------------------------------------------------------------+
 
-    For instance, if the result is 4096, bs=4k should be chosen. 
+    For instance, if the result is 4096, $BYTES=4k should be chosen. 
     
     $BLOCKS is the number of blocks of size $BYTES you wish to write to
-    $LOCATION.
+    $LOCATION. $BLOCKS determines the final size of the swapfile.
 
     $BYTES and $BLOCKS can be suffixed by b (512 bytes), kB (1,000 bytes), k
     (1,024 bytes), MB (a thousand kB), M (a thousand k), GB (a million kB), or
@@ -556,10 +561,10 @@ Therefore, proc, sysfs, and devpts can be left out of the fstab. A reason to
 keep tmpfs in the fstab is to use it for building packages in RAM. To only do
 this for certain packages, see [10].
 
-Devices can be refered to either by their /dev pathname, by a label, by UUID, or
-by Part-UUID. For systems with multiple drives, it is recommended to use UUIDs
-or labels instead of /dev pathnames, as these are volatile and could change
-during each system reboot. See [11] for details on identifying disks.
+Devices can be referred to either by their /dev pathname, by a label, by UUID,
+or by Part-UUID. For systems with multiple drives, it is recommended to use 
+UUIDs or labels instead of /dev pathnames, as these are volatile and could 
+change during each system reboot. See [11] for details on identifying disks.
 
 The dump entry refers to the backup utility, dump [12].
 
