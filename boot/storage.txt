@@ -25,6 +25,7 @@ ________________________________________________________________________________
     - Swap File                                                            [3.3]
 
 - fstab                                                                    [4.0]
+
 - References                                                               [5.0]
 
 
@@ -54,6 +55,11 @@ terminology and the tools which are required throughout the process.
     |   Partition      |   Represent smaller, more manageable block devices.   |
     |                  |   These can be thought of as the places where user    |
     |                  |   data lives.                                         |
+    |                  |                                                       |
+    |   Filesystem     |   A filesystem allows for data to actually be written |
+    |                  |   to a given partition. Filesystems vary in features, |
+    |                  |   requirements, and read/write access. In short, a    |
+    |                  |   filesystem is the structure for a given partition.  |
     |                  |                                                       |
     |   DOS            |   The DOS disklabel setup uses 32-bit identifiers     |
     |                  |   for the start sector and length of the partitions,  |
@@ -95,11 +101,6 @@ terminology and the tools which are required throughout the process.
     |                  |   extend the virtual memory beyond the installed      |
     |                  |   physical memory (RAM), and also for hibernation     |
     |                  |   or for suspend-to-disk support.                     |
-    |                  |                                                       |
-    |   FILESYSTEM     |   A filesystem allows for data to actually be written |
-    |                  |   to a given partition. Filesystems vary in features, |
-    |                  |   requirements, and read/write access. In short, a    |
-    |                  |   filesystem is the structure for a given partition.  |
     |                  |                                                       |
     +------------------+-------------------------------------------------------+
 
