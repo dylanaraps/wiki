@@ -29,6 +29,8 @@ Ensure zswap (CONFIG_ZSWAP) support and a compressor are enabled in the kernel:
 |   Memory Management options --->                                             |
 |       <*> Compressed cache for swap pages                                    |
 |           Compressed cache for swap pages default compressor (xxx)           |
+|           Compressed cache for swap pages default allocator (xxx)            |
+|       <*> Enable the compression cache for swap pages by default             |
 |                                                                              |
 +------------------------------------------------------------------------------+
 
