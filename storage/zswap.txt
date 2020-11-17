@@ -77,7 +77,7 @@ should be preferred when possible.
 
 zsmalloc has a very different page allocation method than either zbud or z3fold,
 and provides for greater storage density. However, zsmalloc does not implement
-compressed page eviction; it can only reject new pages. 
+compressed page eviction; it can only reject new pages when full.
 
 For more information on z3fold and zsmalloc, see [3] and [4].
 
