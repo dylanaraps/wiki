@@ -41,9 +41,9 @@ Setup
 ________________________________________________________________________________
 
 ompressed block devices can be setup on-the-fly or at boot-time. A quick method
-using an /etc/rc.d/zram.{boot,shutdown} script is shown below. Because multiple
-ramdisks are allowed, it might be preferable to create multiple zram devices for
-better utilization on multicore systems. 
+using an /etc/rc.d/zram.{boot,pre.shutdown} script is shown below. Because 
+multiple ramdisks are allowed, it might be preferable to create multiple zram 
+devices for better utilization on multicore systems. 
 
 $SIZE below can be given in bytes or suffixed by M,G.
 
@@ -75,7 +75,7 @@ $SIZE below can be given in bytes or suffixed by M,G.
 +------------------------------------------------------------------------------+
 
 +------------------------------------------------------------------------------+
-|   /etc/rc.d/zram.boot                                                        |
+|   /etc/rc.d/zram.pre.shutdown                                                |
 +------------------------------------------------------------------------------+
 |   #!/bin/sh -e                                                               |
 |                                                                              |
