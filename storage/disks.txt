@@ -476,10 +476,10 @@ filesystems for each partition.
 
     $BYTES is the size of each block to be written to the file. Disks have 
     varying supported block sizes; choosing the correct size for the partition
-    the swapfile will be is important for optimizing read/write throughput. 
-    dd defaults to 512 bytes, but this is suboptimal for drives with larger 
-    supported block sizes. To determine the block size for your device, you can 
-    use stat:
+    where the swapfile will be is important for optimizing read/write 
+    throughput. dd defaults to 512 bytes, but this is suboptimal for drives 
+    with larger supported block sizes. To determine the block size for your 
+    device, you can use stat:
     
     +--------------------------------------------------------------------------+
     |                                                                          |

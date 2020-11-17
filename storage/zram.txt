@@ -40,10 +40,10 @@ zram.num_devices=X in the kernel commandline (bootloader or built-in).
 Setup
 ________________________________________________________________________________
 
-ompressed block devices can be setup on-the-fly or at boot-time. A quick method
-using an /etc/rc.d/zram.{boot,pre.shutdown} script is shown below. Because 
-multiple ramdisks are allowed, it might be preferable to create multiple zram 
-devices for better utilization on multicore systems. 
+Compressed block devices can be setup on-the-fly or at boot-time. A quick 
+method using an /etc/rc.d/zram.{boot,pre.shutdown} script is shown below. 
+Because multiple ramdisks are allowed, it might be preferable to create 
+multiple zram devices for better utilization on multicore systems. 
 
 $SIZE below can be given in bytes or suffixed by M,G.
 
@@ -80,9 +80,9 @@ $SIZE below can be given in bytes or suffixed by M,G.
 |                                                                              |
 +------------------------------------------------------------------------------+
 
-Note: because zram has a 2:1 compression ratio, a disk size of no more than
-twice the amount of available RAM should be selected - otherwise, space will be
-wasted.
+Note: because zram has a 2:1 compression ratio, a total disk size of no more 
+than twice the amount of available RAM should be selected - otherwise, space 
+will be wasted.
 
 In addition to manipulating values in /sys/block/zramX/*, users can use the
 zramctl program provided by util-linux to manage their zram devices. See [1] for
