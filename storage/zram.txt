@@ -55,22 +55,14 @@ $SIZE below can be given in bytes or suffixed by M,G.
 |   modprobe zram                                                              |
 |                                                                              |
 |   # create zram devices of $SIZE 2G                                          |
-|   echo 2G > /sys/block/zram0/disksize                                        |
-|   echo 2G > /sys/block/zram1/disksize                                        |
-|   echo 2G > /sys/block/zram2/disksize                                        |
-|   echo 2G > /sys/block/zram3/disksize                                        |
-|                                                                              |
 |   # Mark the devices as swap devices                                         |
-|   mkswap /dev/zram0                                                          |
-|   mkswap /dev/zram1                                                          |
-|   mkswap /dev/zram2                                                          |
-|   mkswap /dev/zram3                                                          |
-|                                                                              |
 |   # Enable the swap devices                                                  |
-|   swapon /dev/zram0 -p 10                                                    |
-|   swapon /dev/zram1 -p 10                                                    |
-|   swapon /dev/zram2 -p 10                                                    |
-|   swapon /dev/zram3 -p 10                                                    |
+|                                                                              |
+|   for dev in 0 1 2 3; do                                                     |
+|       echo 2G > /sys/block/zram$dev/disksize                                 |
+|       mkswap /dev/zram$dev                                                   |
+|       swapon /dev/zram$dev -p 10                                             |
+|   done                                                                       |
 |                                                                              |
 +------------------------------------------------------------------------------+
 
@@ -80,16 +72,11 @@ $SIZE below can be given in bytes or suffixed by M,G.
 |   #!/bin/sh -e                                                               |
 |                                                                              |
 |   # Disable the swap devices                                                 |
-|   swapoff /dev/zram0                                                         |
-|   swapoff /dev/zram1                                                         |
-|   swapoff /dev/zram2                                                         |
-|   swapoff /dev/zram3                                                         |
-|                                                                              |
 |   # Reset the swap devices                                                   |
-|   echo 1 > /sys/block/zram0/reset                                            |
-|   echo 1 > /sys/block/zram1/reset                                            |
-|   echo 1 > /sys/block/zram2/reset                                            |
-|   echo 1 > /sys/block/zram3/reset                                            |
+|   for dev in 0 1 2 3; do                                                     |
+|       swapoff /dev/zram$dev                                                  |
+|       echo 1 > /sys/block/zram$dev/reset                                     |
+|   done                                                                       |
 |                                                                              |
 +------------------------------------------------------------------------------+
 
