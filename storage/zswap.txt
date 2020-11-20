@@ -1,7 +1,7 @@
 ZSWAP [0]
 ________________________________________________________________________________
 
-Zswap is a feature built-in to the Linux kernel [1] which allows users to 
+zswap is a feature built-in to the Linux kernel [1] which allows users to 
 utilize compressed caches in RAM as swap pages. Instead of the kernel 
 immediately swapping pages in RAM and writing them to the hard drive, wasting 
 time on I/O operations, it compresses them into a pool in RAM. Only when the 
@@ -14,7 +14,7 @@ When swap will be used, zswap should provide performance improvements.
 Prerequisites
 ________________________________________________________________________________
 
-Zswap works in conjuction with swap and is handled entirely by the kernel. As
+zswap works in conjuction with swap and is handled entirely by the kernel. As
 such, there are only two requirements: zswap enabled in the kernel and a
 swapfile or swap partition on the system.
 
@@ -44,7 +44,7 @@ have zswap enabled at boot-time. To enable zswap at runtime,
 |                                                                              |
 +------------------------------------------------------------------------------+
 
-Zswap has many options that can also be configured at runtime, including which
+zswap has many options that can also be configured at runtime, including which
 compressor is in use. To see them all, 
 
 +------------------------------------------------------------------------------+
