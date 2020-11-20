@@ -59,9 +59,9 @@ $SIZE below can be given in bytes or suffixed by M,G.
 |   # Enable the swap devices                                                  |
 |                                                                              |
 |   for dev in 0 1 2 3; do                                                     |
-|       echo 2G > /sys/block/zram$dev/disksize                                 |
-|       mkswap /dev/zram$dev                                                   |
-|       swapon /dev/zram$dev -p 10                                             |
+|       echo 2G > "/sys/block/zram$dev/disksize"                               |
+|       mkswap "/dev/zram$dev"                                                 |
+|       swapon "/dev/zram$dev" -p 10                                           |
 |   done                                                                       |
 |                                                                              |
 +------------------------------------------------------------------------------+
@@ -74,8 +74,8 @@ $SIZE below can be given in bytes or suffixed by M,G.
 |   # Disable the swap devices                                                 |
 |   # Reset the swap devices                                                   |
 |   for dev in 0 1 2 3; do                                                     |
-|       swapoff /dev/zram$dev                                                  |
-|       echo 1 > /sys/block/zram$dev/reset                                     |
+|       swapoff "/dev/zram$dev"                                                |
+|       echo 1 > "/sys/block/zram$dev/reset"                                   |
 |   done                                                                       |
 |                                                                              |
 +------------------------------------------------------------------------------+
