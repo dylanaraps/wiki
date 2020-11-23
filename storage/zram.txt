@@ -52,7 +52,8 @@ Because multiple ramdisks are allowed, it might be preferable to create
 multiple zram devices for better utilization on multicore systems. 
 
 The compression used on zram block devices cannot be changed once the device is
-initialized, You cannot swap compression algorithms at run-time, unlink zswap.
+initialized. This means that you cannot swap compression algorithms at run-time,
+unlike with zswap.
 
 $SIZE below can be given in bytes or suffixed by M,G.
 
