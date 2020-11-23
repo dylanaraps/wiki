@@ -35,8 +35,8 @@ enable and configure. First, ensure zram is enabled in the kernel:
 |                                                                              |
 +------------------------------------------------------------------------------+
 
-lz4 is available in community. The default compression algorithm is lzo and is
-forced when CONFIG_ZRAM=y.
+lz4 is available in community. The default compression algorithm is lzo and
+CONFIG_CRYPTO_LZO=y/m is forced when CONFIG_ZRAM=y/m.
 
 Building compressed RAM block devices as a module is recommended because it
 enables runtime block device creation. If it is built-in to the kernel, pass
