@@ -18,6 +18,9 @@ enable and configure. First, ensure zram is enabled in the kernel:
 
 +------------------------------------------------------------------------------+
 |                                                                              |
+|   General setup --->                                                         |
+|       <*> Support for paging of anonymous memory (swap)                      |
+|                                                                              |
 |   Memory Management options --->                                             |
 |       <*> Memory allocator for compressed pages                              |
 |                                                                              |
@@ -52,7 +55,9 @@ $SIZE below can be given in bytes or suffixed by M,G.
 +------------------------------------------------------------------------------+
 |   #!/bin/sh -e                                                               |
 |                                                                              |
-|   modprobe zram                                                              |
+|   # Create four zram devices for swap, one for tmpfs                         |
+|                                                                              |
+|   modprobe zram num_devices=5                                                |
 |                                                                              |
 |   # create zram devices of $SIZE 2G                                          |
 |   # Mark the devices as swap devices                                         |
@@ -63,6 +68,14 @@ $SIZE below can be given in bytes or suffixed by M,G.
 |       mkswap "/dev/zram$dev"                                                 |
 |       swapon "/dev/zram$dev" -p 10                                           |
 |   done                                                                       |
+|                                                                              |
+|   # Create a 4G ext4 zram device to use as tmpfs                             |
+|                                                                              |
+|   echo 4G > /sys/block/zram4/disksize                                        |
+|   mkfs.ext4 /dev/zram4                                                       |
+|   mount /dev/zram4 /tmp                                                      |
+|   # /tmp requires sticky bit permissions for nonroot user access             |
+|   chmod 1777 /tmp                                                            |
 |                                                                              |
 +------------------------------------------------------------------------------+
 
@@ -77,6 +90,10 @@ $SIZE below can be given in bytes or suffixed by M,G.
 |       swapoff "/dev/zram$dev"                                                |
 |       echo 1 > "/sys/block/zram$dev/reset"                                   |
 |   done                                                                       |
+|                                                                              |
+|   # Unmount /tmp, reset zram device                                          |
+|   umount /dev/zram4                                                          |
+|   echo 1 > /sys/block/zram4/reset                                            |
 |                                                                              |
 +------------------------------------------------------------------------------+
 
