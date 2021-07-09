@@ -80,7 +80,7 @@ If using AMDGPU, the following kernel option must be enabled. [1]
 | .config                                                                      |
 +------------------------------------------------------------------------------+
 |                                                                              |
-|  CONFIG_CHECKPOINT_RESTORE=y
+|  CONFIG_CHECKPOINT_RESTORE=y                                                 |
 |                                                                              |
 +------------------------------------------------------------------------------+
 
