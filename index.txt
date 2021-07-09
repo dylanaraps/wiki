@@ -55,11 +55,11 @@
 |                                                                              |
 | SOFTWARE                                                                     |
 |                                                                              |
+|  @/software/firefox                       @/software/man-pages               |
 |  @/software/git                           @/software/openssh                 |
 |  @/software/wpa_supplicant                @/software/dhcpcd                  |
 |  @/software/acpid                         @/software/tzdata                  |
-|  @/software/vim                           @/software/man-pages               |
-|                                                                              |
+|  @/software/vim                                                              |
 |                                                                              |
 +------------------------------------------------------------------------------+
 
