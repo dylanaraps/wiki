@@ -57,9 +57,9 @@
 |                                                                              |
 |  @/software/git                           @/software/openssh                 |
 |  @/software/wpa_supplicant                @/software/dhcpcd                  |
-|  @/software/eiwd                          @/software/tzdata                  |
+|  @/software/acpid                         @/software/tzdata                  |
 |  @/software/vim                           @/software/man-pages               |
-|  @/software/acpid                                                            |
+|                                                                              |
 |                                                                              |
 +------------------------------------------------------------------------------+
 
