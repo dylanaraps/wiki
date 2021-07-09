@@ -266,20 +266,105 @@ ________________________________________________________________________________
 ________________________________________________________________________________
 
 
+    [8.1] swaylock
+    ____________________________________________________________________________
+
+    A screen locking utility for Wayland compositors.
+
+    https://github.com/swaywm/swaylock
+
+
+    [8.2] swayidle
+    ____________________________________________________________________________
+
+    This is sway's idle management daemon, swayidle. It is compatible with any 
+    Wayland compositor which implements the KDE idle protocol. 
+
+    https://github.com/swaywm/swayidle
+
+
 [9.0] Screenshot tools
 ________________________________________________________________________________
+
+
+    [9.1] grim
+    ____________________________________________________________________________
+
+    Grab images from a Wayland compositor. 
+
+    https://github.com/emersion/grim
+
+
+    [9.2] slurp
+    ____________________________________________________________________________
+
+    Select a region in a Wayland compositor and print it to the standard output. 
+
+    https://github.com/emersion/slurp
 
 
 [10.0] Status Bars
 ________________________________________________________________________________
 
 
+    [10.1] yambar
+    ____________________________________________________________________________
+
+    Modular status panel for X11 and Wayland.
+
+    https://codeberg.org/dnkl/yambar
+
+
+    [10.2] sfwbar
+    ____________________________________________________________________________
+
+    SFWBar (Sway Floating Window Bar) is a flexible taskbar application 
+    designed with a stacking layout in mind. 
+
+    https://github.com/LBCrion/sfwbar
+
+
+
 [11.0] Notification Daemons
 ________________________________________________________________________________
 
 
+    [11.1] fnott
+    ____________________________________________________________________________
+
+    Keyboard driven and lightweight Wayland notification daemon for 
+    wlroots-based compositors.
+
+    https://codeberg.org/dnkl/fnott
+
+
+    [11.2] mako
+    ____________________________________________________________________________
+
+    A lightweight notification daemon for Wayland.
+
+    https://github.com/emersion/mako
+
+
 [12.0] Wallpaper Setters
 ________________________________________________________________________________
+
+
+    [12.1] wbg
+    ____________________________________________________________________________
+
+    Super simple wallpaper application for Wayland compositors implementing 
+    the layer-shell protocol.
+
+    https://codeberg.org/dnkl/wbg
+
+
+    [12.2] swaybg
+    ____________________________________________________________________________
+
+    A wallpaper utility for Wayland compositors.
+
+    https://github.com/swaywm/swaybg
 
 
 [13.0] References
