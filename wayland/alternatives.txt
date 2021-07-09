@@ -110,6 +110,58 @@ compositing window manager. - Wikipedia [2]
 ________________________________________________________________________________
 
 
+    [2.1] foot
+    ____________________________________________________________________________
+
+    The fast, lightweight and minimalistic Wayland terminal emulator.
+
+    https://codeberg.org/dnkl/foot  
+
+
+    [2.2] ate
+    ____________________________________________________________________________
+    
+    Awesome terminal emulator.
+
+    https://github.com/andir/ate
+
+
+    [2.3] havoc
+    ____________________________________________________________________________
+    
+    A minimal terminal emulator for Wayland on Linux.
+
+    https://github.com/ii8/havoc
+
+
+    [2.4] wterm
+    ____________________________________________________________________________
+    
+    st fork for Wayland.
+
+    https://github.com/majestrate/wterm 
+
+
+    [2.5] alacritty
+    ____________________________________________________________________________
+    
+    Alacritty is a modern terminal emulator that comes with sensible defaults, 
+    but allows for extensive configuration. By integrating with other 
+    applications, rather than reimplementing their functionality, it manages to 
+    provide a flexible set of features with high performance. 
+
+    https://github.com/alacritty/alacritty
+
+
+    [2.6] kitty
+    ____________________________________________________________________________
+    
+    The fast, feature-rich, cross-platform, GPU based terminal.
+
+    https://github.com/kovidgoyal/kitty
+
+
+
 [3.0] Web Browsers
 ________________________________________________________________________________
 
