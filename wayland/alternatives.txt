@@ -162,24 +162,104 @@ ________________________________________________________________________________
 
 
 
-[3.0] Web Browsers
+[3.0] Web Browsers (without X11 dependency)
 ________________________________________________________________________________
+
+
+    [3.1] firefox
+    ____________________________________________________________________________
+    
+    Firefox, is a free and open-source web browser developed by the Mozilla 
+    Foundation and its subsidiary, the Mozilla Corporation. 
+
+    https://www.mozilla.org/en-US/firefox/new/
 
 
 [4.0] Clipboard Managers
 ________________________________________________________________________________
 
 
+    [4.1] wl-clipboard
+    ____________________________________________________________________________
+    
+    This project implements two command-line Wayland clipboard utilities, 
+    wl-copy and wl-paste, that let you easily copy data between the clipboard 
+    and Unix pipes, sockets, files and so on.
+
+    https://github.com/bugaevc/wl-clipboard
+
+
 [5.0] Display Configuration
 ________________________________________________________________________________
+
+
+    [5.1] wlr-randr
+    ____________________________________________________________________________
+    
+    Utility to manage outputs of a Wayland compositor.
+
+    https://github.com/emersion/wlr-randr
+
+
+    [5.2] kanshi
+    ____________________________________________________________________________
+    
+    kanshi allows you to define output profiles that are automatically enabled 
+    and disabled on hotplug. For instance, this can be used to turn a laptop's 
+    internal screen off when docked.
+
+    https://github.com/emersion/kanshi
 
 
 [6.0] Image Viewers
 ________________________________________________________________________________
 
 
+    [6.1] imv
+    ____________________________________________________________________________
+    
+    A command line image viewer intended for use with tiling window managers.
+
+    https://github.com/eXeC64/imv
+
+
+    [6.2] mpv
+    ____________________________________________________________________________
+    
+    mpv is a free (as in freedom) media player for the command line. It 
+    supports a wide variety of media file formats, audio and video codecs, and 
+    subtitle types.
+
+    https://github.com/mpv-player/mpv
+
+
 [7.0] Application Launchers
 ________________________________________________________________________________
+
+
+    [7.1] bemenu
+    ____________________________________________________________________________
+    
+    Dynamic menu library and client program inspired by dmenu
+
+    https://github.com/Cloudef/bemenu
+
+
+    [7.2] fuzzel
+    ____________________________________________________________________________
+    
+    A Wayland-native application launcher, similar to rofi's drun mode.
+
+    https://codeberg.org/dnkl/fuzzel
+
+
+    [7.3] wofi
+    ____________________________________________________________________________
+
+    Wofi is a launcher/menu program for wlroots based wayland compositors.
+
+    https://hg.sr.ht/~scoopta/wofi
+
 
 
 [8.0] Screen Lockers
