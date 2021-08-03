@@ -1,9 +1,10 @@
 SOFTWARE
 ________________________________________________________________________________
 
-- @/alsa-utils
 - @/acpid
+- @/alsa-utils
 - @/dhcpcd
+- @/eiwd
 - @/firefox
 - @/git
 - @/man-pages

@@ -35,8 +35,8 @@
 | KERNEL                |  | INIT SYSTEMS           |  | BOOT                  |
 |                       |  |                        |  |                       |
 |  @/kernel/config      |  |  @/init/busybox        |  |  @/boot/efistub       |
-|                       |  |  @/init/changing-init  |  |  @/boot/efivarfs      |
-|                       |  |  @/init/sysmgr         |  |                       |
+|  @/kernel/firmware    |  |  @/init/changing-init  |  |  @/boot/efivarfs      |
+|  @/kernel/thinkpad    |  |  @/init/sysmgr         |  |                       |
 |                       |  |                        |  |                       |
 +-----------------------+  +------------------------+  +-----------------------+
 
@@ -55,11 +55,12 @@
 |                                                                              |
 | SOFTWARE                                                                     |
 |                                                                              |
-|  @/software/firefox                       @/software/man-pages               |
-|  @/software/git                           @/software/openssh                 |
-|  @/software/wpa_supplicant                @/software/dhcpcd                  |
-|  @/software/acpid                         @/software/tzdata                  |
-|  @/software/vim                           @/software/eiwd                    |
+|  @/software/acpid                         @/software/alsa-utils              |
+|  @/software/dhcpcd                        @/software/eiwd                    |
+|  @/software/firefox                       @/software/git                     |
+|  @/software/man-pages                     @/software/opendoas                |
+|  @/software/openssh                       @/software/tzdata                  |
+|  @/software/vim                           @/software/wpa_supplicant          |
 |                                                                              |
 +------------------------------------------------------------------------------+
 
